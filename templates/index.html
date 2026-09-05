@@ -2,32 +2,50 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Personal Information Form</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 
 <body>
 
     <div class="container">
 
-        <h1>Personal Information</h1>
+        <!-- LOGO -->
+
+        <div class="form-logo">
+            <img
+                src="{{ url_for('static', filename='logo.png') }}"
+                alt="Logo">
+        </div>
+
+
+        <!-- HEADER -->
+
+        <h1>
+            Personal Information
+        </h1>
 
         <p class="subtitle">
             Please provide your information below.
         </p>
 
 
+        <!-- FORM -->
+
         <form action="/submit" method="POST">
 
 
-            <!-- =========================
-                 FULL NAME
-            ========================== -->
+            <!-- FULL NAME -->
 
             <div class="form-group">
 
@@ -45,9 +63,7 @@
             </div>
 
 
-            <!-- =========================
-                 ADDRESS
-            ========================== -->
+            <!-- ADDRESS -->
 
             <div class="form-group">
 
@@ -65,9 +81,7 @@
             </div>
 
 
-            <!-- =========================
-                 CONTACT NUMBER
-            ========================== -->
+            <!-- CONTACT -->
 
             <div class="form-group">
 
@@ -85,9 +99,7 @@
             </div>
 
 
-            <!-- =========================
-                 SEX
-            ========================== -->
+            <!-- SEX -->
 
             <div class="form-group">
 
@@ -96,6 +108,7 @@
                 </label>
 
                 <div class="radio-group">
+
 
                     <div class="radio-option">
 
@@ -127,14 +140,13 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
 
-            <!-- =========================
-                 CIVIL STATUS
-            ========================== -->
+            <!-- CIVIL STATUS -->
 
             <div class="form-group">
 
@@ -151,9 +163,7 @@
                         value=""
                         disabled
                         selected>
-
                         Select civil status
-
                     </option>
 
                     <option value="Single">
@@ -177,9 +187,7 @@
             </div>
 
 
-            <!-- =========================
-                 EDUCATIONAL ATTAINMENT
-            ========================== -->
+            <!-- EDUCATIONAL ATTAINMENT -->
 
             <div class="form-group">
 
@@ -196,9 +204,7 @@
                         value=""
                         disabled
                         selected>
-
                         Select educational attainment
-
                     </option>
 
                     <option value="Elementary">
@@ -230,9 +236,7 @@
             </div>
 
 
-            <!-- =========================
-                 FATHER'S NAME
-            ========================== -->
+            <!-- FATHER'S NAME -->
 
             <div class="form-group">
 
@@ -250,9 +254,7 @@
             </div>
 
 
-            <!-- =========================
-                 MOTHER'S NAME
-            ========================== -->
+            <!-- MOTHER'S NAME -->
 
             <div class="form-group">
 
@@ -270,9 +272,7 @@
             </div>
 
 
-            <!-- =========================
-                 EMPLOYMENT STATUS
-            ========================== -->
+            <!-- EMPLOYMENT STATUS -->
 
             <div class="form-group">
 
@@ -289,9 +289,7 @@
                         value=""
                         disabled
                         selected>
-
                         Select employment status
-
                     </option>
 
                     <option value="Employed">
@@ -319,9 +317,7 @@
             </div>
 
 
-            <!-- =========================
-                 SUBMIT
-            ========================== -->
+            <!-- SUBMIT -->
 
             <div class="form-group">
 
