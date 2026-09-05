@@ -15,8 +15,35 @@ html {
 body {
     min-height: 100vh;
     padding: 30px 15px;
+
     font-family: "Segoe UI", Arial, sans-serif;
     color: #35151d;
+
+    /* Background Image */
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, 0.72),
+            rgba(255, 255, 255, 0.72)
+        ),
+        url("/static/background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    position: relative;
+}
+
+
+/* ================================
+   BACKGROUND OVERLAY
+================================ */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
 
     background:
         radial-gradient(
@@ -26,10 +53,13 @@ body {
         ),
         radial-gradient(
             circle at 90% 90%,
-            rgba(190, 150, 45, 0.12),
+            rgba(190, 150, 45, 0.10),
             transparent 35%
-        ),
-        #faf8f5;
+        );
+
+    pointer-events: none;
+
+    z-index: 0;
 }
 
 
@@ -40,44 +70,52 @@ body {
 .container {
     width: 100%;
     max-width: 720px;
+
     margin: 20px auto;
 
     padding: 42px;
 
     background: rgba(255, 255, 255, 0.94);
 
-    border: 1px solid rgba(190, 150, 45, 0.35);
+    border: 1px solid rgba(190, 150, 45, 0.45);
+
     border-radius: 24px;
 
     box-shadow:
-        0 20px 60px rgba(60, 20, 30, 0.10);
+        0 20px 60px rgba(60, 20, 30, 0.15);
 
     position: relative;
+
+    z-index: 1;
+
+    overflow: hidden;
 
     animation: fadeUp 0.7s ease;
 }
 
 
-/* Elegant top accent */
+/* ================================
+   TOP ACCENT
+================================ */
 
 .container::before {
     content: "";
+
     position: absolute;
 
     top: 0;
-    left: 8%;
-    right: 8%;
+    left: 0;
 
-    height: 4px;
+    width: 100%;
+    height: 5px;
 
-    border-radius: 0 0 10px 10px;
-
-    background: linear-gradient(
-        90deg,
-        #641827,
-        #b89232,
-        #641827
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #641827,
+            #b89232,
+            #641827
+        );
 }
 
 
@@ -88,9 +126,13 @@ body {
 h1 {
     text-align: center;
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
     font-size: 34px;
+
     font-weight: 700;
 
     color: #641827;
@@ -100,12 +142,15 @@ h1 {
     margin-bottom: 10px;
 }
 
+
 .subtitle {
     text-align: center;
 
     color: #777;
 
     font-size: 15px;
+
+    line-height: 1.6;
 
     margin-bottom: 35px;
 
@@ -137,12 +182,16 @@ h1 {
 
 form {
     display: flex;
+
     flex-direction: column;
+
     gap: 22px;
 }
 
+
 .form-group {
     display: flex;
+
     flex-direction: column;
 }
 
@@ -155,6 +204,7 @@ label {
     margin-bottom: 8px;
 
     font-size: 14px;
+
     font-weight: 600;
 
     color: #4d222b;
@@ -162,7 +212,7 @@ label {
 
 
 /* ================================
-   INPUTS & SELECTS
+   INPUTS & SELECT
 ================================ */
 
 input[type="text"],
@@ -178,11 +228,12 @@ select {
 
     border-radius: 12px;
 
-    background: #fff;
+    background: rgba(255, 255, 255, 0.96);
 
     color: #35151d;
 
     font-family: inherit;
+
     font-size: 15px;
 
     outline: none;
@@ -218,7 +269,7 @@ select:focus {
 }
 
 
-/* Select arrow */
+/* Select */
 
 select {
     cursor: pointer;
@@ -247,17 +298,24 @@ select {
 }
 
 
+/* Hide original radio */
+
 .radio-option input[type="radio"] {
     position: absolute;
 
     opacity: 0;
+
+    pointer-events: none;
 }
 
+
+/* Radio option */
 
 .radio-option label {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     min-height: 48px;
@@ -299,12 +357,17 @@ select {
 .radio-option input[type="radio"]:checked + label {
     border-color: #7b1f32;
 
-    background: #7b1f32;
+    background:
+        linear-gradient(
+            135deg,
+            #641827,
+            #8b2439
+        );
 
     color: white;
 
     box-shadow:
-        0 5px 15px rgba(123, 31, 50, 0.18);
+        0 6px 18px rgba(123, 31, 50, 0.20);
 }
 
 
@@ -352,6 +415,8 @@ button[type="submit"] {
 }
 
 
+/* Button Hover */
+
 button[type="submit"]:hover {
     transform: translateY(-2px);
 
@@ -361,6 +426,8 @@ button[type="submit"]:hover {
     filter: brightness(1.05);
 }
 
+
+/* Button Active */
 
 button[type="submit"]:active {
     transform: translateY(0);
@@ -375,14 +442,19 @@ button[type="submit"]:active {
 ================================ */
 
 @keyframes fadeUp {
+
     from {
         opacity: 0;
-        transform: translateY(20px);
+
+        transform:
+            translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
@@ -395,7 +467,10 @@ button[type="submit"]:active {
 
     body {
         padding: 15px 10px;
+
+        background-attachment: scroll;
     }
+
 
     .container {
         margin: 10px auto;
@@ -405,9 +480,11 @@ button[type="submit"]:active {
         border-radius: 20px;
     }
 
+
     h1 {
         font-size: 28px;
     }
+
 
     .subtitle {
         font-size: 14px;
@@ -415,21 +492,28 @@ button[type="submit"]:active {
         margin-bottom: 28px;
     }
 
+
     form {
         gap: 19px;
     }
 
+
+    /* Two columns for radio buttons */
+
     .radio-group {
         display: grid;
 
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 8px;
     }
 
+
     .radio-option {
         min-width: 0;
     }
+
 
     .radio-option label {
         min-height: 46px;
@@ -439,6 +523,7 @@ button[type="submit"]:active {
         font-size: 13px;
     }
 
+
     input[type="text"],
     input[type="tel"],
     select {
@@ -446,6 +531,7 @@ button[type="submit"]:active {
 
         font-size: 14px;
     }
+
 
     button[type="submit"] {
         height: 52px;
@@ -463,9 +549,11 @@ button[type="submit"]:active {
         padding: 25px 16px;
     }
 
+
     h1 {
         font-size: 25px;
     }
+
 
     .radio-group {
         grid-template-columns: 1fr;
