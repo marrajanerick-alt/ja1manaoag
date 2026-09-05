@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 import os
 
 app = Flask(__name__)
+
+# Secret key for admin login sessions
+app.secret_key = "manaoag-admin-secret-key"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, "database.db")
@@ -60,7 +63,6 @@ def submit():
         "employment_status", ""
     ).strip()
 
-    # Check required fields
     if not all([
         name,
         address,
@@ -77,7 +79,6 @@ def submit():
             "Please fill in all required fields."
         ), 400
 
-    # Validate Philippine mobile number
     if (
         not contact.isdigit()
         or len(contact) != 10
@@ -88,7 +89,6 @@ def submit():
             "Please enter a valid Philippine mobile number with 10 digits starting with 9."
         ), 400
 
-    # Add +63 before saving
     contact = "+63" + contact
 
     conn = sqlite3.connect(DATABASE)
@@ -124,6 +124,95 @@ def submit():
     return render_success()
 
 
+# =========================
+# ADMIN LOGIN
+# =========================
+
+@app.route("/admin", methods=["GET", "POST"])
+def admin():
+
+    if request.method == "POST":
+
+        username = request.form.get("username", "")
+        password = request.form.get("password", "")
+
+        if username == "admin" and password == "@Manaoag21":
+            session["admin_logged_in"] = True
+            return redirect(url_for("admin_dashboard"))
+
+        return render_template(
+            "admin_login.html",
+            error="Invalid username or password."
+        )
+
+    return render_template("admin_login.html")
+
+
+# =========================
+# ADMIN DASHBOARD
+# =========================
+
+@app.route("/admin/dashboard")
+def admin_dashboard():
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin"))
+
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+
+    users = conn.execute("""
+        SELECT * FROM users
+        ORDER BY id DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "admin_dashboard.html",
+        users=users
+    )
+
+
+# =========================
+# DELETE USER
+# =========================
+
+@app.route("/admin/delete/<int:user_id>", methods=["POST"])
+def delete_user(user_id):
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin"))
+
+    conn = sqlite3.connect(DATABASE)
+
+    conn.execute(
+        "DELETE FROM users WHERE id = ?",
+        (user_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("admin_dashboard"))
+
+
+# =========================
+# ADMIN LOGOUT
+# =========================
+
+@app.route("/admin/logout")
+def admin_logout():
+
+    session.pop("admin_logged_in", None)
+
+    return redirect(url_for("admin"))
+
+
+# =========================
+# ERROR PAGE
+# =========================
+
 def render_error(title, message):
     return f"""
     <!DOCTYPE html>
@@ -131,15 +220,10 @@ def render_error(title, message):
 
     <head>
         <meta charset="UTF-8">
-
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{title}</title>
 
         <style>
-
             * {{
                 box-sizing: border-box;
             }}
@@ -161,7 +245,7 @@ def render_error(title, message):
                         rgba(255,255,255,0.88),
                         rgba(255,255,255,0.88)
                     ),
-                    url("/static/background.jpg");
+                    url("/static/14fbb570668080d5d5952ab7b710bcf7 (1).jpg");
 
                 background-size: cover;
                 background-position: center;
@@ -209,19 +293,14 @@ def render_error(title, message):
 
             h1 {{
                 margin: 0 0 10px;
-
                 color: #8f2948;
-
                 font-size: 24px;
             }}
 
             p {{
                 margin: 0;
-
                 color: #777;
-
                 line-height: 1.6;
-
                 font-size: 14px;
             }}
 
@@ -247,7 +326,6 @@ def render_error(title, message):
             a:hover {{
                 background: #8f2948;
             }}
-
         </style>
     </head>
 
@@ -271,23 +349,22 @@ def render_error(title, message):
     """
 
 
+# =========================
+# SUCCESS PAGE
+# =========================
+
 def render_success():
     return """
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
-
         <meta charset="UTF-8">
-
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Information Submitted</title>
 
         <style>
-
             * {
                 box-sizing: border-box;
             }
@@ -309,7 +386,7 @@ def render_success():
                         rgba(255,255,255,0.88),
                         rgba(255,255,255,0.88)
                     ),
-                    url("/static/background.jpg");
+                    url("/static/14fbb570668080d5d5952ab7b710bcf7 (1).jpg");
 
                 background-size: cover;
                 background-position: center;
@@ -357,19 +434,14 @@ def render_success():
 
             h1 {
                 margin: 0 0 10px;
-
                 color: #8f2948;
-
                 font-size: 24px;
             }
 
             p {
                 margin: 0;
-
                 color: #777;
-
                 line-height: 1.6;
-
                 font-size: 14px;
             }
 
@@ -395,9 +467,7 @@ def render_success():
             a:hover {
                 background: #8f2948;
             }
-
         </style>
-
     </head>
 
     <body>
@@ -422,7 +492,7 @@ def render_success():
     """
 
 
-# Required for Render/Gunicorn
+# Initialize database for Render/Gunicorn
 init_database()
 
 
