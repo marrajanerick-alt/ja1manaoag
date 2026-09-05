@@ -1,9 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 
-/* ================================
+/* =================================
+   COLORS
+================================= */
+
+:root {
+    --red-dark: #8b0015;
+    --red: #b4001e;
+    --red-bright: #d40027;
+    --red-light: #fff1f3;
+    --red-border: #e5a8b2;
+
+    --white: #ffffff;
+    --text: #351016;
+    --text-light: #75434b;
+}
+
+
+/* =================================
    GLOBAL
-================================ */
+================================= */
 
 * {
     margin: 0;
@@ -17,15 +34,17 @@ html {
 
 body {
     min-height: 100vh;
+
     padding: 30px 15px;
 
     font-family: "Poppins", sans-serif;
-    color: #2b0b0f;
+
+    color: var(--text);
 
     background:
         linear-gradient(
-            rgba(255, 255, 255, 0.78),
-            rgba(255, 255, 255, 0.78)
+            rgba(255, 255, 255, 0.76),
+            rgba(255, 255, 255, 0.76)
         ),
         url("/static/background.jpg");
 
@@ -38,55 +57,60 @@ body {
 }
 
 
-/* ================================
-   RED BACKGROUND ACCENT
-================================ */
+/* =================================
+   RED ATMOSPHERE
+================================= */
 
 body::before {
     content: "";
 
     position: fixed;
+
     inset: 0;
 
     background:
         radial-gradient(
-            circle at top left,
-            rgba(170, 0, 20, 0.16),
-            transparent 35%
+            circle at 0% 0%,
+            rgba(180, 0, 30, 0.20),
+            transparent 30%
         ),
         radial-gradient(
-            circle at bottom right,
-            rgba(190, 0, 25, 0.12),
-            transparent 35%
+            circle at 100% 100%,
+            rgba(180, 0, 30, 0.15),
+            transparent 32%
         );
 
     pointer-events: none;
+
     z-index: 0;
 }
 
 
-/* ================================
+/* =================================
    MAIN CONTAINER
-================================ */
+================================= */
 
 .container {
     width: 100%;
+
     max-width: 720px;
 
     margin: 20px auto;
-    padding: 42px;
 
-    background: rgba(255, 255, 255, 0.76);
+    padding: 0 42px 42px;
 
-    border: 2px solid rgba(160, 0, 20, 0.16);
+    background: rgba(255, 255, 255, 0.90);
+
+    border: 1px solid rgba(180, 0, 30, 0.18);
 
     border-radius: 24px;
 
     box-shadow:
-        0 20px 60px rgba(100, 0, 15, 0.18),
-        0 5px 15px rgba(100, 0, 15, 0.08);
+        0 25px 70px rgba(100, 0, 20, 0.22),
+        0 8px 25px rgba(100, 0, 20, 0.10);
 
     position: relative;
+
     z-index: 1;
 
     overflow: hidden;
@@ -95,34 +119,37 @@ body::before {
 }
 
 
-/* ================================
-   RED TOP BAR
-================================ */
+/* =================================
+   RED HEADER
+================================= */
 
-.container::after {
+.container::before {
     content: "";
 
-    position: absolute;
+    display: block;
 
-    top: 0;
-    left: 0;
+    height: 115px;
 
-    width: 100%;
-    height: 7px;
+    margin: 0 -42px 35px;
 
     background:
         linear-gradient(
-            90deg,
-            #8f0016,
-            #d40025,
-            #8f0016
+            135deg,
+            #7d0013,
+            #b4001e 50%,
+            #d40027
         );
+
+    border-radius: 0 0 30px 30px;
+
+    box-shadow:
+        0 8px 25px rgba(180, 0, 30, 0.20);
 }
 
 
-/* ================================
-   HEADER
-================================ */
+/* =================================
+   HEADER TEXT
+================================= */
 
 h1 {
     text-align: center;
@@ -130,11 +157,12 @@ h1 {
     font-family: "Poppins", sans-serif;
 
     font-size: 32px;
+
     font-weight: 700;
 
-    color: #a5001b;
+    color: var(--red-dark);
 
-    letter-spacing: -0.5px;
+    letter-spacing: -0.7px;
 
     margin-bottom: 8px;
 }
@@ -142,10 +170,9 @@ h1 {
 .subtitle {
     text-align: center;
 
-    color: #633238;
+    color: var(--text-light);
 
     font-size: 14px;
-    font-weight: 400;
 
     line-height: 1.6;
 
@@ -159,20 +186,21 @@ h1 {
 
     display: block;
 
-    width: 60px;
-    height: 3px;
+    width: 65px;
+
+    height: 4px;
 
     margin: 14px auto 0;
 
-    background: #c40022;
+    background: var(--red);
 
     border-radius: 10px;
 }
 
 
-/* ================================
+/* =================================
    FORM
-================================ */
+================================= */
 
 form {
     display: flex;
@@ -189,23 +217,24 @@ form {
 }
 
 
-/* ================================
+/* =================================
    LABELS
-================================ */
+================================= */
 
 label {
     margin-bottom: 8px;
 
     font-size: 13px;
+
     font-weight: 600;
 
-    color: #4b151d;
+    color: #50141d;
 }
 
 
-/* ================================
-   INPUTS
-================================ */
+/* =================================
+   INPUTS & DROPDOWNS
+================================= */
 
 input[type="text"],
 input[type="tel"],
@@ -216,13 +245,13 @@ select {
 
     padding: 0 16px;
 
-    border: 1.5px solid rgba(150, 0, 20, 0.20);
+    border: 1.5px solid var(--red-border);
 
     border-radius: 12px;
 
-    background: rgba(255, 255, 255, 0.88);
+    background: var(--white);
 
-    color: #2b0b0f;
+    color: var(--text);
 
     font-family: "Poppins", sans-serif;
 
@@ -238,54 +267,57 @@ select {
 }
 
 
-/* Placeholder */
+/* =================================
+   PLACEHOLDER
+================================= */
 
 input::placeholder {
-    color: #9b777c;
+    color: #a77c83;
 }
 
 
-/* Focus */
+/* =================================
+   INPUT FOCUS
+================================= */
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
 select:focus {
-    border-color: #c40022;
 
-    background: white;
+    border-color: var(--red);
+
+    background: #ffffff;
 
     box-shadow:
-        0 0 0 4px rgba(196, 0, 34, 0.10),
-        0 5px 15px rgba(130, 0, 20, 0.08);
+        0 0 0 4px rgba(180, 0, 30, 0.09),
+        0 5px 15px rgba(180, 0, 30, 0.08);
 
     transform: translateY(-1px);
 }
 
 
-/* Select */
+/* =================================
+   DROPDOWN
+================================= */
 
 select {
     cursor: pointer;
 }
 
 
-/* ================================
+/* =================================
    RADIO BUTTONS
-================================ */
+================================= */
 
 .radio-group {
-    display: flex;
+    display: grid;
 
-    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
 
     gap: 10px;
 }
 
 .radio-option {
-    flex: 1;
-
-    min-width: 120px;
-
     position: relative;
 }
 
@@ -301,32 +333,36 @@ select {
 }
 
 
-/* Radio option */
+/* Radio card */
 
 .radio-option label {
+
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
-    min-height: 48px;
+    min-height: 50px;
 
     margin: 0;
+
     padding: 10px 15px;
 
-    border: 1.5px solid rgba(150, 0, 20, 0.18);
+    border: 1.5px solid var(--red-border);
 
     border-radius: 12px;
 
-    background: rgba(255, 255, 255, 0.82);
+    background: #ffffff;
 
-    color: #6d3a42;
+    color: #713b43;
 
     cursor: pointer;
 
     font-family: "Poppins", sans-serif;
 
     font-size: 13px;
+
     font-weight: 500;
 
     transition: all 0.25s ease;
@@ -336,11 +372,12 @@ select {
 /* Hover */
 
 .radio-option label:hover {
-    border-color: #c40022;
 
-    background: #fff5f6;
+    border-color: var(--red);
 
-    color: #a5001b;
+    background: var(--red-light);
+
+    color: var(--red-dark);
 
     transform: translateY(-1px);
 }
@@ -349,52 +386,55 @@ select {
 /* Selected */
 
 .radio-option input[type="radio"]:checked + label {
-    border-color: #a5001b;
+
+    border-color: var(--red-dark);
 
     background:
         linear-gradient(
             135deg,
-            #a5001b,
-            #d40025
+            #980018,
+            #c80025
         );
 
-    color: white;
+    color: #ffffff;
 
     box-shadow:
-        0 7px 18px rgba(165, 0, 27, 0.25);
+        0 8px 20px rgba(180, 0, 30, 0.25);
 
     transform: translateY(-1px);
 }
 
 
-/* ================================
+/* =================================
    SUBMIT BUTTON
-================================ */
+================================= */
 
 button[type="submit"] {
+
     width: 100%;
 
-    height: 56px;
+    height: 58px;
 
     margin-top: 8px;
 
     border: none;
 
-    border-radius: 13px;
+    border-radius: 14px;
 
     background:
         linear-gradient(
             135deg,
-            #8f0016,
-            #c40022,
-            #a5001b
+            #7d0013,
+            #b4001e 50%,
+            #d40027
         );
 
-    color: white;
+    color: #ffffff;
 
     font-family: "Poppins", sans-serif;
 
     font-size: 15px;
+
     font-weight: 600;
 
     letter-spacing: 0.2px;
@@ -402,7 +442,7 @@ button[type="submit"] {
     cursor: pointer;
 
     box-shadow:
-        0 10px 25px rgba(150, 0, 25, 0.25);
+        0 10px 25px rgba(180, 0, 30, 0.28);
 
     transition:
         transform 0.25s ease,
@@ -411,31 +451,42 @@ button[type="submit"] {
 }
 
 
-/* Hover */
+/* Button hover */
 
 button[type="submit"]:hover {
+
     transform: translateY(-2px);
 
     box-shadow:
-        0 15px 32px rgba(150, 0, 25, 0.32);
+        0 15px 32px rgba(180, 0, 30, 0.35);
 
-    filter: brightness(1.06);
+    filter: brightness(1.07);
 }
 
 
-/* Click */
+/* Button click */
 
 button[type="submit"]:active {
+
     transform: translateY(0);
 
     box-shadow:
-        0 7px 15px rgba(150, 0, 25, 0.20);
+        0 6px 15px rgba(180, 0, 30, 0.20);
 }
 
 
-/* ================================
+/* =================================
+   FORM GROUP HOVER
+================================= */
+
+.form-group:focus-within label {
+    color: var(--red);
+}
+
+
+/* =================================
    ANIMATION
-================================ */
+================================= */
 
 @keyframes fadeUp {
 
@@ -443,7 +494,7 @@ button[type="submit"]:active {
         opacity: 0;
 
         transform:
-            translateY(20px);
+            translateY(25px);
     }
 
     to {
@@ -455,9 +506,9 @@ button[type="submit"]:active {
 }
 
 
-/* ================================
+/* =================================
    MOBILE
-================================ */
+================================= */
 
 @media (max-width: 600px) {
 
@@ -475,13 +526,26 @@ button[type="submit"]:active {
 
 
     .container {
+
         margin: 10px auto;
 
-        padding: 30px 20px;
+        padding: 0 20px 30px;
 
         border-radius: 20px;
 
-        background: rgba(255, 255, 255, 0.76);
+        background: rgba(255, 255, 255, 0.92);
+    }
+
+
+    .container::before {
+
+        height: 95px;
+
+        margin:
+            0 -20px 28px;
+
+        border-radius:
+            0 0 24px 24px;
     }
 
 
@@ -491,6 +555,7 @@ button[type="submit"]:active {
 
 
     .subtitle {
+
         font-size: 13px;
 
         margin-bottom: 28px;
@@ -503,20 +568,16 @@ button[type="submit"]:active {
 
 
     .radio-group {
-        display: grid;
 
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 8px;
     }
 
 
-    .radio-option {
-        min-width: 0;
-    }
-
-
     .radio-option label {
+
         min-height: 46px;
 
         padding: 8px;
@@ -528,6 +589,7 @@ button[type="submit"]:active {
     input[type="text"],
     input[type="tel"],
     select {
+
         height: 50px;
 
         font-size: 13px;
@@ -535,21 +597,31 @@ button[type="submit"]:active {
 
 
     button[type="submit"] {
-        height: 52px;
+
+        height: 54px;
 
         font-size: 14px;
     }
 }
 
 
-/* ================================
+/* =================================
    VERY SMALL SCREENS
-================================ */
+================================= */
 
 @media (max-width: 360px) {
 
     .container {
-        padding: 25px 16px;
+
+        padding:
+            0 16px 25px;
+    }
+
+
+    .container::before {
+
+        margin:
+            0 -16px 25px;
     }
 
 
@@ -559,6 +631,8 @@ button[type="submit"]:active {
 
 
     .radio-group {
+
         grid-template-columns: 1fr;
     }
 }
+
