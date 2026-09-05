@@ -9,7 +9,6 @@ DATABASE = os.path.join(BASE_DIR, "database.db")
 
 
 def init_database():
-    """Create the users table if it does not already exist."""
     conn = sqlite3.connect(DATABASE)
 
     conn.execute("""
@@ -61,7 +60,7 @@ def submit():
         "employment_status", ""
     ).strip()
 
-    # Check if all fields are filled
+    # Check required fields
     if not all([
         name,
         address,
@@ -73,79 +72,10 @@ def submit():
         mother_name,
         employment_status
     ]):
-        return """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Error</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body {
-                    margin: 0;
-                    min-height: 100vh;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-family: Arial, sans-serif;
-                    background: white;
-                    color: #333;
-                }
-
-                .card {
-                    width: 90%;
-                    max-width: 430px;
-                    padding: 40px 25px;
-                    text-align: center;
-                    border-radius: 18px;
-                    border: 1px solid #eeeeee;
-                    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-                }
-
-                .icon {
-                    width: 60px;
-                    height: 60px;
-                    margin: 0 auto 20px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: #b83b5e;
-                    color: white;
-                    font-size: 30px;
-                    font-weight: bold;
-                }
-
-                h1 {
-                    margin-bottom: 10px;
-                    color: #8f2948;
-                }
-
-                p {
-                    color: #777;
-                }
-
-                a {
-                    display: inline-block;
-                    margin-top: 20px;
-                    padding: 12px 22px;
-                    border-radius: 10px;
-                    background: #b83b5e;
-                    color: white;
-                    text-decoration: none;
-                }
-            </style>
-        </head>
-
-        <body>
-            <div class="card">
-                <div class="icon">!</div>
-                <h1>Incomplete Information</h1>
-                <p>Please fill in all required fields.</p>
-                <a href="/">Go Back</a>
-            </div>
-        </body>
-        </html>
-        """, 400
+        return render_error(
+            "Incomplete Information",
+            "Please fill in all required fields."
+        ), 400
 
     # Validate Philippine mobile number
     if (
@@ -153,84 +83,12 @@ def submit():
         or len(contact) != 10
         or not contact.startswith("9")
     ):
-        return """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Invalid Contact Number</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body {
-                    margin: 0;
-                    min-height: 100vh;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-family: Arial, sans-serif;
-                    background: white;
-                    color: #333;
-                }
+        return render_error(
+            "Invalid Contact Number",
+            "Please enter a valid Philippine mobile number with 10 digits starting with 9."
+        ), 400
 
-                .card {
-                    width: 90%;
-                    max-width: 430px;
-                    padding: 40px 25px;
-                    text-align: center;
-                    border-radius: 18px;
-                    border: 1px solid #eeeeee;
-                    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-                }
-
-                .icon {
-                    width: 60px;
-                    height: 60px;
-                    margin: 0 auto 20px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: #b83b5e;
-                    color: white;
-                    font-size: 30px;
-                    font-weight: bold;
-                }
-
-                h1 {
-                    margin-bottom: 10px;
-                    color: #8f2948;
-                }
-
-                p {
-                    color: #777;
-                }
-
-                a {
-                    display: inline-block;
-                    margin-top: 20px;
-                    padding: 12px 22px;
-                    border-radius: 10px;
-                    background: #b83b5e;
-                    color: white;
-                    text-decoration: none;
-                }
-            </style>
-        </head>
-
-        <body>
-            <div class="card">
-                <div class="icon">!</div>
-                <h1>Invalid Contact Number</h1>
-                <p>
-                    Please enter a valid Philippine mobile number
-                    with 10 digits starting with 9.
-                </p>
-                <a href="/">Go Back</a>
-            </div>
-        </body>
-        </html>
-        """, 400
-
-    # Add Philippine country code
+    # Add +63 before saving
     contact = "+63" + contact
 
     conn = sqlite3.connect(DATABASE)
@@ -263,86 +121,308 @@ def submit():
     conn.commit()
     conn.close()
 
-    return """
+    return render_success()
+
+
+def render_error(title, message):
+    return f"""
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
+
     <head>
-        <title>Success</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+        <title>{title}</title>
 
         <style>
-            body {
+
+            * {{
+                box-sizing: border-box;
+            }}
+
+            body {{
                 margin: 0;
                 min-height: 100vh;
+
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                padding: 20px;
+
                 font-family: Arial, sans-serif;
-                background: white;
+
+                background:
+                    linear-gradient(
+                        rgba(255,255,255,0.88),
+                        rgba(255,255,255,0.88)
+                    ),
+                    url("/static/background.jpg");
+
+                background-size: cover;
+                background-position: center;
+
+                color: #333;
+            }}
+
+            .card {{
+                width: 100%;
+                max-width: 430px;
+
+                padding: 40px 25px;
+
+                text-align: center;
+
+                background: rgba(255,255,255,0.95);
+
+                border: 1px solid #eeeeee;
+
+                border-radius: 18px;
+
+                box-shadow:
+                    0 10px 35px rgba(0,0,0,0.08);
+            }}
+
+            .icon {{
+                width: 65px;
+                height: 65px;
+
+                margin: 0 auto 20px;
+
+                border-radius: 50%;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background: #b83b5e;
+
+                color: white;
+
+                font-size: 32px;
+                font-weight: bold;
+            }}
+
+            h1 {{
+                margin: 0 0 10px;
+
+                color: #8f2948;
+
+                font-size: 24px;
+            }}
+
+            p {{
+                margin: 0;
+
+                color: #777;
+
+                line-height: 1.6;
+
+                font-size: 14px;
+            }}
+
+            a {{
+                display: inline-block;
+
+                margin-top: 25px;
+
+                padding: 12px 24px;
+
+                border-radius: 10px;
+
+                background: #b83b5e;
+
+                color: white;
+
+                text-decoration: none;
+
+                font-size: 14px;
+                font-weight: 600;
+            }}
+
+            a:hover {{
+                background: #8f2948;
+            }}
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="card">
+
+            <div class="icon">!</div>
+
+            <h1>{title}</h1>
+
+            <p>{message}</p>
+
+            <a href="/">Go Back</a>
+
+        </div>
+
+    </body>
+
+    </html>
+    """
+
+
+def render_success():
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+        <title>Information Submitted</title>
+
+        <style>
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                padding: 20px;
+
+                font-family: Arial, sans-serif;
+
+                background:
+                    linear-gradient(
+                        rgba(255,255,255,0.88),
+                        rgba(255,255,255,0.88)
+                    ),
+                    url("/static/background.jpg");
+
+                background-size: cover;
+                background-position: center;
+
                 color: #333;
             }
 
             .card {
-                width: 90%;
+                width: 100%;
                 max-width: 430px;
+
                 padding: 40px 25px;
+
                 text-align: center;
-                border-radius: 18px;
+
+                background: rgba(255,255,255,0.95);
+
                 border: 1px solid #eeeeee;
-                box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+
+                border-radius: 18px;
+
+                box-shadow:
+                    0 10px 35px rgba(0,0,0,0.08);
             }
 
             .icon {
                 width: 65px;
                 height: 65px;
+
                 margin: 0 auto 20px;
+
                 border-radius: 50%;
+
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
                 background: #b83b5e;
+
                 color: white;
+
                 font-size: 32px;
                 font-weight: bold;
             }
 
             h1 {
-                margin-bottom: 10px;
+                margin: 0 0 10px;
+
                 color: #8f2948;
+
+                font-size: 24px;
             }
 
             p {
+                margin: 0;
+
                 color: #777;
+
                 line-height: 1.6;
+
+                font-size: 14px;
             }
 
             a {
                 display: inline-block;
-                margin-top: 20px;
-                padding: 12px 22px;
+
+                margin-top: 25px;
+
+                padding: 12px 24px;
+
                 border-radius: 10px;
+
                 background: #b83b5e;
+
                 color: white;
+
                 text-decoration: none;
+
+                font-size: 14px;
+                font-weight: 600;
             }
+
+            a:hover {
+                background: #8f2948;
+            }
+
         </style>
+
     </head>
 
     <body>
+
         <div class="card">
+
             <div class="icon">✓</div>
+
             <h1>Information Submitted</h1>
+
             <p>
                 Your personal information has been successfully recorded.
             </p>
+
             <a href="/">Submit Another</a>
+
         </div>
+
     </body>
+
     </html>
     """
 
 
-# Important for Render/Gunicorn
+# Required for Render/Gunicorn
 init_database()
 
 
