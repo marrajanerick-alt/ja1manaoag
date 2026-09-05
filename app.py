@@ -4,17 +4,12 @@ import os
 
 app = Flask(__name__)
 
-# =================================
-# DATABASE
-# =================================
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, "database.db")
 
 
 def init_database():
     """Create the users table if it does not already exist."""
-
     conn = sqlite3.connect(DATABASE)
 
     conn.execute("""
@@ -36,33 +31,19 @@ def init_database():
     conn.close()
 
 
-# =================================
-# HOME PAGE
-# =================================
-
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# =================================
-# SUBMIT FORM
-# =================================
-
 @app.route("/submit", methods=["POST"])
 def submit():
 
     name = request.form.get("name", "").strip()
-
     address = request.form.get("address", "").strip()
-
     contact = request.form.get("contact", "").strip()
-
     sex = request.form.get("sex", "").strip()
-
-    civil_status = request.form.get(
-        "civil_status", ""
-    ).strip()
+    civil_status = request.form.get("civil_status", "").strip()
 
     educational_attainment = request.form.get(
         "educational_attainment", ""
@@ -80,11 +61,7 @@ def submit():
         "employment_status", ""
     ).strip()
 
-
-    # =================================
-    # VALIDATION
-    # =================================
-
+    # Check if all fields are filled
     if not all([
         name,
         address,
@@ -96,321 +73,165 @@ def submit():
         mother_name,
         employment_status
     ]):
-
         return """
         <!DOCTYPE html>
-        <html lang="en">
-
+        <html>
         <head>
-
-            <meta charset="UTF-8">
-
-            <meta name="viewport"
-                  content="width=device-width, initial-scale=1.0">
-
             <title>Error</title>
-
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
-
-
                 body {
-
+                    margin: 0;
                     min-height: 100vh;
-
-                    padding: 20px;
-
                     display: flex;
-
                     justify-content: center;
-
                     align-items: center;
-
-                    font-family: "Inter", Arial, sans-serif;
-
-                    color: #351b24;
-
-                    background:
-                        linear-gradient(
-                            rgba(255, 250, 251, 0.70),
-                            rgba(255, 250, 251, 0.70)
-                        ),
-                        url("/static/background.jpg");
-
-                    background-size: 600px auto;
-
-                    background-repeat: no-repeat;
-
-                    background-position: center center;
-
-                    background-attachment: fixed;
+                    font-family: Arial, sans-serif;
+                    background: white;
+                    color: #333;
                 }
 
-
-                .message {
-
-                    width: 100%;
-
-                    max-width: 520px;
-
-                    padding: 45px 30px;
-
+                .card {
+                    width: 90%;
+                    max-width: 430px;
+                    padding: 40px 25px;
                     text-align: center;
-
-                    background:
-                        rgba(255, 255, 255, 0.64);
-
-                    border: 1px solid
-                        rgba(255, 255, 255, 0.82);
-
-                    border-radius: 22px;
-
-                    box-shadow:
-                        0 20px 55px
-                        rgba(120, 35, 60, 0.15);
-
-                    position: relative;
-
-                    overflow: hidden;
-
-                    animation: fadeUp 0.6s ease;
+                    border-radius: 18px;
+                    border: 1px solid #eeeeee;
+                    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
                 }
 
-
-                .message::before {
-
-                    content: "";
-
-                    position: absolute;
-
-                    top: 0;
-
-                    left: 0;
-
-                    width: 100%;
-
-                    height: 5px;
-
-                    background:
-                        linear-gradient(
-                            90deg,
-                            #922d4a,
-                            #b83b5e,
-                            #d35a78,
-                            #b83b5e,
-                            #922d4a
-                        );
-                }
-
-
-                .error-icon {
-
-                    width: 65px;
-
-                    height: 65px;
-
+                .icon {
+                    width: 60px;
+                    height: 60px;
                     margin: 0 auto 20px;
-
-                    display: flex;
-
-                    align-items: center;
-
-                    justify-content: center;
-
                     border-radius: 50%;
-
-                    background:
-                        rgba(184, 59, 94, 0.10);
-
-                    border: 2px solid
-                        rgba(184, 59, 94, 0.25);
-
-                    color: #b83b5e;
-
-                    font-size: 28px;
-
-                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #b83b5e;
+                    color: white;
+                    font-size: 30px;
+                    font-weight: bold;
                 }
 
-
-                h2 {
-
-                    margin-bottom: 12px;
-
-                    color: #922d4a;
-
-                    font-size: 25px;
-
-                    font-weight: 700;
-
-                    line-height: 1.3;
+                h1 {
+                    margin-bottom: 10px;
+                    color: #8f2948;
                 }
-
 
                 p {
-
-                    margin-bottom: 28px;
-
-                    color: #806a71;
-
-                    font-size: 14px;
-
-                    line-height: 1.6;
+                    color: #777;
                 }
-
 
                 a {
-
                     display: inline-block;
-
-                    padding: 14px 28px;
-
+                    margin-top: 20px;
+                    padding: 12px 22px;
                     border-radius: 10px;
-
-                    background:
-                        linear-gradient(
-                            135deg,
-                            #922d4a,
-                            #b83b5e,
-                            #c34869
-                        );
-
-                    color: #ffffff;
-
+                    background: #b83b5e;
+                    color: white;
                     text-decoration: none;
-
-                    font-size: 14px;
-
-                    font-weight: 600;
-
-                    box-shadow:
-                        0 9px 22px
-                        rgba(184, 59, 94, 0.23);
-
-                    transition:
-                        transform 0.2s ease,
-                        box-shadow 0.2s ease;
                 }
-
-
-                a:hover {
-
-                    transform: translateY(-2px);
-
-                    box-shadow:
-                        0 13px 28px
-                        rgba(184, 59, 94, 0.30);
-                }
-
-
-                @keyframes fadeUp {
-
-                    from {
-
-                        opacity: 0;
-
-                        transform:
-                            translateY(15px);
-                    }
-
-                    to {
-
-                        opacity: 1;
-
-                        transform:
-                            translateY(0);
-                    }
-                }
-
-
-                @media (max-width: 600px) {
-
-                    body {
-
-                        padding: 15px 10px;
-
-                        background-size: 350px auto;
-                    }
-
-
-                    .message {
-
-                        padding: 40px 22px;
-
-                        border-radius: 18px;
-                    }
-
-
-                    .error-icon {
-
-                        width: 58px;
-
-                        height: 58px;
-
-                        font-size: 25px;
-                    }
-
-
-                    h2 {
-
-                        font-size: 22px;
-                    }
-
-
-                    p {
-
-                        font-size: 13px;
-                    }
-
-
-                    a {
-
-                        width: 100%;
-                    }
-                }
-
             </style>
-
         </head>
 
-
         <body>
-
-            <div class="message">
-
-                <div class="error-icon">
-                    !
-                </div>
-
-                <h2>
-                    Incomplete Information
-                </h2>
-
-                <p>
-                    Please fill in all required fields
-                    before submitting the form.
-                </p>
-
-                <a href="/">
-                    Go Back
-                </a>
-
+            <div class="card">
+                <div class="icon">!</div>
+                <h1>Incomplete Information</h1>
+                <p>Please fill in all required fields.</p>
+                <a href="/">Go Back</a>
             </div>
-
         </body>
-
         </html>
         """, 400
 
+    # Validate Philippine mobile number
+    if (
+        not contact.isdigit()
+        or len(contact) != 10
+        or not contact.startswith("9")
+    ):
+        return """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Invalid Contact Number</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                body {
+                    margin: 0;
+                    min-height: 100vh;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: Arial, sans-serif;
+                    background: white;
+                    color: #333;
+                }
 
-    # =================================
-    # SAVE TO DATABASE
-    # =================================
+                .card {
+                    width: 90%;
+                    max-width: 430px;
+                    padding: 40px 25px;
+                    text-align: center;
+                    border-radius: 18px;
+                    border: 1px solid #eeeeee;
+                    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+                }
+
+                .icon {
+                    width: 60px;
+                    height: 60px;
+                    margin: 0 auto 20px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #b83b5e;
+                    color: white;
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+
+                h1 {
+                    margin-bottom: 10px;
+                    color: #8f2948;
+                }
+
+                p {
+                    color: #777;
+                }
+
+                a {
+                    display: inline-block;
+                    margin-top: 20px;
+                    padding: 12px 22px;
+                    border-radius: 10px;
+                    background: #b83b5e;
+                    color: white;
+                    text-decoration: none;
+                }
+            </style>
+        </head>
+
+        <body>
+            <div class="card">
+                <div class="icon">!</div>
+                <h1>Invalid Contact Number</h1>
+                <p>
+                    Please enter a valid Philippine mobile number
+                    with 10 digits starting with 9.
+                </p>
+                <a href="/">Go Back</a>
+            </div>
+        </body>
+        </html>
+        """, 400
+
+    # Add Philippine country code
+    contact = "+63" + contact
 
     conn = sqlite3.connect(DATABASE)
 
@@ -440,391 +261,94 @@ def submit():
     ))
 
     conn.commit()
-
     conn.close()
-
-
-    # =================================
-    # SUCCESS PAGE
-    # =================================
 
     return """
     <!DOCTYPE html>
-    <html lang="en">
-
+    <html>
     <head>
-
-        <meta charset="UTF-8">
-
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0">
-
-        <title>Submitted Successfully</title>
-
+        <title>Success</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <style>
-
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-
-            /* ================================
-               PAGE
-            ================================= */
-
             body {
-
+                margin: 0;
                 min-height: 100vh;
-
-                padding: 20px;
-
                 display: flex;
-
                 justify-content: center;
-
                 align-items: center;
-
-                font-family: "Inter", Arial, sans-serif;
-
-                color: #351b24;
-
-                background:
-                    linear-gradient(
-                        rgba(255, 250, 251, 0.70),
-                        rgba(255, 250, 251, 0.70)
-                    ),
-                    url("/static/background.jpg");
-
-                background-size: 600px auto;
-
-                background-repeat: no-repeat;
-
-                background-position: center center;
-
-                background-attachment: fixed;
+                font-family: Arial, sans-serif;
+                background: white;
+                color: #333;
             }
 
-
-            /* ================================
-               SUCCESS CARD
-            ================================= */
-
-            .message {
-
-                width: 100%;
-
-                max-width: 520px;
-
-                padding: 45px 30px;
-
+            .card {
+                width: 90%;
+                max-width: 430px;
+                padding: 40px 25px;
                 text-align: center;
-
-                background:
-                    rgba(255, 255, 255, 0.64);
-
-                border: 1px solid
-                    rgba(255, 255, 255, 0.82);
-
-                border-radius: 22px;
-
-                box-shadow:
-                    0 20px 55px
-                    rgba(120, 35, 60, 0.15);
-
-                position: relative;
-
-                overflow: hidden;
-
-                animation: fadeUp 0.6s ease;
+                border-radius: 18px;
+                border: 1px solid #eeeeee;
+                box-shadow: 0 10px 35px rgba(0,0,0,0.08);
             }
 
-
-            /* ================================
-               TOP ACCENT
-            ================================= */
-
-            .message::before {
-
-                content: "";
-
-                position: absolute;
-
-                top: 0;
-
-                left: 0;
-
-                width: 100%;
-
-                height: 5px;
-
-                background:
-                    linear-gradient(
-                        90deg,
-                        #922d4a,
-                        #b83b5e,
-                        #d35a78,
-                        #b83b5e,
-                        #922d4a
-                    );
-            }
-
-
-            /* ================================
-               SUCCESS ICON
-            ================================= */
-
-            .success-icon {
-
+            .icon {
                 width: 65px;
-
                 height: 65px;
-
                 margin: 0 auto 20px;
-
-                display: flex;
-
-                align-items: center;
-
-                justify-content: center;
-
                 border-radius: 50%;
-
-                background:
-                    rgba(184, 59, 94, 0.10);
-
-                border: 2px solid
-                    rgba(184, 59, 94, 0.25);
-
-                color: #b83b5e;
-
-                font-size: 30px;
-
-                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #b83b5e;
+                color: white;
+                font-size: 32px;
+                font-weight: bold;
             }
 
-
-            /* ================================
-               TITLE
-            ================================= */
-
-            h2 {
-
-                margin-bottom: 12px;
-
-                color: #922d4a;
-
-                font-size: 25px;
-
-                font-weight: 700;
-
-                line-height: 1.3;
+            h1 {
+                margin-bottom: 10px;
+                color: #8f2948;
             }
-
-
-            /* ================================
-               DESCRIPTION
-            ================================= */
 
             p {
-
-                margin-bottom: 28px;
-
-                color: #806a71;
-
-                font-size: 14px;
-
+                color: #777;
                 line-height: 1.6;
             }
 
-
-            /* ================================
-               BUTTON
-            ================================= */
-
             a {
-
                 display: inline-block;
-
-                padding: 14px 28px;
-
+                margin-top: 20px;
+                padding: 12px 22px;
                 border-radius: 10px;
-
-                background:
-                    linear-gradient(
-                        135deg,
-                        #922d4a,
-                        #b83b5e,
-                        #c34869
-                    );
-
-                color: #ffffff;
-
+                background: #b83b5e;
+                color: white;
                 text-decoration: none;
-
-                font-size: 14px;
-
-                font-weight: 600;
-
-                box-shadow:
-                    0 9px 22px
-                    rgba(184, 59, 94, 0.23);
-
-                transition:
-                    transform 0.2s ease,
-                    box-shadow 0.2s ease,
-                    filter 0.2s ease;
             }
-
-
-            a:hover {
-
-                transform: translateY(-2px);
-
-                box-shadow:
-                    0 13px 28px
-                    rgba(184, 59, 94, 0.30);
-
-                filter: brightness(1.05);
-            }
-
-
-            a:active {
-
-                transform: translateY(0);
-            }
-
-
-            /* ================================
-               ANIMATION
-            ================================= */
-
-            @keyframes fadeUp {
-
-                from {
-
-                    opacity: 0;
-
-                    transform:
-                        translateY(15px);
-                }
-
-                to {
-
-                    opacity: 1;
-
-                    transform:
-                        translateY(0);
-                }
-            }
-
-
-            /* ================================
-               MOBILE
-            ================================= */
-
-            @media (max-width: 600px) {
-
-                body {
-
-                    padding: 15px 10px;
-
-                    background-size: 350px auto;
-                }
-
-
-                .message {
-
-                    padding: 40px 22px;
-
-                    border-radius: 18px;
-                }
-
-
-                .success-icon {
-
-                    width: 58px;
-
-                    height: 58px;
-
-                    font-size: 26px;
-                }
-
-
-                h2 {
-
-                    font-size: 22px;
-                }
-
-
-                p {
-
-                    font-size: 13px;
-                }
-
-
-                a {
-
-                    width: 100%;
-
-                    padding: 14px 20px;
-                }
-            }
-
         </style>
-
     </head>
 
-
     <body>
-
-        <div class="message">
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-            <h2>
-                Information Submitted Successfully!
-            </h2>
-
+        <div class="card">
+            <div class="icon">✓</div>
+            <h1>Information Submitted</h1>
             <p>
-                Your information has been saved to the database.
+                Your personal information has been successfully recorded.
             </p>
-
-            <a href="/">
-                Submit Another
-            </a>
-
+            <a href="/">Submit Another</a>
         </div>
-
     </body>
-
     </html>
     """
 
 
-# =================================
-# INITIALIZE DATABASE
-# =================================
-
-# This must run when Flask/Gunicorn starts,
-# including on Render.
-
+# Important for Render/Gunicorn
 init_database()
 
 
-# =================================
-# RUN SERVER
-# =================================
-
 if __name__ == "__main__":
-
     app.run(
         host="0.0.0.0",
         port=5000,
         debug=True
     )
-
