@@ -6,6 +6,7 @@
     --secondary-text: #777777;
 
     --border: #dddddd;
+
     --input-bg: rgba(255, 255, 255, 0.88);
 
     --white: #ffffff;
@@ -24,6 +25,7 @@ html {
 
 body {
     margin: 0;
+
     min-height: 100vh;
 
     font-family: "Inter", sans-serif;
@@ -32,28 +34,41 @@ body {
 
     background-color: #ffffff;
 
-    background-image: url("/static/background.jpg");
+    background-image:
+        url("/static/background.jpg");
+
     background-repeat: no-repeat;
+
     background-position: center center;
+
     background-size: cover;
+
     background-attachment: fixed;
 }
 
 
+/* PAGE */
+
 .page {
     width: 100%;
+
     min-height: 100vh;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 35px 15px;
 }
 
 
+/* FORM CONTAINER */
+
 .container {
     width: 100%;
+
     max-width: 500px;
 
     padding: 38px 35px 40px;
@@ -71,7 +86,7 @@ body {
 }
 
 
-/* TOP ACCENT LINE */
+/* TOP ACCENT */
 
 .container::before {
     content: "";
@@ -97,6 +112,7 @@ body {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     margin-bottom: 18px;
@@ -105,6 +121,7 @@ body {
 
 .form-logo img {
     width: 85px;
+
     height: 85px;
 
     object-fit: contain;
@@ -121,6 +138,7 @@ h1 {
     text-align: center;
 
     font-size: 27px;
+
     font-weight: 700;
 
     color: var(--primary-dark);
@@ -140,7 +158,7 @@ h1 {
 }
 
 
-/* FORM */
+/* FORM GROUP */
 
 .form-group {
     margin-bottom: 20px;
@@ -160,10 +178,9 @@ h1 {
 }
 
 
-/* INPUTS */
+/* TEXT INPUTS */
 
 input[type="text"],
-input[type="tel"],
 select {
     width: 100%;
 
@@ -192,30 +209,34 @@ select {
 }
 
 
-input[type="text"]::placeholder,
-input[type="tel"]::placeholder {
+input[type="text"]::placeholder {
     color: #999999;
 }
 
 
 input[type="text"]:focus,
-input[type="tel"]:focus,
 select:focus {
-    border-color: rgba(184, 59, 94, 0.55);
+    border-color:
+        rgba(184, 59, 94, 0.55);
 
-    background: rgba(255, 255, 255, 0.98);
+    background:
+        rgba(255, 255, 255, 0.98);
 
     box-shadow:
-        0 0 0 3px rgba(184, 59, 94, 0.07);
+        0 0 0 3px
+        rgba(184, 59, 94, 0.07);
 }
 
 
-/* CONTACT NUMBER */
+/* CONTACT INPUT */
 
 .phone-input {
     display: flex;
 
+    align-items: center;
+
     width: 100%;
+
     height: 50px;
 
     border: 1px solid var(--border);
@@ -228,23 +249,25 @@ select:focus {
 
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 
-.country-code {
+/* +63 INSIDE INPUT */
+
+.phone-prefix {
     display: flex;
 
     align-items: center;
-    justify-content: center;
 
-    gap: 7px;
+    height: 100%;
 
-    padding: 0 13px;
+    padding-left: 14px;
 
-    background: rgba(184, 59, 94, 0.06);
+    padding-right: 8px;
 
-    border-right: 1px solid rgba(184, 59, 94, 0.15);
+    gap: 6px;
 
     color: var(--primary-dark);
 
@@ -257,21 +280,32 @@ select:focus {
 
 
 .flag {
-    font-size: 20px;
+    font-size: 19px;
 
     line-height: 1;
 }
 
 
+.code {
+    font-weight: 600;
+}
+
+
+/* PHONE NUMBER FIELD */
+
 .phone-input input[type="tel"] {
     flex: 1;
 
     width: 100%;
+
     height: 100%;
 
-    padding: 0 15px;
+    padding:
+        0 14px 0 5px;
 
     border: none;
+
+    outline: none;
 
     border-radius: 0;
 
@@ -282,25 +316,30 @@ select:focus {
     font-family: "Inter", sans-serif;
 
     font-size: 14px;
-
-    outline: none;
 }
 
 
-.phone-input input::placeholder {
+.phone-input input[type="tel"]::placeholder {
     color: #999999;
 }
 
 
-.phone-input:focus-within {
-    border-color: rgba(184, 59, 94, 0.55);
+/* PHONE FOCUS */
 
-    background: rgba(255, 255, 255, 0.98);
+.phone-input:focus-within {
+    border-color:
+        rgba(184, 59, 94, 0.55);
+
+    background:
+        rgba(255, 255, 255, 0.98);
 
     box-shadow:
-        0 0 0 3px rgba(184, 59, 94, 0.07);
+        0 0 0 3px
+        rgba(184, 59, 94, 0.07);
 }
 
+
+/* INPUT HINT */
 
 .input-hint {
     display: block;
@@ -321,8 +360,16 @@ select {
     -webkit-appearance: none;
 
     background-image:
-        linear-gradient(45deg, transparent 50%, #888 50%),
-        linear-gradient(135deg, #888 50%, transparent 50%);
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #888 50%
+        ),
+        linear-gradient(
+            135deg,
+            #888 50%,
+            transparent 50%
+        );
 
     background-position:
         calc(100% - 19px) 21px,
@@ -338,7 +385,7 @@ select {
 }
 
 
-/* RADIO BUTTONS */
+/* RADIO */
 
 .radio-group {
     display: flex;
@@ -366,6 +413,7 @@ select {
 
 .radio-option input {
     width: 17px;
+
     height: 17px;
 
     margin: 0;
@@ -412,7 +460,8 @@ select {
     background: var(--primary-dark);
 
     box-shadow:
-        0 7px 20px rgba(184, 59, 94, 0.25);
+        0 7px 20px
+        rgba(184, 59, 94, 0.25);
 }
 
 
@@ -432,8 +481,7 @@ select {
 
     .container {
         padding:
-            32px 22px
-            30px;
+            32px 22px 30px;
 
         border-radius: 17px;
     }
@@ -446,6 +494,7 @@ select {
 
     .form-logo img {
         width: 70px;
+
         height: 70px;
     }
 
@@ -468,7 +517,6 @@ select {
 
 
     input[type="text"],
-    input[type="tel"],
     select {
         height: 49px;
 
@@ -481,8 +529,12 @@ select {
     }
 
 
-    .country-code {
-        padding: 0 11px;
+    .phone-prefix {
+        padding-left: 11px;
+
+        padding-right: 6px;
+
+        gap: 5px;
 
         font-size: 13px;
     }
@@ -496,7 +548,9 @@ select {
     .phone-input input[type="tel"] {
         font-size: 13px;
 
-        padding: 0 12px;
+        padding-left: 4px;
+
+        padding-right: 12px;
     }
 
 
@@ -513,16 +567,20 @@ select {
 }
 
 
+/* VERY SMALL PHONES */
+
 @media (max-width: 360px) {
 
     .container {
         padding-left: 18px;
+
         padding-right: 18px;
     }
 
 
     .form-logo img {
         width: 65px;
+
         height: 65px;
     }
 
@@ -532,14 +590,17 @@ select {
     }
 
 
-    .country-code {
-        padding: 0 9px;
+    .phone-prefix {
+        padding-left: 9px;
 
-        gap: 5px;
+        padding-right: 5px;
+
+        gap: 4px;
     }
 
 
     .flag {
         font-size: 17px;
     }
+
 }
