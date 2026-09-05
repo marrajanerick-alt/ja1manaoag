@@ -1,4 +1,11 @@
 /* ================================
+   GOOGLE FONT
+================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+/* ================================
    GLOBAL
 ================================ */
 
@@ -16,10 +23,10 @@ body {
     min-height: 100vh;
     padding: 30px 15px;
 
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
     color: #35151d;
 
-    /* Background image - does NOT repeat */
+    /* Single centered background */
     background:
         linear-gradient(
             rgba(250, 248, 245, 0.82),
@@ -29,7 +36,8 @@ body {
 
     background-size: 600px auto;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center center;
+    background-attachment: fixed;
 
     position: relative;
 }
@@ -95,7 +103,7 @@ body::before {
 
 
 /* ================================
-   TOP GOLD/BURGUNDY ACCENT
+   TOP ACCENT
 ================================ */
 
 .container::after {
@@ -126,19 +134,16 @@ body::before {
 h1 {
     text-align: center;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Poppins", sans-serif;
 
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 700;
 
     color: #641827;
 
     letter-spacing: -0.5px;
 
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .subtitle {
@@ -146,7 +151,9 @@ h1 {
 
     color: #654f53;
 
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 400;
+
     line-height: 1.6;
 
     margin-bottom: 35px;
@@ -176,12 +183,15 @@ h1 {
 
 form {
     display: flex;
+
     flex-direction: column;
+
     gap: 22px;
 }
 
 .form-group {
     display: flex;
+
     flex-direction: column;
 }
 
@@ -193,7 +203,7 @@ form {
 label {
     margin-bottom: 8px;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 
     color: #4d222b;
@@ -221,8 +231,9 @@ select {
 
     color: #35151d;
 
-    font-family: inherit;
-    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
 
     outline: none;
 
@@ -233,9 +244,15 @@ select {
         background 0.25s ease;
 }
 
+
+/* Placeholder */
+
 input::placeholder {
     color: #8d7d80;
 }
+
+
+/* Focus */
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
@@ -250,6 +267,9 @@ select:focus {
     transform: translateY(-1px);
 }
 
+
+/* Select */
+
 select {
     cursor: pointer;
 }
@@ -261,31 +281,45 @@ select {
 
 .radio-group {
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 10px;
 }
 
 .radio-option {
     flex: 1;
+
     min-width: 120px;
+
     position: relative;
 }
 
+
+/* Hide original radio */
+
 .radio-option input[type="radio"] {
     position: absolute;
+
     opacity: 0;
+
     pointer-events: none;
 }
+
+
+/* Radio option */
 
 .radio-option label {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     min-height: 48px;
 
     margin: 0;
+
     padding: 10px 15px;
 
     border: 1px solid rgba(110, 60, 70, 0.20);
@@ -298,10 +332,16 @@ select {
 
     cursor: pointer;
 
-    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
 
     transition: all 0.25s ease;
 }
+
+
+/* Hover */
 
 .radio-option label:hover {
     border-color: #a56d76;
@@ -310,6 +350,9 @@ select {
 
     color: #641827;
 }
+
+
+/* Selected */
 
 .radio-option input[type="radio"]:checked + label {
     border-color: #7b1f32;
@@ -340,6 +383,7 @@ button[type="submit"] {
     margin-top: 8px;
 
     border: none;
+
     border-radius: 13px;
 
     background:
@@ -351,9 +395,10 @@ button[type="submit"] {
 
     color: white;
 
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+    font-weight: 600;
 
     letter-spacing: 0.2px;
 
@@ -368,6 +413,9 @@ button[type="submit"] {
         filter 0.25s ease;
 }
 
+
+/* Hover */
+
 button[type="submit"]:hover {
     transform: translateY(-2px);
 
@@ -376,6 +424,9 @@ button[type="submit"]:hover {
 
     filter: brightness(1.05);
 }
+
+
+/* Click */
 
 button[type="submit"]:active {
     transform: translateY(0);
@@ -390,14 +441,19 @@ button[type="submit"]:active {
 ================================ */
 
 @keyframes fadeUp {
+
     from {
         opacity: 0;
-        transform: translateY(20px);
+
+        transform:
+            translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
@@ -413,9 +469,14 @@ button[type="submit"]:active {
 
         /* Smaller single background */
         background-size: 350px auto;
+
         background-repeat: no-repeat;
-        background-position: center top;
+
+        background-position: center center;
+
+        background-attachment: fixed;
     }
+
 
     .container {
         margin: 10px auto;
@@ -428,44 +489,63 @@ button[type="submit"]:active {
         background: rgba(255, 255, 255, 0.54);
     }
 
+
     h1 {
-        font-size: 28px;
+        font-size: 27px;
     }
 
+
     .subtitle {
-        font-size: 14px;
+        font-size: 13px;
+
         margin-bottom: 28px;
     }
+
 
     form {
         gap: 19px;
     }
 
+
+    /* Two columns */
+
     .radio-group {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
+
         gap: 8px;
     }
+
 
     .radio-option {
         min-width: 0;
     }
 
+
     .radio-option label {
         min-height: 46px;
+
         padding: 8px;
-        font-size: 13px;
+
+        font-size: 12px;
     }
+
 
     input[type="text"],
     input[type="tel"],
     select {
         height: 50px;
-        font-size: 14px;
+
+        font-size: 13px;
     }
+
 
     button[type="submit"] {
         height: 52px;
+
+        font-size: 14px;
     }
 }
 
@@ -480,9 +560,11 @@ button[type="submit"]:active {
         padding: 25px 16px;
     }
 
+
     h1 {
-        font-size: 25px;
+        font-size: 24px;
     }
+
 
     .radio-group {
         grid-template-columns: 1fr;
