@@ -6,6 +6,7 @@
 ================================= */
 
 :root {
+
     --primary: #b83b5e;
     --primary-dark: #922d4a;
     --primary-light: #fcecef;
@@ -13,11 +14,8 @@
     --text: #351b24;
     --muted: #806a71;
 
-    --white: #ffffff;
     --border: rgba(184, 59, 94, 0.18);
 
-    --shadow:
-        0 20px 55px rgba(120, 35, 60, 0.14);
 }
 
 
@@ -26,16 +24,24 @@
 ================================= */
 
 * {
+
     margin: 0;
     padding: 0;
+
     box-sizing: border-box;
+
 }
+
 
 html {
+
     scroll-behavior: smooth;
+
 }
 
+
 body {
+
     min-height: 100vh;
 
     padding: 30px 15px;
@@ -45,10 +51,12 @@ body {
     color: var(--text);
 
     background:
+
         linear-gradient(
             rgba(255, 250, 251, 0.70),
             rgba(255, 250, 251, 0.70)
         ),
+
         url("/static/background.jpg");
 
     background-size: 600px auto;
@@ -60,14 +68,16 @@ body {
     background-attachment: fixed;
 
     position: relative;
+
 }
 
 
 /* =================================
-   SOFT PINK ATMOSPHERE
+   BACKGROUND EFFECT
 ================================= */
 
 body::before {
+
     content: "";
 
     position: fixed;
@@ -75,11 +85,13 @@ body::before {
     inset: 0;
 
     background:
+
         radial-gradient(
             circle at top left,
             rgba(184, 59, 94, 0.10),
             transparent 35%
         ),
+
         radial-gradient(
             circle at bottom right,
             rgba(184, 59, 94, 0.08),
@@ -89,6 +101,7 @@ body::before {
     pointer-events: none;
 
     z-index: 0;
+
 }
 
 
@@ -97,6 +110,7 @@ body::before {
 ================================= */
 
 .container {
+
     width: 100%;
 
     max-width: 700px;
@@ -105,19 +119,21 @@ body::before {
 
     padding: 40px;
 
-    /*
-       Transparent white
-       NO BLUR
-    */
-    background: rgba(255, 255, 255, 0.62);
+    background:
+        rgba(255, 255, 255, 0.62);
 
-    border: 1px solid rgba(255, 255, 255, 0.80);
+    border:
+        1px solid rgba(255, 255, 255, 0.80);
 
     border-radius: 22px;
 
     box-shadow:
-        0 20px 55px rgba(120, 35, 60, 0.15),
-        0 4px 15px rgba(120, 35, 60, 0.06);
+
+        0 20px 55px
+        rgba(120, 35, 60, 0.15),
+
+        0 4px 15px
+        rgba(120, 35, 60, 0.06);
 
     position: relative;
 
@@ -126,14 +142,16 @@ body::before {
     overflow: hidden;
 
     animation: fadeUp 0.6s ease;
+
 }
 
 
 /* =================================
-   TOP PINK ACCENT
+   TOP ACCENT
 ================================= */
 
 .container::before {
+
     content: "";
 
     position: absolute;
@@ -145,6 +163,7 @@ body::before {
     height: 5px;
 
     background:
+
         linear-gradient(
             90deg,
             #922d4a,
@@ -153,6 +172,37 @@ body::before {
             #b83b5e,
             #922d4a
         );
+
+}
+
+
+/* =================================
+   FORM LOGO
+================================= */
+
+.form-logo {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+}
+
+
+.form-logo img {
+
+    width: 85px;
+
+    height: 85px;
+
+    object-fit: contain;
+
+    display: block;
+
 }
 
 
@@ -161,9 +211,8 @@ body::before {
 ================================= */
 
 h1 {
-    text-align: center;
 
-    font-family: "Inter", sans-serif;
+    text-align: center;
 
     font-size: 30px;
 
@@ -174,10 +223,12 @@ h1 {
     letter-spacing: -0.6px;
 
     margin-bottom: 8px;
+
 }
 
 
 .subtitle {
+
     text-align: center;
 
     color: var(--muted);
@@ -187,10 +238,12 @@ h1 {
     line-height: 1.6;
 
     margin-bottom: 32px;
+
 }
 
 
 .subtitle::after {
+
     content: "";
 
     display: block;
@@ -204,6 +257,7 @@ h1 {
     background: var(--primary);
 
     border-radius: 10px;
+
 }
 
 
@@ -212,18 +266,22 @@ h1 {
 ================================= */
 
 form {
+
     display: flex;
 
     flex-direction: column;
 
     gap: 20px;
+
 }
 
 
 .form-group {
+
     display: flex;
 
     flex-direction: column;
+
 }
 
 
@@ -232,6 +290,7 @@ form {
 ================================= */
 
 label {
+
     margin-bottom: 7px;
 
     color: #572532;
@@ -239,6 +298,7 @@ label {
     font-size: 13px;
 
     font-weight: 600;
+
 }
 
 
@@ -256,14 +316,15 @@ select {
 
     padding: 0 15px;
 
-    border: 1px solid var(--border);
+    border:
+
+        1px solid var(--border);
 
     border-radius: 10px;
 
-    /*
-       Slightly transparent pink-white
-    */
-    background: rgba(255, 249, 251, 0.70);
+    background:
+
+        rgba(255, 249, 251, 0.70);
 
     color: var(--text);
 
@@ -274,10 +335,15 @@ select {
     outline: none;
 
     transition:
+
         border-color 0.2s ease,
+
         background 0.2s ease,
+
         box-shadow 0.2s ease,
+
         transform 0.2s ease;
+
 }
 
 
@@ -286,7 +352,9 @@ select {
 ================================= */
 
 input::placeholder {
+
     color: #a98d95;
+
 }
 
 
@@ -300,22 +368,31 @@ select:focus {
 
     border-color: var(--primary);
 
-    background: rgba(255, 255, 255, 0.88);
+    background:
+        rgba(255, 255, 255, 0.88);
 
     box-shadow:
-        0 0 0 3px rgba(184, 59, 94, 0.09),
-        0 5px 15px rgba(120, 35, 60, 0.06);
 
-    transform: translateY(-1px);
+        0 0 0 3px
+        rgba(184, 59, 94, 0.09),
+
+        0 5px 15px
+        rgba(120, 35, 60, 0.06);
+
+    transform:
+        translateY(-1px);
+
 }
 
 
 /* =================================
-   DROPDOWN
+   SELECT
 ================================= */
 
 select {
+
     cursor: pointer;
+
 }
 
 
@@ -331,15 +408,16 @@ select {
         1fr 1fr;
 
     gap: 9px;
+
 }
 
 
 .radio-option {
+
     position: relative;
+
 }
 
-
-/* Hide radio */
 
 .radio-option input[type="radio"] {
 
@@ -348,10 +426,9 @@ select {
     opacity: 0;
 
     pointer-events: none;
+
 }
 
-
-/* Radio card */
 
 .radio-option label {
 
@@ -367,11 +444,14 @@ select {
 
     padding: 9px 12px;
 
-    border: 1px solid var(--border);
+    border:
+
+        1px solid var(--border);
 
     border-radius: 10px;
 
     background:
+
         rgba(255, 249, 251, 0.65);
 
     color: #80616b;
@@ -383,42 +463,57 @@ select {
     font-weight: 500;
 
     transition:
+
         all 0.2s ease;
+
 }
 
 
-/* Hover */
+/* =================================
+   RADIO HOVER
+================================= */
 
 .radio-option label:hover {
 
     border-color: var(--primary);
 
     background:
+
         rgba(252, 236, 239, 0.85);
 
     color: var(--primary-dark);
 
-    transform: translateY(-1px);
+    transform:
+        translateY(-1px);
+
 }
 
 
-/* Selected */
+/* =================================
+   RADIO SELECTED
+================================= */
 
-.radio-option input[type="radio"]:checked + label {
+.radio-option
+input[type="radio"]:checked
++ label {
 
     border-color: var(--primary);
 
     background:
+
         linear-gradient(
             135deg,
             #a93253,
             #c34869
         );
 
-    color: #ffffff;
+    color: white;
 
     box-shadow:
-        0 6px 16px rgba(184, 59, 94, 0.22);
+
+        0 6px 16px
+        rgba(184, 59, 94, 0.22);
+
 }
 
 
@@ -439,6 +534,7 @@ button[type="submit"] {
     border-radius: 10px;
 
     background:
+
         linear-gradient(
             135deg,
             #922d4a,
@@ -457,50 +553,63 @@ button[type="submit"] {
     cursor: pointer;
 
     box-shadow:
-        0 9px 22px rgba(184, 59, 94, 0.23);
+
+        0 9px 22px
+        rgba(184, 59, 94, 0.23);
 
     transition:
+
         transform 0.2s ease,
+
         box-shadow 0.2s ease,
+
         filter 0.2s ease;
+
 }
 
-
-/* Hover */
 
 button[type="submit"]:hover {
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 13px 28px rgba(184, 59, 94, 0.30);
 
-    filter: brightness(1.05);
+        0 13px 28px
+        rgba(184, 59, 94, 0.30);
+
+    filter:
+        brightness(1.05);
+
 }
 
 
-/* Active */
-
 button[type="submit"]:active {
 
-    transform: translateY(0);
+    transform:
+        translateY(0);
 
     box-shadow:
-        0 5px 12px rgba(184, 59, 94, 0.18);
+
+        0 5px 12px
+        rgba(184, 59, 94, 0.18);
+
 }
 
 
 /* =================================
-   FOCUS
+   ACCESSIBILITY
 ================================= */
 
 input:focus-visible,
 select:focus-visible,
 button:focus-visible {
 
-    outline: 2px solid #c34869;
+    outline:
+        2px solid #c34869;
 
     outline-offset: 2px;
+
 }
 
 
@@ -511,18 +620,23 @@ button:focus-visible {
 @keyframes fadeUp {
 
     from {
+
         opacity: 0;
 
         transform:
             translateY(15px);
+
     }
 
     to {
+
         opacity: 1;
 
         transform:
             translateY(0);
+
     }
+
 }
 
 
@@ -543,6 +657,7 @@ button:focus-visible {
         background-position: center center;
 
         background-attachment: fixed;
+
     }
 
 
@@ -555,12 +670,32 @@ button:focus-visible {
         border-radius: 18px;
 
         background:
+
             rgba(255, 255, 255, 0.64);
+
+    }
+
+
+    .form-logo {
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .form-logo img {
+
+        width: 70px;
+
+        height: 70px;
+
     }
 
 
     h1 {
+
         font-size: 26px;
+
     }
 
 
@@ -569,11 +704,14 @@ button:focus-visible {
         font-size: 13px;
 
         margin-bottom: 27px;
+
     }
 
 
     form {
+
         gap: 18px;
+
     }
 
 
@@ -584,6 +722,7 @@ button:focus-visible {
         height: 49px;
 
         font-size: 13px;
+
     }
 
 
@@ -593,6 +732,7 @@ button:focus-visible {
             1fr 1fr;
 
         gap: 8px;
+
     }
 
 
@@ -601,6 +741,7 @@ button:focus-visible {
         min-height: 45px;
 
         font-size: 12px;
+
     }
 
 
@@ -609,7 +750,9 @@ button:focus-visible {
         height: 52px;
 
         font-size: 14px;
+
     }
+
 }
 
 
@@ -622,11 +765,23 @@ button:focus-visible {
     .container {
 
         padding: 26px 16px;
+
+    }
+
+
+    .form-logo img {
+
+        width: 65px;
+
+        height: 65px;
+
     }
 
 
     h1 {
+
         font-size: 23px;
+
     }
 
 
@@ -634,6 +789,7 @@ button:focus-visible {
 
         grid-template-columns:
             1fr;
-    }
-}
 
+    }
+
+}
