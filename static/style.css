@@ -64,7 +64,7 @@ body {
 }
 
 
-/* FORM CONTAINER */
+/* TRANSPARENT FORM CONTAINER */
 
 .container {
     width: 100%;
@@ -73,14 +73,17 @@ body {
 
     padding: 38px 35px 40px;
 
-    background: rgba(255, 255, 255, 0.94);
+    /* Transparent */
+    background: transparent;
 
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    /* Very subtle border */
+    border: 1px solid rgba(255, 255, 255, 0.45);
 
     border-radius: 20px;
 
+    /* Very subtle shadow */
     box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.12);
+        0 15px 45px rgba(0, 0, 0, 0.08);
 
     position: relative;
 }
@@ -291,7 +294,7 @@ select:focus {
 }
 
 
-/* PHONE NUMBER FIELD */
+/* PHONE NUMBER */
 
 .phone-input input[type="tel"] {
     flex: 1;
@@ -484,6 +487,8 @@ select {
             32px 22px 30px;
 
         border-radius: 17px;
+
+        background: transparent;
     }
 
 
@@ -575,6 +580,8 @@ select {
         padding-left: 18px;
 
         padding-right: 18px;
+
+        background: transparent;
     }
 
 
