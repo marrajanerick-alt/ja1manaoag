@@ -1,30 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-
-/* =================================
-   COLORS
-================================= */
-
 :root {
     --primary: #b83b5e;
-    --primary-dark: #922d4a;
+    --primary-dark: #8f2948;
 
-    --text: #292929;
-    --muted: #777777;
+    --text: #333333;
+    --secondary-text: #777777;
 
-    --border: rgba(0, 0, 0, 0.10);
+    --border: #dddddd;
+    --input-bg: rgba(255, 255, 255, 0.88);
 
-    --input-bg: rgba(255, 255, 255, 0.78);
+    --white: #ffffff;
 }
 
 
-/* =================================
-   GLOBAL
-================================= */
-
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -35,101 +23,55 @@ html {
 
 
 body {
+    margin: 0;
     min-height: 100vh;
-
-    padding: 30px 15px;
 
     font-family: "Inter", sans-serif;
 
     color: var(--text);
 
-    /*
-       Clean white background
-       with your logo/background image
-    */
-    background:
-        linear-gradient(
-            rgba(255, 255, 255, 0.82),
-            rgba(255, 255, 255, 0.82)
-        ),
-        url("/static/background.jpg");
+    background-color: #ffffff;
 
-    background-size: 600px auto;
-
+    background-image: url("/static/background.jpg");
     background-repeat: no-repeat;
-
     background-position: center center;
-
+    background-size: cover;
     background-attachment: fixed;
-
-    position: relative;
 }
 
 
-/* =================================
-   SUBTLE WHITE OVERLAY
-================================= */
+.page {
+    width: 100%;
+    min-height: 100vh;
 
-body::before {
-    content: "";
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(184, 59, 94, 0.04),
-            transparent 35%
-        );
-
-    pointer-events: none;
-
-    z-index: 0;
+    padding: 35px 15px;
 }
 
-
-/* =================================
-   FORM CONTAINER
-================================= */
 
 .container {
     width: 100%;
+    max-width: 500px;
 
-    max-width: 700px;
+    padding: 38px 35px 40px;
 
-    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.94);
 
-    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
 
-    /*
-       Transparent white
-    */
-    background:
-        rgba(255, 255, 255, 0.68);
-
-    border:
-        1px solid rgba(255, 255, 255, 0.95);
-
-    border-radius: 22px;
+    border-radius: 20px;
 
     box-shadow:
-        0 20px 55px rgba(0, 0, 0, 0.10);
+        0 15px 45px rgba(0, 0, 0, 0.12);
 
     position: relative;
-
-    z-index: 1;
-
-    overflow: hidden;
-
-    animation: fadeUp 0.6s ease;
 }
 
 
-/* =================================
-   PINK TOP LINE
-================================= */
+/* TOP ACCENT LINE */
 
 .container::before {
     content: "";
@@ -142,27 +84,19 @@ body::before {
     width: 100%;
     height: 4px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #922d4a,
-            #b83b5e,
-            #d35a78,
-            #b83b5e,
-            #922d4a
-        );
+    background: var(--primary);
+
+    border-radius:
+        20px 20px 0 0;
 }
 
 
-/* =================================
-   LOGO
-================================= */
+/* LOGO */
 
 .form-logo {
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     margin-bottom: 18px;
@@ -171,7 +105,6 @@ body::before {
 
 .form-logo img {
     width: 85px;
-
     height: 85px;
 
     object-fit: contain;
@@ -180,93 +113,54 @@ body::before {
 }
 
 
-/* =================================
-   HEADER
-================================= */
+/* TITLE */
 
 h1 {
+    margin: 0;
+
     text-align: center;
 
-    font-size: 30px;
-
+    font-size: 27px;
     font-weight: 700;
 
-    color: #292929;
-
-    letter-spacing: -0.6px;
-
-    margin-bottom: 8px;
+    color: var(--primary-dark);
 }
 
 
 .subtitle {
+    margin: 8px 0 30px;
+
     text-align: center;
 
-    color: var(--muted);
+    color: var(--secondary-text);
 
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.6;
-
-    margin-bottom: 32px;
 }
 
 
-.subtitle::after {
-    content: "";
-
-    display: block;
-
-    width: 42px;
-
-    height: 3px;
-
-    margin: 14px auto 0;
-
-    background: var(--primary);
-
-    border-radius: 10px;
-}
-
-
-/* =================================
-   FORM
-================================= */
-
-form {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 20px;
-}
-
+/* FORM */
 
 .form-group {
-    display: flex;
-
-    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 
-/* =================================
-   LABELS
-================================= */
+.form-group > label {
+    display: block;
 
-label {
-    margin-bottom: 7px;
-
-    color: #444444;
+    margin-bottom: 8px;
 
     font-size: 13px;
 
     font-weight: 600;
+
+    color: #444444;
 }
 
 
-/* =================================
-   INPUTS
-================================= */
+/* INPUTS */
 
 input[type="text"],
 input[type="tel"],
@@ -277,15 +171,13 @@ select {
 
     padding: 0 15px;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
     border-radius: 10px;
 
-    background:
-        var(--input-bg);
+    background: var(--input-bg);
 
-    color: #292929;
+    color: var(--text);
 
     font-family: "Inter", sans-serif;
 
@@ -295,160 +187,201 @@ select {
 
     transition:
         border-color 0.2s ease,
-        background 0.2s ease,
         box-shadow 0.2s ease,
-        transform 0.2s ease;
+        background 0.2s ease;
 }
 
 
-/* =================================
-   PLACEHOLDER
-================================= */
-
-input::placeholder {
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder {
     color: #999999;
 }
 
 
-/* =================================
-   INPUT FOCUS
-================================= */
-
 input[type="text"]:focus,
 input[type="tel"]:focus,
 select:focus {
-    border-color:
-        rgba(184, 59, 94, 0.55);
+    border-color: rgba(184, 59, 94, 0.55);
 
-    background:
-        rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
 
     box-shadow:
-        0 0 0 3px
-        rgba(184, 59, 94, 0.07);
-
-    transform:
-        translateY(-1px);
+        0 0 0 3px rgba(184, 59, 94, 0.07);
 }
 
 
-/* =================================
-   SELECT
-================================= */
+/* CONTACT NUMBER */
+
+.phone-input {
+    display: flex;
+
+    width: 100%;
+    height: 50px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--input-bg);
+
+    overflow: hidden;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.country-code {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 13px;
+
+    background: rgba(184, 59, 94, 0.06);
+
+    border-right: 1px solid rgba(184, 59, 94, 0.15);
+
+    color: var(--primary-dark);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.flag {
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+
+.phone-input input[type="tel"] {
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0 15px;
+
+    border: none;
+
+    border-radius: 0;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.phone-input input::placeholder {
+    color: #999999;
+}
+
+
+.phone-input:focus-within {
+    border-color: rgba(184, 59, 94, 0.55);
+
+    background: rgba(255, 255, 255, 0.98);
+
+    box-shadow:
+        0 0 0 3px rgba(184, 59, 94, 0.07);
+}
+
+
+.input-hint {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 11px;
+
+    color: #999999;
+}
+
+
+/* SELECT */
 
 select {
-    cursor: pointer;
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #888 50%),
+        linear-gradient(135deg, #888 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 19px) 21px,
+        calc(100% - 14px) 21px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat: no-repeat;
+
+    padding-right: 40px;
 }
 
 
-/* =================================
-   RADIO BUTTONS
-================================= */
+/* RADIO BUTTONS */
 
 .radio-group {
-    display: grid;
+    display: flex;
 
-    grid-template-columns:
-        1fr 1fr;
+    gap: 25px;
 
-    gap: 9px;
+    align-items: center;
 }
 
 
 .radio-option {
-    position: relative;
-}
-
-
-.radio-option input[type="radio"] {
-    position: absolute;
-
-    opacity: 0;
-
-    pointer-events: none;
-}
-
-
-.radio-option label {
     display: flex;
 
     align-items: center;
 
-    justify-content: center;
-
-    min-height: 48px;
-
-    margin: 0;
-
-    padding: 9px 12px;
-
-    border:
-        1px solid rgba(0, 0, 0, 0.10);
-
-    border-radius: 10px;
-
-    background:
-        rgba(255, 255, 255, 0.70);
-
-    color: #777777;
+    gap: 8px;
 
     cursor: pointer;
 
-    font-size: 13px;
+    font-size: 14px;
 
-    font-weight: 500;
-
-    transition:
-        all 0.2s ease;
+    color: #555555;
 }
 
 
-/* =================================
-   RADIO HOVER
-================================= */
+.radio-option input {
+    width: 17px;
+    height: 17px;
 
-.radio-option label:hover {
-    border-color:
-        rgba(184, 59, 94, 0.35);
+    margin: 0;
 
-    background:
-        #fff7f9;
+    accent-color: var(--primary);
 
-    color:
-        var(--primary-dark);
+    cursor: pointer;
 }
 
 
-/* =================================
-   RADIO SELECTED
-================================= */
+/* SUBMIT BUTTON */
 
-.radio-option
-input[type="radio"]:checked
-+ label {
-    border-color:
-        var(--primary);
-
-    background:
-        var(--primary);
-
-    color:
-        white;
-
-    box-shadow:
-        0 6px 16px
-        rgba(184, 59, 94, 0.18);
-}
-
-
-/* =================================
-   SUBMIT BUTTON
-================================= */
-
-button[type="submit"] {
+.submit-button {
     width: 100%;
 
-    height: 54px;
+    height: 50px;
 
     margin-top: 8px;
 
@@ -456,13 +389,11 @@ button[type="submit"] {
 
     border-radius: 10px;
 
-    background:
-        var(--primary);
+    background: var(--primary);
 
     color: white;
 
-    font-family:
-        "Inter", sans-serif;
+    font-family: "Inter", sans-serif;
 
     font-size: 14px;
 
@@ -470,226 +401,145 @@ button[type="submit"] {
 
     cursor: pointer;
 
-    box-shadow:
-        0 8px 20px
-        rgba(184, 59, 94, 0.18);
-
     transition:
         background 0.2s ease,
-        transform 0.2s ease,
+        transform 0.15s ease,
         box-shadow 0.2s ease;
 }
 
 
-/* =================================
-   BUTTON HOVER
-================================= */
-
-button[type="submit"]:hover {
-    background:
-        var(--primary-dark);
-
-    transform:
-        translateY(-2px);
+.submit-button:hover {
+    background: var(--primary-dark);
 
     box-shadow:
-        0 12px 25px
-        rgba(184, 59, 94, 0.25);
+        0 7px 20px rgba(184, 59, 94, 0.25);
 }
 
 
-/* =================================
-   BUTTON ACTIVE
-================================= */
-
-button[type="submit"]:active {
-    transform:
-        translateY(0);
-
-    box-shadow:
-        0 5px 12px
-        rgba(184, 59, 94, 0.15);
+.submit-button:active {
+    transform: translateY(1px);
 }
 
 
-/* =================================
-   ACCESSIBILITY
-================================= */
-
-input:focus-visible,
-select:focus-visible,
-button:focus-visible {
-    outline:
-        2px solid var(--primary);
-
-    outline-offset: 2px;
-}
-
-
-/* =================================
-   ANIMATION
-================================= */
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* =================================
-   MOBILE
-================================= */
+/* MOBILE */
 
 @media (max-width: 600px) {
 
-    body {
-        padding: 15px 10px;
-
-        background-size:
-            350px auto;
-
-        background-repeat:
-            no-repeat;
-
-        background-position:
-            center center;
-
-        background-attachment:
-            fixed;
+    .page {
+        padding: 20px 12px;
     }
 
 
     .container {
-        margin:
-            10px auto;
-
         padding:
-            30px 20px;
+            32px 22px
+            30px;
 
-        border-radius:
-            18px;
-
-        background:
-            rgba(255, 255, 255, 0.72);
+        border-radius: 17px;
     }
 
 
     .form-logo {
-        margin-bottom:
-            15px;
+        margin-bottom: 14px;
     }
 
 
     .form-logo img {
-        width:
-            70px;
-
-        height:
-            70px;
+        width: 70px;
+        height: 70px;
     }
 
 
     h1 {
-        font-size:
-            26px;
+        font-size: 23px;
     }
 
 
     .subtitle {
-        font-size:
-            13px;
+        margin-bottom: 25px;
 
-        margin-bottom:
-            27px;
+        font-size: 12px;
     }
 
 
-    form {
-        gap:
-            18px;
+    .form-group {
+        margin-bottom: 18px;
     }
 
 
     input[type="text"],
     input[type="tel"],
     select {
-        height:
-            49px;
+        height: 49px;
 
-        font-size:
-            13px;
+        font-size: 13px;
+    }
+
+
+    .phone-input {
+        height: 49px;
+    }
+
+
+    .country-code {
+        padding: 0 11px;
+
+        font-size: 13px;
+    }
+
+
+    .flag {
+        font-size: 18px;
+    }
+
+
+    .phone-input input[type="tel"] {
+        font-size: 13px;
+
+        padding: 0 12px;
     }
 
 
     .radio-group {
-        grid-template-columns:
-            1fr 1fr;
-
-        gap:
-            8px;
+        gap: 20px;
     }
 
 
-    .radio-option label {
-        min-height:
-            45px;
+    .submit-button {
+        height: 49px;
 
-        font-size:
-            12px;
-    }
-
-
-    button[type="submit"] {
-        height:
-            52px;
-
-        font-size:
-            14px;
+        font-size: 13px;
     }
 }
 
 
-/* =================================
-   VERY SMALL SCREENS
-================================= */
-
 @media (max-width: 360px) {
 
     .container {
-        padding:
-            26px 16px;
+        padding-left: 18px;
+        padding-right: 18px;
     }
 
 
     .form-logo img {
-        width:
-            65px;
-
-        height:
-            65px;
+        width: 65px;
+        height: 65px;
     }
 
 
     h1 {
-        font-size:
-            23px;
+        font-size: 21px;
     }
 
 
-    .radio-group {
-        grid-template-columns:
-            1fr;
+    .country-code {
+        padding: 0 9px;
+
+        gap: 5px;
     }
 
+
+    .flag {
+        font-size: 17px;
+    }
 }
