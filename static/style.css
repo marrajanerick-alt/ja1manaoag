@@ -2,23 +2,22 @@
 
 
 /* =================================
-   VARIABLES
+   COLORS
 ================================= */
 
 :root {
-    --primary: #17324d;
-    --primary-dark: #0f2438;
-    --accent: #c89b3c;
+    --primary: #b83b5e;
+    --primary-dark: #922d4a;
+    --primary-light: #fcecef;
 
-    --text: #263238;
-    --muted: #66737d;
+    --text: #351b24;
+    --muted: #806a71;
 
     --white: #ffffff;
-    --input: #f8fafb;
-    --border: #dce3e8;
+    --border: rgba(184, 59, 94, 0.18);
 
     --shadow:
-        0 20px 55px rgba(15, 36, 56, 0.15);
+        0 20px 55px rgba(120, 35, 60, 0.14);
 }
 
 
@@ -45,17 +44,19 @@ body {
 
     color: var(--text);
 
-    /* Background image */
     background:
         linear-gradient(
-            rgba(245, 248, 250, 0.88),
-            rgba(245, 248, 250, 0.88)
+            rgba(255, 250, 251, 0.70),
+            rgba(255, 250, 251, 0.70)
         ),
         url("/static/background.jpg");
 
     background-size: 600px auto;
+
     background-repeat: no-repeat;
+
     background-position: center center;
+
     background-attachment: fixed;
 
     position: relative;
@@ -63,7 +64,7 @@ body {
 
 
 /* =================================
-   SUBTLE BACKGROUND
+   SOFT PINK ATMOSPHERE
 ================================= */
 
 body::before {
@@ -75,13 +76,13 @@ body::before {
 
     background:
         radial-gradient(
-            circle at 0% 0%,
-            rgba(23, 50, 77, 0.08),
+            circle at top left,
+            rgba(184, 59, 94, 0.10),
             transparent 35%
         ),
         radial-gradient(
-            circle at 100% 100%,
-            rgba(200, 155, 60, 0.08),
+            circle at bottom right,
+            rgba(184, 59, 94, 0.08),
             transparent 35%
         );
 
@@ -92,7 +93,7 @@ body::before {
 
 
 /* =================================
-   MAIN CONTAINER
+   MAIN FORM
 ================================= */
 
 .container {
@@ -104,13 +105,19 @@ body::before {
 
     padding: 40px;
 
-    background: rgba(255, 255, 255, 0.94);
+    /*
+       Transparent white
+       NO BLUR
+    */
+    background: rgba(255, 255, 255, 0.62);
 
-    border: 1px solid rgba(23, 50, 77, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.80);
 
-    border-radius: 20px;
+    border-radius: 22px;
 
-    box-shadow: var(--shadow);
+    box-shadow:
+        0 20px 55px rgba(120, 35, 60, 0.15),
+        0 4px 15px rgba(120, 35, 60, 0.06);
 
     position: relative;
 
@@ -118,12 +125,12 @@ body::before {
 
     overflow: hidden;
 
-    animation: appear 0.6s ease;
+    animation: fadeUp 0.6s ease;
 }
 
 
 /* =================================
-   TOP ACCENT
+   TOP PINK ACCENT
 ================================= */
 
 .container::before {
@@ -140,9 +147,11 @@ body::before {
     background:
         linear-gradient(
             90deg,
-            var(--primary),
-            var(--accent),
-            var(--primary)
+            #922d4a,
+            #b83b5e,
+            #d35a78,
+            #b83b5e,
+            #922d4a
         );
 }
 
@@ -154,16 +163,19 @@ body::before {
 h1 {
     text-align: center;
 
+    font-family: "Inter", sans-serif;
+
     font-size: 30px;
 
     font-weight: 700;
 
-    color: var(--primary);
+    color: var(--primary-dark);
 
     letter-spacing: -0.6px;
 
     margin-bottom: 8px;
 }
+
 
 .subtitle {
     text-align: center;
@@ -177,17 +189,19 @@ h1 {
     margin-bottom: 32px;
 }
 
+
 .subtitle::after {
     content: "";
 
     display: block;
 
     width: 45px;
+
     height: 3px;
 
     margin: 14px auto 0;
 
-    background: var(--accent);
+    background: var(--primary);
 
     border-radius: 10px;
 }
@@ -205,6 +219,7 @@ form {
     gap: 20px;
 }
 
+
 .form-group {
     display: flex;
 
@@ -219,7 +234,7 @@ form {
 label {
     margin-bottom: 7px;
 
-    color: var(--primary);
+    color: #572532;
 
     font-size: 13px;
 
@@ -245,7 +260,10 @@ select {
 
     border-radius: 10px;
 
-    background: var(--input);
+    /*
+       Slightly transparent pink-white
+    */
+    background: rgba(255, 249, 251, 0.70);
 
     color: var(--text);
 
@@ -257,8 +275,9 @@ select {
 
     transition:
         border-color 0.2s ease,
+        background 0.2s ease,
         box-shadow 0.2s ease,
-        background 0.2s ease;
+        transform 0.2s ease;
 }
 
 
@@ -267,12 +286,12 @@ select {
 ================================= */
 
 input::placeholder {
-    color: #9aa5ac;
+    color: #a98d95;
 }
 
 
 /* =================================
-   FOCUS
+   INPUT FOCUS
 ================================= */
 
 input[type="text"]:focus,
@@ -281,15 +300,18 @@ select:focus {
 
     border-color: var(--primary);
 
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.88);
 
     box-shadow:
-        0 0 0 3px rgba(23, 50, 77, 0.08);
+        0 0 0 3px rgba(184, 59, 94, 0.09),
+        0 5px 15px rgba(120, 35, 60, 0.06);
+
+    transform: translateY(-1px);
 }
 
 
 /* =================================
-   SELECT
+   DROPDOWN
 ================================= */
 
 select {
@@ -298,7 +320,7 @@ select {
 
 
 /* =================================
-   RADIO GROUP
+   RADIO BUTTONS
 ================================= */
 
 .radio-group {
@@ -310,6 +332,7 @@ select {
 
     gap: 9px;
 }
+
 
 .radio-option {
     position: relative;
@@ -348,9 +371,10 @@ select {
 
     border-radius: 10px;
 
-    background: var(--input);
+    background:
+        rgba(255, 249, 251, 0.65);
 
-    color: var(--muted);
+    color: #80616b;
 
     cursor: pointer;
 
@@ -369,9 +393,12 @@ select {
 
     border-color: var(--primary);
 
-    background: #f2f6f9;
+    background:
+        rgba(252, 236, 239, 0.85);
 
-    color: var(--primary);
+    color: var(--primary-dark);
+
+    transform: translateY(-1px);
 }
 
 
@@ -381,12 +408,17 @@ select {
 
     border-color: var(--primary);
 
-    background: var(--primary);
+    background:
+        linear-gradient(
+            135deg,
+            #a93253,
+            #c34869
+        );
 
-    color: white;
+    color: #ffffff;
 
     box-shadow:
-        0 5px 14px rgba(23, 50, 77, 0.18);
+        0 6px 16px rgba(184, 59, 94, 0.22);
 }
 
 
@@ -406,7 +438,13 @@ button[type="submit"] {
 
     border-radius: 10px;
 
-    background: var(--primary);
+    background:
+        linear-gradient(
+            135deg,
+            #922d4a,
+            #b83b5e,
+            #c34869
+        );
 
     color: white;
 
@@ -419,12 +457,12 @@ button[type="submit"] {
     cursor: pointer;
 
     box-shadow:
-        0 8px 20px rgba(23, 50, 77, 0.20);
+        0 9px 22px rgba(184, 59, 94, 0.23);
 
     transition:
-        background 0.2s ease,
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 }
 
 
@@ -432,12 +470,12 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
 
-    background: var(--primary-dark);
-
     transform: translateY(-2px);
 
     box-shadow:
-        0 12px 25px rgba(23, 50, 77, 0.25);
+        0 13px 28px rgba(184, 59, 94, 0.30);
+
+    filter: brightness(1.05);
 }
 
 
@@ -448,20 +486,19 @@ button[type="submit"]:active {
     transform: translateY(0);
 
     box-shadow:
-        0 5px 12px rgba(23, 50, 77, 0.18);
+        0 5px 12px rgba(184, 59, 94, 0.18);
 }
 
 
 /* =================================
-   FOCUS ACCESSIBILITY
+   FOCUS
 ================================= */
 
 input:focus-visible,
 select:focus-visible,
-button:focus-visible,
-label:focus-visible {
+button:focus-visible {
 
-    outline: 2px solid var(--accent);
+    outline: 2px solid #c34869;
 
     outline-offset: 2px;
 }
@@ -471,7 +508,7 @@ label:focus-visible {
    ANIMATION
 ================================= */
 
-@keyframes appear {
+@keyframes fadeUp {
 
     from {
         opacity: 0;
@@ -515,7 +552,10 @@ label:focus-visible {
 
         padding: 30px 20px;
 
-        border-radius: 17px;
+        border-radius: 18px;
+
+        background:
+            rgba(255, 255, 255, 0.64);
     }
 
 
@@ -580,6 +620,7 @@ label:focus-visible {
 @media (max-width: 360px) {
 
     .container {
+
         padding: 26px 16px;
     }
 
@@ -590,7 +631,9 @@ label:focus-visible {
 
 
     .radio-group {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
     }
 }
 
