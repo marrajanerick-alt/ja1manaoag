@@ -47,8 +47,6 @@
             </p>
 
 
-            <!-- FORM -->
-
             <form action="/submit" method="POST">
 
 
@@ -98,13 +96,13 @@
 
                     <div class="phone-input">
 
-                        <div class="country-code">
+                        <div class="phone-prefix">
 
                             <span class="flag">
                                 🇵🇭
                             </span>
 
-                            <span>
+                            <span class="code">
                                 +63
                             </span>
 
@@ -118,6 +116,7 @@
                             maxlength="10"
                             pattern="9[0-9]{9}"
                             inputmode="numeric"
+                            autocomplete="tel"
                             required>
 
                     </div>
@@ -151,7 +150,6 @@
 
                         </label>
 
-
                         <label class="radio-option">
 
                             <input
@@ -181,8 +179,13 @@
                         name="civil_status"
                         required>
 
-                        <option value="" disabled selected>
+                        <option
+                            value=""
+                            disabled
+                            selected>
+
                             Select civil status
+
                         </option>
 
                         <option value="Single">
@@ -219,8 +222,13 @@
                         name="educational_attainment"
                         required>
 
-                        <option value="" disabled selected>
+                        <option
+                            value=""
+                            disabled
+                            selected>
+
                             Select educational attainment
+
                         </option>
 
                         <option value="Elementary">
@@ -301,8 +309,13 @@
                         name="employment_status"
                         required>
 
-                        <option value="" disabled selected>
+                        <option
+                            value=""
+                            disabled
+                            selected>
+
                             Select employment status
+
                         </option>
 
                         <option value="Employed">
