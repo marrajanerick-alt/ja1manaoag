@@ -1,7 +1,6 @@
-/* ========================================
-   CHRISTIAN THEME
-   White • Burgundy • Gold
-======================================== */
+/* ================================
+   GLOBAL
+================================ */
 
 * {
     margin: 0;
@@ -15,315 +14,175 @@ html {
 
 body {
     min-height: 100vh;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    color: #2b2b2b;
+    padding: 30px 15px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #35151d;
 
     background:
         radial-gradient(
-            circle at 10% 5%,
-            rgba(139, 28, 28, 0.08),
+            circle at 10% 10%,
+            rgba(128, 25, 45, 0.08),
             transparent 30%
         ),
         radial-gradient(
-            circle at 90% 95%,
-            rgba(180, 140, 40, 0.10),
-            transparent 30%
+            circle at 90% 90%,
+            rgba(190, 150, 45, 0.12),
+            transparent 35%
         ),
-        #faf9f6;
-
-    padding: 40px 16px;
-
-    overflow-x: hidden;
-
-    position: relative;
+        #faf8f5;
 }
 
 
-/* ========================================
-   SUBTLE FAITH DECORATION
-======================================== */
-
-body::before {
-    content: "✝";
-
-    position: fixed;
-
-    top: 25px;
-    right: 35px;
-
-    font-family: Georgia, serif;
-
-    font-size: 90px;
-
-    color: #8b1e1e;
-
-    opacity: 0.045;
-
-    pointer-events: none;
-
-    z-index: -1;
-}
-
-
-body::after {
-    content: "✝";
-
-    position: fixed;
-
-    bottom: 10px;
-    left: 25px;
-
-    font-family: Georgia, serif;
-
-    font-size: 110px;
-
-    color: #b08a32;
-
-    opacity: 0.045;
-
-    pointer-events: none;
-
-    z-index: -1;
-}
-
-
-/* ========================================
+/* ================================
    MAIN CONTAINER
-======================================== */
+================================ */
 
 .container {
-
     width: 100%;
-
     max-width: 720px;
-
-    margin: 0 auto;
+    margin: 20px auto;
 
     padding: 42px;
 
-    background:
-        rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.94);
 
-    border: 1px solid #e5dfd4;
-
+    border: 1px solid rgba(190, 150, 45, 0.35);
     border-radius: 24px;
 
     box-shadow:
-        0 20px 60px rgba(70, 30, 20, 0.10),
-        0 4px 15px rgba(70, 30, 20, 0.05);
+        0 20px 60px rgba(60, 20, 30, 0.10);
 
     position: relative;
 
-    overflow: hidden;
-
-    animation: appear 0.7s ease-out;
+    animation: fadeUp 0.7s ease;
 }
 
 
-/* Burgundy top border */
+/* Elegant top accent */
 
 .container::before {
-
     content: "";
-
     position: absolute;
 
     top: 0;
-    left: 0;
+    left: 8%;
+    right: 8%;
 
-    width: 100%;
+    height: 4px;
 
-    height: 5px;
+    border-radius: 0 0 10px 10px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #6f1717,
-            #9f2929,
-            #b08a32,
-            #9f2929,
-            #6f1717
-        );
+    background: linear-gradient(
+        90deg,
+        #641827,
+        #b89232,
+        #641827
+    );
 }
 
 
-@keyframes appear {
-
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ========================================
+/* ================================
    HEADER
-======================================== */
+================================ */
 
 h1 {
-
     text-align: center;
 
     font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 32px;
-
+    font-size: 34px;
     font-weight: 700;
 
-    color: #751919;
+    color: #641827;
 
-    margin-top: 5px;
+    letter-spacing: -0.5px;
 
-    margin-bottom: 8px;
-
-    letter-spacing: -0.3px;
+    margin-bottom: 10px;
 }
 
-
 .subtitle {
-
     text-align: center;
 
     color: #777;
 
-    font-size: 14px;
+    font-size: 15px;
 
-    line-height: 1.6;
+    margin-bottom: 35px;
 
-    margin-bottom: 32px;
+    position: relative;
 }
 
 
-/* Small decorative line */
+/* Gold decorative line */
 
 .subtitle::after {
-
     content: "";
 
     display: block;
 
     width: 55px;
-
     height: 2px;
 
-    margin: 15px auto 0;
+    margin: 14px auto 0;
 
-    background: #b08a32;
+    background: #b89232;
 
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 
-/* ========================================
-   FORM GROUP
-======================================== */
+/* ================================
+   FORM
+================================ */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
 
 .form-group {
-
-    margin-bottom: 22px;
-
-    animation: fieldAppear 0.55s ease both;
+    display: flex;
+    flex-direction: column;
 }
 
 
-.form-group:nth-child(1) {
-    animation-delay: 0.05s;
-}
-
-.form-group:nth-child(2) {
-    animation-delay: 0.10s;
-}
-
-.form-group:nth-child(3) {
-    animation-delay: 0.15s;
-}
-
-.form-group:nth-child(4) {
-    animation-delay: 0.20s;
-}
-
-.form-group:nth-child(5) {
-    animation-delay: 0.25s;
-}
-
-.form-group:nth-child(6) {
-    animation-delay: 0.30s;
-}
-
-.form-group:nth-child(7) {
-    animation-delay: 0.35s;
-}
-
-.form-group:nth-child(8) {
-    animation-delay: 0.40s;
-}
-
-.form-group:nth-child(9) {
-    animation-delay: 0.45s;
-}
-
-
-@keyframes fieldAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ========================================
+/* ================================
    LABELS
-======================================== */
+================================ */
 
 label {
-
-    display: block;
+    margin-bottom: 8px;
 
     font-size: 14px;
-
     font-weight: 600;
 
-    color: #3b302c;
-
-    margin-bottom: 8px;
+    color: #4d222b;
 }
 
 
-/* ========================================
-   INPUTS
-======================================== */
+/* ================================
+   INPUTS & SELECTS
+================================ */
 
 input[type="text"],
 input[type="tel"],
 select {
-
     width: 100%;
 
-    height: 50px;
+    height: 52px;
 
     padding: 0 16px;
 
-    border: 1px solid #ded8d0;
+    border: 1px solid #ded7d1;
 
-    border-radius: 11px;
+    border-radius: 12px;
 
-    background: #fcfbf9;
+    background: #fff;
 
-    color: #292929;
+    color: #35151d;
 
+    font-family: inherit;
     font-size: 15px;
 
     outline: none;
@@ -331,91 +190,74 @@ select {
     transition:
         border-color 0.25s ease,
         box-shadow 0.25s ease,
-        background 0.25s ease,
-        transform 0.25s ease;
+        transform 0.25s ease,
+        background 0.25s ease;
 }
 
 
-input[type="text"]::placeholder,
-input[type="tel"]::placeholder {
+/* Placeholder */
 
+input::placeholder {
     color: #aaa;
 }
 
 
-input[type="text"]:hover,
-input[type="tel"]:hover,
-select:hover {
-
-    border-color: #c9bfb5;
-}
-
+/* Focus */
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
 select:focus {
+    border-color: #8a2639;
 
-    background: #ffffff;
-
-    border-color: #8b1e1e;
+    background: #fff;
 
     box-shadow:
-        0 0 0 4px rgba(139, 30, 30, 0.09);
+        0 0 0 4px rgba(138, 38, 57, 0.08);
 
     transform: translateY(-1px);
 }
 
+
+/* Select arrow */
 
 select {
     cursor: pointer;
 }
 
 
-select option {
-
-    background: white;
-
-    color: #292929;
-}
-
-
-/* ========================================
+/* ================================
    RADIO BUTTONS
-======================================== */
+================================ */
 
 .radio-group {
+    display: flex;
 
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
+    flex-wrap: wrap;
 
     gap: 10px;
 }
 
 
 .radio-option {
+    flex: 1;
+
+    min-width: 120px;
 
     position: relative;
 }
 
 
-.radio-option input {
-
+.radio-option input[type="radio"] {
     position: absolute;
 
     opacity: 0;
-
-    pointer-events: none;
 }
 
 
 .radio-option label {
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     min-height: 48px;
@@ -424,81 +266,73 @@ select option {
 
     padding: 10px 15px;
 
-    border: 1px solid #ded8d0;
+    border: 1px solid #ded7d1;
 
-    border-radius: 11px;
+    border-radius: 12px;
 
-    background: #fcfbf9;
+    background: #fff;
 
-    color: #4b403b;
+    color: #555;
 
     cursor: pointer;
 
     font-size: 14px;
 
-    font-weight: 600;
-
     transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        color 0.25s ease,
-        transform 0.2s ease,
-        box-shadow 0.25s ease;
+        all 0.25s ease;
 }
 
+
+/* Hover */
 
 .radio-option label:hover {
+    border-color: #a56d76;
 
-    background: #fff8f5;
+    background: #fff9fa;
 
-    border-color: #a33a3a;
-
-    color: #7c1d1d;
-
-    transform: translateY(-2px);
+    color: #641827;
 }
 
 
-.radio-option input:checked + label {
+/* Selected */
 
-    background: #8b1e1e;
+.radio-option input[type="radio"]:checked + label {
+    border-color: #7b1f32;
 
-    border-color: #8b1e1e;
+    background: #7b1f32;
 
     color: white;
 
     box-shadow:
-        0 6px 16px rgba(139, 30, 30, 0.22);
-
-    transform: translateY(-1px);
+        0 5px 15px rgba(123, 31, 50, 0.18);
 }
 
 
-/* ========================================
+/* ================================
    SUBMIT BUTTON
-======================================== */
+================================ */
 
 button[type="submit"] {
-
     width: 100%;
 
-    height: 54px;
+    height: 55px;
 
     margin-top: 8px;
 
     border: none;
 
-    border-radius: 12px;
+    border-radius: 13px;
 
     background:
         linear-gradient(
             135deg,
-            #701616,
-            #8b1e1e,
-            #a52a2a
+            #641827,
+            #8b2439
         );
 
     color: white;
+
+    font-family: inherit;
 
     font-size: 16px;
 
@@ -509,7 +343,7 @@ button[type="submit"] {
     cursor: pointer;
 
     box-shadow:
-        0 8px 20px rgba(112, 22, 22, 0.22);
+        0 10px 25px rgba(100, 24, 39, 0.20);
 
     transition:
         transform 0.25s ease,
@@ -518,59 +352,62 @@ button[type="submit"] {
 }
 
 
-button[type="submit"]::before {
-
-    content: "✝  ";
-
-    font-family: Georgia, serif;
-
-    color: #f1d98b;
-}
-
-
 button[type="submit"]:hover {
-
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 
     box-shadow:
-        0 12px 28px rgba(112, 22, 22, 0.30);
+        0 14px 30px rgba(100, 24, 39, 0.28);
 
     filter: brightness(1.05);
 }
 
 
 button[type="submit"]:active {
-
-    transform: scale(0.98);
+    transform: translateY(0);
 
     box-shadow:
-        0 5px 12px rgba(112, 22, 22, 0.20);
+        0 6px 15px rgba(100, 24, 39, 0.18);
 }
 
 
-/* ========================================
+/* ================================
+   ANIMATION
+================================ */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================
    MOBILE
-======================================== */
+================================ */
 
 @media (max-width: 600px) {
 
     body {
-        padding: 20px 10px;
+        padding: 15px 10px;
     }
 
-
     .container {
+        margin: 10px auto;
 
         padding: 30px 20px;
 
         border-radius: 20px;
     }
 
-
     h1 {
-        font-size: 27px;
+        font-size: 28px;
     }
-
 
     .subtitle {
         font-size: 14px;
@@ -578,45 +415,59 @@ button[type="submit"]:active {
         margin-bottom: 28px;
     }
 
-
-    .radio-group {
-
-        grid-template-columns: 1fr;
+    form {
+        gap: 19px;
     }
 
+    .radio-group {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+    }
+
+    .radio-option {
+        min-width: 0;
+    }
+
+    .radio-option label {
+        min-height: 46px;
+
+        padding: 8px;
+
+        font-size: 13px;
+    }
 
     input[type="text"],
     input[type="tel"],
     select {
+        height: 50px;
 
-        height: 48px;
+        font-size: 14px;
     }
 
-
     button[type="submit"] {
-
         height: 52px;
     }
 }
 
 
-/* ========================================
-   SMALL PHONES
-======================================== */
+/* ================================
+   VERY SMALL SCREENS
+================================ */
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
 
     .container {
-        padding: 27px 16px;
+        padding: 25px 16px;
     }
-
 
     h1 {
-        font-size: 24px;
+        font-size: 25px;
     }
 
-
-    .subtitle {
-        font-size: 13px;
+    .radio-group {
+        grid-template-columns: 1fr;
     }
 }
