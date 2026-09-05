@@ -1,20 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 
 /* =================================
-   COLORS
+   VARIABLES
 ================================= */
 
 :root {
-    --red-dark: #8b0015;
-    --red: #b4001e;
-    --red-bright: #d40027;
-    --red-light: #fff1f3;
-    --red-border: #e5a8b2;
+    --primary: #17324d;
+    --primary-dark: #0f2438;
+    --accent: #c89b3c;
+
+    --text: #263238;
+    --muted: #66737d;
 
     --white: #ffffff;
-    --text: #351016;
-    --text-light: #75434b;
+    --input: #f8fafb;
+    --border: #dce3e8;
+
+    --shadow:
+        0 20px 55px rgba(15, 36, 56, 0.15);
 }
 
 
@@ -37,14 +41,15 @@ body {
 
     padding: 30px 15px;
 
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
 
     color: var(--text);
 
+    /* Background image */
     background:
         linear-gradient(
-            rgba(255, 255, 255, 0.76),
-            rgba(255, 255, 255, 0.76)
+            rgba(245, 248, 250, 0.88),
+            rgba(245, 248, 250, 0.88)
         ),
         url("/static/background.jpg");
 
@@ -58,7 +63,7 @@ body {
 
 
 /* =================================
-   RED ATMOSPHERE
+   SUBTLE BACKGROUND
 ================================= */
 
 body::before {
@@ -71,13 +76,13 @@ body::before {
     background:
         radial-gradient(
             circle at 0% 0%,
-            rgba(180, 0, 30, 0.20),
-            transparent 30%
+            rgba(23, 50, 77, 0.08),
+            transparent 35%
         ),
         radial-gradient(
             circle at 100% 100%,
-            rgba(180, 0, 30, 0.15),
-            transparent 32%
+            rgba(200, 155, 60, 0.08),
+            transparent 35%
         );
 
     pointer-events: none;
@@ -93,21 +98,19 @@ body::before {
 .container {
     width: 100%;
 
-    max-width: 720px;
+    max-width: 700px;
 
     margin: 20px auto;
 
-    padding: 0 42px 42px;
+    padding: 40px;
 
-    background: rgba(255, 255, 255, 0.90);
+    background: rgba(255, 255, 255, 0.94);
 
-    border: 1px solid rgba(180, 0, 30, 0.18);
+    border: 1px solid rgba(23, 50, 77, 0.10);
 
-    border-radius: 24px;
+    border-radius: 20px;
 
-    box-shadow:
-        0 25px 70px rgba(100, 0, 20, 0.22),
-        0 8px 25px rgba(100, 0, 20, 0.10);
+    box-shadow: var(--shadow);
 
     position: relative;
 
@@ -115,54 +118,49 @@ body::before {
 
     overflow: hidden;
 
-    animation: fadeUp 0.7s ease;
+    animation: appear 0.6s ease;
 }
 
 
 /* =================================
-   RED HEADER
+   TOP ACCENT
 ================================= */
 
 .container::before {
     content: "";
 
-    display: block;
+    position: absolute;
 
-    height: 115px;
+    top: 0;
+    left: 0;
 
-    margin: 0 -42px 35px;
+    width: 100%;
+    height: 5px;
 
     background:
         linear-gradient(
-            135deg,
-            #7d0013,
-            #b4001e 50%,
-            #d40027
+            90deg,
+            var(--primary),
+            var(--accent),
+            var(--primary)
         );
-
-    border-radius: 0 0 30px 30px;
-
-    box-shadow:
-        0 8px 25px rgba(180, 0, 30, 0.20);
 }
 
 
 /* =================================
-   HEADER TEXT
+   HEADER
 ================================= */
 
 h1 {
     text-align: center;
 
-    font-family: "Poppins", sans-serif;
-
-    font-size: 32px;
+    font-size: 30px;
 
     font-weight: 700;
 
-    color: var(--red-dark);
+    color: var(--primary);
 
-    letter-spacing: -0.7px;
+    letter-spacing: -0.6px;
 
     margin-bottom: 8px;
 }
@@ -170,15 +168,13 @@ h1 {
 .subtitle {
     text-align: center;
 
-    color: var(--text-light);
+    color: var(--muted);
 
     font-size: 14px;
 
     line-height: 1.6;
 
-    margin-bottom: 35px;
-
-    position: relative;
+    margin-bottom: 32px;
 }
 
 .subtitle::after {
@@ -186,13 +182,12 @@ h1 {
 
     display: block;
 
-    width: 65px;
-
-    height: 4px;
+    width: 45px;
+    height: 3px;
 
     margin: 14px auto 0;
 
-    background: var(--red);
+    background: var(--accent);
 
     border-radius: 10px;
 }
@@ -207,7 +202,7 @@ form {
 
     flex-direction: column;
 
-    gap: 22px;
+    gap: 20px;
 }
 
 .form-group {
@@ -222,48 +217,48 @@ form {
 ================================= */
 
 label {
-    margin-bottom: 8px;
+    margin-bottom: 7px;
+
+    color: var(--primary);
 
     font-size: 13px;
 
     font-weight: 600;
-
-    color: #50141d;
 }
 
 
 /* =================================
-   INPUTS & DROPDOWNS
+   INPUTS
 ================================= */
 
 input[type="text"],
 input[type="tel"],
 select {
+
     width: 100%;
 
-    height: 52px;
+    height: 50px;
 
-    padding: 0 16px;
+    padding: 0 15px;
 
-    border: 1.5px solid var(--red-border);
+    border: 1px solid var(--border);
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: var(--white);
+    background: var(--input);
 
     color: var(--text);
 
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
 
     font-size: 14px;
 
     outline: none;
 
     transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease,
-        background 0.25s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 
@@ -272,32 +267,29 @@ select {
 ================================= */
 
 input::placeholder {
-    color: #a77c83;
+    color: #9aa5ac;
 }
 
 
 /* =================================
-   INPUT FOCUS
+   FOCUS
 ================================= */
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
 select:focus {
 
-    border-color: var(--red);
+    border-color: var(--primary);
 
-    background: #ffffff;
+    background: var(--white);
 
     box-shadow:
-        0 0 0 4px rgba(180, 0, 30, 0.09),
-        0 5px 15px rgba(180, 0, 30, 0.08);
-
-    transform: translateY(-1px);
+        0 0 0 3px rgba(23, 50, 77, 0.08);
 }
 
 
 /* =================================
-   DROPDOWN
+   SELECT
 ================================= */
 
 select {
@@ -306,15 +298,17 @@ select {
 
 
 /* =================================
-   RADIO BUTTONS
+   RADIO GROUP
 ================================= */
 
 .radio-group {
+
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
-    gap: 10px;
+    gap: 9px;
 }
 
 .radio-option {
@@ -322,9 +316,10 @@ select {
 }
 
 
-/* Hide original radio */
+/* Hide radio */
 
 .radio-option input[type="radio"] {
+
     position: absolute;
 
     opacity: 0;
@@ -343,29 +338,28 @@ select {
 
     justify-content: center;
 
-    min-height: 50px;
+    min-height: 48px;
 
     margin: 0;
 
-    padding: 10px 15px;
+    padding: 9px 12px;
 
-    border: 1.5px solid var(--red-border);
+    border: 1px solid var(--border);
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: #ffffff;
+    background: var(--input);
 
-    color: #713b43;
+    color: var(--muted);
 
     cursor: pointer;
-
-    font-family: "Poppins", sans-serif;
 
     font-size: 13px;
 
     font-weight: 500;
 
-    transition: all 0.25s ease;
+    transition:
+        all 0.2s ease;
 }
 
 
@@ -373,13 +367,11 @@ select {
 
 .radio-option label:hover {
 
-    border-color: var(--red);
+    border-color: var(--primary);
 
-    background: var(--red-light);
+    background: #f2f6f9;
 
-    color: var(--red-dark);
-
-    transform: translateY(-1px);
+    color: var(--primary);
 }
 
 
@@ -387,21 +379,14 @@ select {
 
 .radio-option input[type="radio"]:checked + label {
 
-    border-color: var(--red-dark);
+    border-color: var(--primary);
 
-    background:
-        linear-gradient(
-            135deg,
-            #980018,
-            #c80025
-        );
+    background: var(--primary);
 
-    color: #ffffff;
+    color: white;
 
     box-shadow:
-        0 8px 20px rgba(180, 0, 30, 0.25);
-
-    transform: translateY(-1px);
+        0 5px 14px rgba(23, 50, 77, 0.18);
 }
 
 
@@ -413,74 +398,72 @@ button[type="submit"] {
 
     width: 100%;
 
-    height: 58px;
+    height: 54px;
 
     margin-top: 8px;
 
     border: none;
 
-    border-radius: 14px;
+    border-radius: 10px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #7d0013,
-            #b4001e 50%,
-            #d40027
-        );
+    background: var(--primary);
 
-    color: #ffffff;
+    color: white;
 
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
 
-    font-size: 15px;
+    font-size: 14px;
 
     font-weight: 600;
-
-    letter-spacing: 0.2px;
 
     cursor: pointer;
 
     box-shadow:
-        0 10px 25px rgba(180, 0, 30, 0.28);
+        0 8px 20px rgba(23, 50, 77, 0.20);
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        filter 0.25s ease;
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
-/* Button hover */
+/* Hover */
 
 button[type="submit"]:hover {
+
+    background: var(--primary-dark);
 
     transform: translateY(-2px);
 
     box-shadow:
-        0 15px 32px rgba(180, 0, 30, 0.35);
-
-    filter: brightness(1.07);
+        0 12px 25px rgba(23, 50, 77, 0.25);
 }
 
 
-/* Button click */
+/* Active */
 
 button[type="submit"]:active {
 
     transform: translateY(0);
 
     box-shadow:
-        0 6px 15px rgba(180, 0, 30, 0.20);
+        0 5px 12px rgba(23, 50, 77, 0.18);
 }
 
 
 /* =================================
-   FORM GROUP HOVER
+   FOCUS ACCESSIBILITY
 ================================= */
 
-.form-group:focus-within label {
-    color: var(--red);
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+label:focus-visible {
+
+    outline: 2px solid var(--accent);
+
+    outline-offset: 2px;
 }
 
 
@@ -488,13 +471,13 @@ button[type="submit"]:active {
    ANIMATION
 ================================= */
 
-@keyframes fadeUp {
+@keyframes appear {
 
     from {
         opacity: 0;
 
         transform:
-            translateY(25px);
+            translateY(15px);
     }
 
     to {
@@ -513,6 +496,7 @@ button[type="submit"]:active {
 @media (max-width: 600px) {
 
     body {
+
         padding: 15px 10px;
 
         background-size: 350px auto;
@@ -529,28 +513,14 @@ button[type="submit"]:active {
 
         margin: 10px auto;
 
-        padding: 0 20px 30px;
+        padding: 30px 20px;
 
-        border-radius: 20px;
-
-        background: rgba(255, 255, 255, 0.92);
-    }
-
-
-    .container::before {
-
-        height: 95px;
-
-        margin:
-            0 -20px 28px;
-
-        border-radius:
-            0 0 24px 24px;
+        border-radius: 17px;
     }
 
 
     h1 {
-        font-size: 27px;
+        font-size: 26px;
     }
 
 
@@ -558,12 +528,22 @@ button[type="submit"]:active {
 
         font-size: 13px;
 
-        margin-bottom: 28px;
+        margin-bottom: 27px;
     }
 
 
     form {
-        gap: 19px;
+        gap: 18px;
+    }
+
+
+    input[type="text"],
+    input[type="tel"],
+    select {
+
+        height: 49px;
+
+        font-size: 13px;
     }
 
 
@@ -578,27 +558,15 @@ button[type="submit"]:active {
 
     .radio-option label {
 
-        min-height: 46px;
-
-        padding: 8px;
+        min-height: 45px;
 
         font-size: 12px;
     }
 
 
-    input[type="text"],
-    input[type="tel"],
-    select {
-
-        height: 50px;
-
-        font-size: 13px;
-    }
-
-
     button[type="submit"] {
 
-        height: 54px;
+        height: 52px;
 
         font-size: 14px;
     }
@@ -612,26 +580,16 @@ button[type="submit"]:active {
 @media (max-width: 360px) {
 
     .container {
-
-        padding:
-            0 16px 25px;
-    }
-
-
-    .container::before {
-
-        margin:
-            0 -16px 25px;
+        padding: 26px 16px;
     }
 
 
     h1 {
-        font-size: 24px;
+        font-size: 23px;
     }
 
 
     .radio-group {
-
         grid-template-columns: 1fr;
     }
 }
