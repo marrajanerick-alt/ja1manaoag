@@ -74,7 +74,7 @@ body {
     padding: 38px 35px 40px;
 
     /* Transparent */
-    background: transparent;
+    background:rgba(255,255,255,0.5);
 
     /* Very subtle border */
     border: 1px solid rgba(255, 255, 255, 0.45);
