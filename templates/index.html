@@ -27,18 +27,13 @@
 
         <div class="container">
 
-            <!-- LOGO -->
-
             <div class="form-logo">
 
                 <img
-                    src="{{ url_for('static', filename='1788601861588.png') }}"
+                    src="{{ url_for('static', filename='logo.png') }}"
                     alt="Logo">
 
             </div>
-
-
-            <!-- TITLE -->
 
             <h1>JA1 Manaoag Members Information Form</h1>
 
@@ -68,6 +63,63 @@
                 </div>
 
 
+                <!-- NICKNAME -->
+
+                <div class="form-group">
+
+                    <label for="nickname">
+                        Nickname
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nickname"
+                        name="nickname"
+                        placeholder="Enter your nickname"
+                        required>
+
+                </div>
+
+
+                <!-- AGE -->
+
+                <div class="form-group">
+
+                    <label for="age">
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter your age"
+                        min="1"
+                        max="120"
+                        step="1"
+                        inputmode="numeric"
+                        required>
+
+                </div>
+
+
+                <!-- DATE OF BIRTH -->
+
+                <div class="form-group">
+
+                    <label for="date_of_birth">
+                        Date of Birth
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date_of_birth"
+                        name="date_of_birth"
+                        required>
+
+                </div>
+
+
                 <!-- ADDRESS -->
 
                 <div class="form-group">
@@ -86,7 +138,7 @@
                 </div>
 
 
-                <!-- CONTACT NUMBER -->
+                <!-- CONTACT -->
 
                 <div class="form-group">
 
@@ -183,9 +235,7 @@
                             value=""
                             disabled
                             selected>
-
                             Select civil status
-
                         </option>
 
                         <option value="Single">
@@ -209,7 +259,7 @@
                 </div>
 
 
-                <!-- EDUCATIONAL ATTAINMENT -->
+                <!-- EDUCATION -->
 
                 <div class="form-group">
 
@@ -226,9 +276,7 @@
                             value=""
                             disabled
                             selected>
-
                             Select educational attainment
-
                         </option>
 
                         <option value="Elementary">
@@ -260,7 +308,7 @@
                 </div>
 
 
-                <!-- FATHER'S NAME -->
+                <!-- FATHER -->
 
                 <div class="form-group">
 
@@ -278,7 +326,7 @@
                 </div>
 
 
-                <!-- MOTHER'S NAME -->
+                <!-- MOTHER -->
 
                 <div class="form-group">
 
@@ -296,7 +344,7 @@
                 </div>
 
 
-                <!-- EMPLOYMENT STATUS -->
+                <!-- EMPLOYMENT -->
 
                 <div class="form-group">
 
@@ -313,9 +361,7 @@
                             value=""
                             disabled
                             selected>
-
                             Select employment status
-
                         </option>
 
                         <option value="Employed">
@@ -343,6 +389,111 @@
                 </div>
 
 
+                <!-- BAPTIZED -->
+
+                <div class="form-group">
+
+                    <label>
+                        Are you already baptized as a Christian?
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option">
+
+                            <input
+                                type="radio"
+                                name="baptized"
+                                value="Yes"
+                                required>
+
+                            <span>Yes</span>
+
+                        </label>
+
+                        <label class="radio-option">
+
+                            <input
+                                type="radio"
+                                name="baptized"
+                                value="No">
+
+                            <span>No</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HOW LONG CHRISTIAN -->
+
+                <div class="form-group">
+
+                    <label for="christian_duration">
+                        How long have you been a Christian?
+                    </label>
+
+                    <select
+                        id="christian_duration"
+                        name="christian_duration"
+                        required>
+
+                        <option
+                            value=""
+                            disabled
+                            selected>
+                            Select duration
+                        </option>
+
+                        <option value="New">
+                            New
+                        </option>
+
+                        <option value="1-6 months">
+                            1-6 months
+                        </option>
+
+                        <option value="6-11 months">
+                            6-11 months
+                        </option>
+
+                        <option value="1-2 years">
+                            1-2 years
+                        </option>
+
+                        <option value="3-4 years">
+                            3-4 years
+                        </option>
+
+                        <option value="5 years and above">
+                            5 years and above
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SKILLS -->
+
+                <div class="form-group">
+
+                    <label for="skills">
+                        Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="skills"
+                        name="skills"
+                        placeholder="ex. singing, dancing, playing instruments"
+                        required>
+
+                </div>
+
+
                 <!-- SUBMIT -->
 
                 <button
@@ -352,6 +503,7 @@
                     Submit Information
 
                 </button>
+
 
             </form>
 
