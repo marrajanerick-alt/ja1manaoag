@@ -1,1 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Information</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            padding: 30px 15px;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.88),
+                    rgba(255,255,255,0.88)
+                ),
+                url("/static/14fbb570668080d5d5952ab7b710bcf7 (1).jpg");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-attachment: fixed;
+
+            color: #333;
+        }
+
+
+        .container {
+            width: 100%;
+
+            max-width: 600px;
+
+            margin: auto;
+
+            padding: 30px;
+
+            background: rgba(255,255,255,0.95);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.08);
+        }
+
+
+        h1 {
+            margin: 0;
+
+            text-align: center;
+
+            color: #8f2948;
+
+            font-size: 24px;
+        }
+
+
+        .subtitle {
+            margin: 7px 0 25px;
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+
+        .error {
+            margin-bottom: 20px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #fce8ed;
+
+            color: #8f2948;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #444;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 13px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 9px;
+
+            background: white;
+
+            color: #333;
+
+            font-size: 13px;
+
+            outline: none;
+        }
+
+
+        input:focus,
+        select:focus {
+            border-color: #b83b5e;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(184,59,94,0.08);
+        }
+
+
+        input[type="radio"] {
+            width: 17px;
+
+            height: 17px;
+
+            accent-color: #b83b5e;
+        }
+
+
+        .radio-group {
+            display: flex;
+
+            gap: 25px;
+
+            align-items: center;
+        }
+
+
+        .radio-option {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            font-size: 13px;
+
+            font-weight: normal;
+
+            margin: 0;
+        }
+
+
+        .buttons {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+
+        .save-button,
+        .cancel-button {
+            flex: 1;
+
+            height: 48px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .save-button {
+            border: none;
+
+            background: #b83b5e;
+
+            color: white;
+        }
+
+
+        .save-button:hover {
+            background: #8f2948;
+        }
+
+
+        .cancel-button {
+            background: #eeeeee;
+
+            color: #555;
+        }
+
+
+        .cancel-button:hover {
+            background: #dddddd;
+        }
+
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        Edit Information
+    </h1>
+
+
+    <p class="subtitle">
+        Update the submitted information below.
+    </p>
+
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form
+        method="POST"
+        action="/admin/edit/{{ user['id'] }}">
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                name="name"
+                value="{{ user['name'] }}"
+                required>
+
+        </div>
+
+
+        <!-- NICKNAME -->
+
+        <div class="form-group">
+
+            <label>
+                Nickname
+            </label>
+
+            <input
+                type="text"
+                name="nickname"
+                value="{{ user['nickname'] or '' }}"
+                required>
+
+        </div>
+
+
+        <!-- AGE -->
+
+        <div class="form-group">
+
+            <label>
+                Age
+            </label>
+
+            <input
+                type="number"
+                name="age"
+                value="{{ user['age'] or '' }}"
+                min="1"
+                max="120"
+                step="1"
+                required>
+
+        </div>
+
+
+        <!-- DATE OF BIRTH -->
+
+        <div class="form-group">
+
+            <label>
+                Date of Birth
+            </label>
+
+            <input
+                type="date"
+                name="date_of_birth"
+                value="{{ user['date_of_birth'] or '' }}"
+                required>
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="form-group">
+
+            <label>
+                Address
+            </label>
+
+            <input
+                type="text"
+                name="address"
+                value="{{ user['address'] }}"
+                required>
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="form-group">
+
+            <label>
+                Contact Number
+            </label>
+
+            <input
+                type="tel"
+                name="contact"
+                value="{{ user['contact'] }}"
+                placeholder="+639XXXXXXXXX"
+                required>
+
+        </div>
+
+
+        <!-- SEX -->
+
+        <div class="form-group">
+
+            <label>
+                Sex
+            </label>
+
+
+            <div class="radio-group">
+
+                <label class="radio-option">
+
+                    <input
+                        type="radio"
+                        name="sex"
+                        value="Male"
+                        {% if user['sex'] == 'Male' %}checked{% endif %}
+                        required>
+
+                    Male
+
+                </label>
+
+
+                <label class="radio-option">
+
+                    <input
+                        type="radio"
+                        name="sex"
+                        value="Female"
+                        {% if user['sex'] == 'Female' %}checked{% endif %}>
+
+                    Female
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- CIVIL STATUS -->
+
+        <div class="form-group">
+
+            <label>
+                Civil Status
+            </label>
+
+            <select
+                name="civil_status"
+                required>
+
+                <option value="Single"
+                    {% if user['civil_status'] == 'Single' %}selected{% endif %}>
+                    Single
+                </option>
+
+                <option value="Married"
+                    {% if user['civil_status'] == 'Married' %}selected{% endif %}>
+                    Married
+                </option>
+
+                <option value="Widowed"
+                    {% if user['civil_status'] == 'Widowed' %}selected{% endif %}>
+                    Widowed
+                </option>
+
+                <option value="Separated"
+                    {% if user['civil_status'] == 'Separated' %}selected{% endif %}>
+                    Separated
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- EDUCATION -->
+
+        <div class="form-group">
+
+            <label>
+                Educational Attainment
+            </label>
+
+            <select
+                name="educational_attainment"
+                required>
+
+                <option value="Elementary"
+                    {% if user['educational_attainment'] == 'Elementary' %}selected{% endif %}>
+                    Elementary
+                </option>
+
+                <option value="Junior High School"
+                    {% if user['educational_attainment'] == 'Junior High School' %}selected{% endif %}>
+                    Junior High School
+                </option>
+
+                <option value="Senior High School"
+                    {% if user['educational_attainment'] == 'Senior High School' %}selected{% endif %}>
+                    Senior High School
+                </option>
+
+                <option value="College"
+                    {% if user['educational_attainment'] == 'College' %}selected{% endif %}>
+                    College
+                </option>
+
+                <option value="Vocational"
+                    {% if user['educational_attainment'] == 'Vocational' %}selected{% endif %}>
+                    Vocational
+                </option>
+
+                <option value="Postgraduate"
+                    {% if user['educational_attainment'] == 'Postgraduate' %}selected{% endif %}>
+                    Postgraduate
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- FATHER -->
+
+        <div class="form-group">
+
+            <label>
+                Father's Name
+            </label>
+
+            <input
+                type="text"
+                name="father_name"
+                value="{{ user['father_name'] }}"
+                required>
+
+        </div>
+
+
+        <!-- MOTHER -->
+
+        <div class="form-group">
+
+            <label>
+                Mother's Name
+            </label>
+
+            <input
+                type="text"
+                name="mother_name"
+                value="{{ user['mother_name'] }}"
+                required>
+
+        </div>
+
+
+        <!-- EMPLOYMENT -->
+
+        <div class="form-group">
+
+            <label>
+                Employment Status
+            </label>
+
+            <select
+                name="employment_status"
+                required>
+
+                <option value="Employed"
+                    {% if user['employment_status'] == 'Employed' %}selected{% endif %}>
+                    Employed
+                </option>
+
+                <option value="Self-Employed"
+                    {% if user['employment_status'] == 'Self-Employed' %}selected{% endif %}>
+                    Self-Employed
+                </option>
+
+                <option value="Unemployed"
+                    {% if user['employment_status'] == 'Unemployed' %}selected{% endif %}>
+                    Unemployed
+                </option>
+
+                <option value="Student"
+                    {% if user['employment_status'] == 'Student' %}selected{% endif %}>
+                    Student
+                </option>
+
+                <option value="Retired"
+                    {% if user['employment_status'] == 'Retired' %}selected{% endif %}>
+                    Retired
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- BAPTIZED -->
+
+        <div class="form-group">
+
+            <label>
+                Are you already baptized as a Christian?
+            </label>
+
+
+            <div class="radio-group">
+
+                <label class="radio-option">
+
+                    <input
+                        type="radio"
+                        name="baptized"
+                        value="Yes"
+                        {% if user['baptized'] == 'Yes' %}checked{% endif %}
+                        required>
+
+                    Yes
+
+                </label>
+
+
+                <label class="radio-option">
+
+                    <input
+                        type="radio"
+                        name="baptized"
+                        value="No"
+                        {% if user['baptized'] == 'No' %}checked{% endif %}>
+
+                    No
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHRISTIAN DURATION -->
+
+        <div class="form-group">
+
+            <label>
+                How long have you been a Christian?
+            </label>
+
+            <select
+                name="christian_duration"
+                required>
+
+                <option value="New"
+                    {% if user['christian_duration'] == 'New' %}selected{% endif %}>
+                    New
+                </option>
+
+                <option value="1-6 months"
+                    {% if user['christian_duration'] == '1-6 months' %}selected{% endif %}>
+                    1-6 months
+                </option>
+
+                <option value="6-11 months"
+                    {% if user['christian_duration'] == '6-11 months' %}selected{% endif %}>
+                    6-11 months
+                </option>
+
+                <option value="1-2 years"
+                    {% if user['christian_duration'] == '1-2 years' %}selected{% endif %}>
+                    1-2 years
+                </option>
+
+                <option value="3-4 years"
+                    {% if user['christian_duration'] == '3-4 years' %}selected{% endif %}>
+                    3-4 years
+                </option>
+
+                <option value="5 years and above"
+                    {% if user['christian_duration'] == '5 years and above' %}selected{% endif %}>
+                    5 years and above
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="form-group">
+
+            <label>
+                Skills
+            </label>
+
+            <input
+                type="text"
+                name="skills"
+                value="{{ user['skills'] or '' }}"
+                placeholder="ex. singing, dancing, playing instruments"
+                required>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <a
+                href="/admin/dashboard"
+                class="cancel-button">
+
+                Cancel
+
+            </a>
+
+
+            <button
+                type="submit"
+                class="save-button">
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+</body>
+
+              </html>
