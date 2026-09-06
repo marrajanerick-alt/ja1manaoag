@@ -11,433 +11,9 @@
 
     <title>Admin Dashboard</title>
 
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        body {
-            margin: 0;
-
-            font-family: Arial, sans-serif;
-
-            background:
-                linear-gradient(
-                    rgba(255,255,255,0.88),
-                    rgba(255,255,255,0.88)
-                ),
-                url("/static/14fbb570668080d5d5952ab7b710bcf7 (1).jpg");
-
-            background-size: cover;
-
-            background-position: center;
-
-            background-attachment: fixed;
-
-            color: #333;
-        }
-
-
-        /* HEADER */
-
-        .header {
-            width: 100%;
-
-            padding: 18px 25px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            background: rgba(255,255,255,0.95);
-
-            border-bottom: 1px solid #eeeeee;
-
-            box-shadow:
-                0 3px 15px rgba(0,0,0,0.05);
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 10;
-        }
-
-
-        .header h1 {
-            margin: 0;
-
-            color: #8f2948;
-
-            font-size: 22px;
-        }
-
-
-        .logout {
-            padding: 9px 16px;
-
-            border-radius: 8px;
-
-            background: #b83b5e;
-
-            color: white;
-
-            text-decoration: none;
-
-            font-size: 13px;
-
-            font-weight: 600;
-        }
-
-
-        .logout:hover {
-            background: #8f2948;
-        }
-
-
-        /* MAIN */
-
-        .main {
-            width: 100%;
-
-            max-width: 1600px;
-
-            margin: auto;
-
-            padding: 25px 20px;
-        }
-
-
-        /* SUMMARY */
-
-        .summary {
-            margin-bottom: 18px;
-
-            padding: 20px;
-
-            background: rgba(255,255,255,0.94);
-
-            border-radius: 14px;
-
-            border: 1px solid #eeeeee;
-        }
-
-
-        .summary h2 {
-            margin: 0 0 5px;
-
-            color: #8f2948;
-
-            font-size: 20px;
-        }
-
-
-        .summary p {
-            margin: 0;
-
-            color: #777;
-
-            font-size: 13px;
-        }
-
-
-        /* FILTER BOX */
-
-        .filter-box {
-            margin-bottom: 20px;
-
-            padding: 20px;
-
-            background: rgba(255,255,255,0.94);
-
-            border-radius: 14px;
-
-            border: 1px solid #eeeeee;
-        }
-
-
-        .filter-title {
-            margin: 0 0 15px;
-
-            color: #8f2948;
-
-            font-size: 16px;
-
-            font-weight: 700;
-        }
-
-
-        .filters {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 12px;
-        }
-
-
-        .filter-group label {
-            display: block;
-
-            margin-bottom: 6px;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            color: #555;
-        }
-
-
-        .filter-group input,
-        .filter-group select {
-            width: 100%;
-
-            height: 42px;
-
-            padding: 0 11px;
-
-            border: 1px solid #ddd;
-
-            border-radius: 8px;
-
-            background: white;
-
-            color: #444;
-
-            outline: none;
-
-            font-size: 12px;
-        }
-
-
-        .filter-group input:focus,
-        .filter-group select:focus {
-            border-color: #b83b5e;
-        }
-
-
-        /* FILTER BUTTONS */
-
-        .filter-buttons {
-            display: flex;
-
-            gap: 10px;
-
-            margin-top: 15px;
-        }
-
-
-        .filter-button {
-            height: 42px;
-
-            padding: 0 18px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: #b83b5e;
-
-            color: white;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            cursor: pointer;
-        }
-
-
-        .filter-button:hover {
-            background: #8f2948;
-        }
-
-
-        .clear-button {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            height: 42px;
-
-            padding: 0 18px;
-
-            border-radius: 8px;
-
-            background: #eeeeee;
-
-            color: #555;
-
-            text-decoration: none;
-
-            font-size: 12px;
-
-            font-weight: 600;
-        }
-
-
-        .clear-button:hover {
-            background: #dddddd;
-        }
-
-
-        /* TABLE */
-
-        .table-container {
-            width: 100%;
-
-            overflow-x: auto;
-
-            background: rgba(255,255,255,0.95);
-
-            border-radius: 14px;
-
-            border: 1px solid #eeeeee;
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.06);
-        }
-
-
-        table {
-            width: 100%;
-
-            min-width: 1900px;
-
-            border-collapse: collapse;
-        }
-
-
-        th {
-            padding: 14px 12px;
-
-            background: #b83b5e;
-
-            color: white;
-
-            text-align: left;
-
-            font-size: 12px;
-
-            white-space: nowrap;
-        }
-
-
-        td {
-            padding: 13px 12px;
-
-            border-bottom: 1px solid #eeeeee;
-
-            font-size: 12px;
-
-            color: #555;
-
-            white-space: nowrap;
-        }
-
-
-        tr:hover td {
-            background: #fff5f7;
-        }
-
-
-        /* ACTION BUTTONS */
-
-        .actions {
-            display: flex;
-
-            gap: 6px;
-        }
-
-
-        .edit-button,
-        .delete-button {
-            padding: 7px 11px;
-
-            border: none;
-
-            border-radius: 7px;
-
-            color: white;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            text-decoration: none;
-
-            cursor: pointer;
-        }
-
-
-        .edit-button {
-            background: #555;
-        }
-
-
-        .edit-button:hover {
-            background: #333;
-        }
-
-
-        .delete-button {
-            background: #b83b5e;
-        }
-
-
-        .delete-button:hover {
-            background: #8f2948;
-        }
-
-
-        /* EMPTY */
-
-        .empty {
-            padding: 40px;
-
-            text-align: center;
-
-            color: #888;
-
-            font-size: 14px;
-        }
-
-
-        /* MOBILE */
-
-        @media (max-width: 800px) {
-
-            .filters {
-                grid-template-columns: 1fr;
-            }
-
-
-            .header {
-                padding: 15px;
-            }
-
-
-            .header h1 {
-                font-size: 18px;
-            }
-
-
-            .main {
-                padding: 20px 12px;
-            }
-
-        }
-
-    </style>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='admin_dashboard.css') }}">
 
 </head>
 
@@ -445,18 +21,72 @@
 <body>
 
 
-    <!-- HEADER -->
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-    <div class="header">
+<aside class="sidebar">
 
-        <h1>
-            JA1 Manaoag Admin Dashboard
-        </h1>
+    <div class="sidebar-top">
+
+        <div class="brand">
+
+            <img
+                src="{{ url_for('static', filename='1788601861588.png') }}"
+                alt="Logo">
+
+            <div>
+
+                <strong>Manaoag</strong>
+
+                <span>Admin Panel</span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="/admin/dashboard"
+                class="nav-item active">
+
+                <span class="nav-icon">▦</span>
+
+                <span>Dashboard</span>
+
+            </a>
+
+        </nav>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="admin-label">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+
+                <strong>Administrator</strong>
+
+                <span>Admin</span>
+
+            </div>
+
+        </div>
 
 
         <a
             href="/admin/logout"
             class="logout">
+
+            <span>↪</span>
 
             Logout
 
@@ -464,369 +94,570 @@
 
     </div>
 
+</aside>
 
-    <div class="main">
 
 
-        <!-- SUMMARY -->
+<!-- =========================
+     MAIN CONTENT
+========================= -->
 
-        <div class="summary">
+<main class="main">
 
-            <h2>
-                Submitted Information
-            </h2>
 
-            <p>
+    <!-- MOBILE HEADER -->
 
-                Showing
-                <strong>{{ users|length }}</strong>
-                record(s)
+    <header class="mobile-header">
 
+        <div class="mobile-brand">
+
+            <img
+                src="{{ url_for('static', filename='1788601861588.png') }}"
+                alt="Logo">
+
+            <div>
+
+                <strong>Manaoag</strong>
+
+                <span>Admin Panel</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <div>
+
+            <p class="eyebrow">
+                ADMINISTRATION
+            </p>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p class="description">
+                Manage and review submitted personal information.
             </p>
 
         </div>
 
+    </section>
 
-        <!-- FILTERS -->
 
-        <div class="filter-box">
 
-            <div class="filter-title">
-                Search & Filter
+    <!-- =========================
+         STAT CARDS
+    ========================= -->
+
+    <section class="stats">
+
+
+        <!-- TOTAL -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👥
             </div>
 
+            <div class="stat-content">
 
-            <form
-                method="GET"
-                action="/admin/dashboard">
+                <span class="stat-label">
+                    Total Records
+                </span>
 
+                <strong>
+                    {{ users|length }}
+                </strong>
 
-                <div class="filters">
-
-
-                    <!-- SEARCH -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            Search
-                        </label>
-
-                        <input
-                            type="text"
-                            name="search"
-                            value="{{ search }}"
-                            placeholder="Name, nickname, address, skills...">
-
-                    </div>
-
-
-                    <!-- SEX -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            Sex
-                        </label>
-
-                        <select name="sex">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option
-                                value="Male"
-                                {% if sex == "Male" %}selected{% endif %}>
-                                Male
-                            </option>
-
-                            <option
-                                value="Female"
-                                {% if sex == "Female" %}selected{% endif %}>
-                                Female
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- CIVIL STATUS -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            Civil Status
-                        </label>
-
-                        <select name="civil_status">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option
-                                value="Single"
-                                {% if civil_status == "Single" %}selected{% endif %}>
-                                Single
-                            </option>
-
-                            <option
-                                value="Married"
-                                {% if civil_status == "Married" %}selected{% endif %}>
-                                Married
-                            </option>
-
-                            <option
-                                value="Widowed"
-                                {% if civil_status == "Widowed" %}selected{% endif %}>
-                                Widowed
-                            </option>
-
-                            <option
-                                value="Separated"
-                                {% if civil_status == "Separated" %}selected{% endif %}>
-                                Separated
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- EDUCATION -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            Educational Attainment
-                        </label>
-
-                        <select name="educational_attainment">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option value="Elementary"
-                                {% if educational_attainment == "Elementary" %}selected{% endif %}>
-                                Elementary
-                            </option>
-
-                            <option value="Junior High School"
-                                {% if educational_attainment == "Junior High School" %}selected{% endif %}>
-                                Junior High School
-                            </option>
-
-                            <option value="Senior High School"
-                                {% if educational_attainment == "Senior High School" %}selected{% endif %}>
-                                Senior High School
-                            </option>
-
-                            <option value="College"
-                                {% if educational_attainment == "College" %}selected{% endif %}>
-                                College
-                            </option>
-
-                            <option value="Vocational"
-                                {% if educational_attainment == "Vocational" %}selected{% endif %}>
-                                Vocational
-                            </option>
-
-                            <option value="Postgraduate"
-                                {% if educational_attainment == "Postgraduate" %}selected{% endif %}>
-                                Postgraduate
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- EMPLOYMENT -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            Employment Status
-                        </label>
-
-                        <select name="employment_status">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option value="Employed"
-                                {% if employment_status == "Employed" %}selected{% endif %}>
-                                Employed
-                            </option>
-
-                            <option value="Self-Employed"
-                                {% if employment_status == "Self-Employed" %}selected{% endif %}>
-                                Self-Employed
-                            </option>
-
-                            <option value="Unemployed"
-                                {% if employment_status == "Unemployed" %}selected{% endif %}>
-                                Unemployed
-                            </option>
-
-                            <option value="Student"
-                                {% if employment_status == "Student" %}selected{% endif %}>
-                                Student
-                            </option>
-
-                            <option value="Retired"
-                                {% if employment_status == "Retired" %}selected{% endif %}>
-                                Retired
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- BAPTIZED -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            Baptized as Christian
-                        </label>
-
-                        <select name="baptized">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option value="Yes"
-                                {% if baptized == "Yes" %}selected{% endif %}>
-                                Yes
-                            </option>
-
-                            <option value="No"
-                                {% if baptized == "No" %}selected{% endif %}>
-                                No
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- CHRISTIAN DURATION -->
-
-                    <div class="filter-group">
-
-                        <label>
-                            How Long Christian
-                        </label>
-
-                        <select name="christian_duration">
-
-                            <option value="">
-                                All
-                            </option>
-
-                            <option value="New"
-                                {% if christian_duration == "New" %}selected{% endif %}>
-                                New
-                            </option>
-
-                            <option value="1-6 months"
-                                {% if christian_duration == "1-6 months" %}selected{% endif %}>
-                                1-6 months
-                            </option>
-
-                            <option value="6-11 months"
-                                {% if christian_duration == "6-11 months" %}selected{% endif %}>
-                                6-11 months
-                            </option>
-
-                            <option value="1-2 years"
-                                {% if christian_duration == "1-2 years" %}selected{% endif %}>
-                                1-2 years
-                            </option>
-
-                            <option value="3-4 years"
-                                {% if christian_duration == "3-4 years" %}selected{% endif %}>
-                                3-4 years
-                            </option>
-
-                            <option value="5 years and above"
-                                {% if christian_duration == "5 years and above" %}selected{% endif %}>
-                                5 years and above
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                </div>
-
-
-                <!-- BUTTONS -->
-
-                <div class="filter-buttons">
-
-                    <button
-                        type="submit"
-                        class="filter-button">
-
-                        Apply Filters
-
-                    </button>
-
-
-                    <a
-                        href="/admin/dashboard"
-                        class="clear-button">
-
-                        Clear Filters
-
-                    </a>
-
-                </div>
-
-
-            </form>
+            </div>
 
         </div>
 
 
-        <!-- TABLE -->
+        <!-- BAPTIZED -->
 
-        <div class="table-container">
+        <div class="stat-card">
 
-            {% if users %}
+            <div class="stat-icon">
+                ✝
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    Baptized
+                </span>
+
+                <strong id="baptizedCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- MALE -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ♂
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    Male
+                </span>
+
+                <strong id="maleCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- FEMALE -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ♀
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    Female
+                </span>
+
+                <strong id="femaleCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         FILTER PANEL
+    ========================= -->
+
+    <section class="filter-card">
+
+
+        <div class="filter-header">
+
+            <div>
+
+                <h2>
+                    Search & Filters
+                </h2>
+
+                <p>
+                    Narrow down the records using the options below.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="GET"
+            action="/admin/dashboard"
+            class="filter-form">
+
+
+            <!-- SEARCH -->
+
+            <div class="field search-field">
+
+                <label>
+                    Search
+                </label>
+
+                <div class="search-wrapper">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ search }}"
+                        placeholder="Search name, nickname, skills...">
+
+                </div>
+
+            </div>
+
+
+            <!-- SEX -->
+
+            <div class="field">
+
+                <label>
+                    Sex
+                </label>
+
+                <select name="sex">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Male"
+                        {% if sex == "Male" %}selected{% endif %}>
+
+                        Male
+
+                    </option>
+
+                    <option
+                        value="Female"
+                        {% if sex == "Female" %}selected{% endif %}>
+
+                        Female
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CIVIL STATUS -->
+
+            <div class="field">
+
+                <label>
+                    Civil Status
+                </label>
+
+                <select name="civil_status">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Single"
+                        {% if civil_status == "Single" %}selected{% endif %}>
+
+                        Single
+
+                    </option>
+
+                    <option
+                        value="Married"
+                        {% if civil_status == "Married" %}selected{% endif %}>
+
+                        Married
+
+                    </option>
+
+                    <option
+                        value="Widowed"
+                        {% if civil_status == "Widowed" %}selected{% endif %}>
+
+                        Widowed
+
+                    </option>
+
+                    <option
+                        value="Separated"
+                        {% if civil_status == "Separated" %}selected{% endif %}>
+
+                        Separated
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- EDUCATION -->
+
+            <div class="field">
+
+                <label>
+                    Education
+                </label>
+
+                <select name="educational_attainment">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option value="Elementary"
+                        {% if educational_attainment == "Elementary" %}selected{% endif %}>
+                        Elementary
+                    </option>
+
+                    <option value="Junior High School"
+                        {% if educational_attainment == "Junior High School" %}selected{% endif %}>
+                        Junior High School
+                    </option>
+
+                    <option value="Senior High School"
+                        {% if educational_attainment == "Senior High School" %}selected{% endif %}>
+                        Senior High School
+                    </option>
+
+                    <option value="College"
+                        {% if educational_attainment == "College" %}selected{% endif %}>
+                        College
+                    </option>
+
+                    <option value="Vocational"
+                        {% if educational_attainment == "Vocational" %}selected{% endif %}>
+                        Vocational
+                    </option>
+
+                    <option value="Postgraduate"
+                        {% if educational_attainment == "Postgraduate" %}selected{% endif %}>
+                        Postgraduate
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- EMPLOYMENT -->
+
+            <div class="field">
+
+                <label>
+                    Employment
+                </label>
+
+                <select name="employment_status">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option value="Employed"
+                        {% if employment_status == "Employed" %}selected{% endif %}>
+                        Employed
+                    </option>
+
+                    <option value="Self-Employed"
+                        {% if employment_status == "Self-Employed" %}selected{% endif %}>
+                        Self-Employed
+                    </option>
+
+                    <option value="Unemployed"
+                        {% if employment_status == "Unemployed" %}selected{% endif %}>
+                        Unemployed
+                    </option>
+
+                    <option value="Student"
+                        {% if employment_status == "Student" %}selected{% endif %}>
+                        Student
+                    </option>
+
+                    <option value="Retired"
+                        {% if employment_status == "Retired" %}selected{% endif %}>
+                        Retired
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BAPTIZED -->
+
+            <div class="field">
+
+                <label>
+                    Baptized
+                </label>
+
+                <select name="baptized">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option value="Yes"
+                        {% if baptized == "Yes" %}selected{% endif %}>
+                        Yes
+                    </option>
+
+                    <option value="No"
+                        {% if baptized == "No" %}selected{% endif %}>
+                        No
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CHRISTIAN DURATION -->
+
+            <div class="field">
+
+                <label>
+                    Christian Duration
+                </label>
+
+                <select name="christian_duration">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option value="New"
+                        {% if christian_duration == "New" %}selected{% endif %}>
+                        New
+                    </option>
+
+                    <option value="1-6 months"
+                        {% if christian_duration == "1-6 months" %}selected{% endif %}>
+                        1-6 months
+                    </option>
+
+                    <option value="6-11 months"
+                        {% if christian_duration == "6-11 months" %}selected{% endif %}>
+                        6-11 months
+                    </option>
+
+                    <option value="1-2 years"
+                        {% if christian_duration == "1-2 years" %}selected{% endif %}>
+                        1-2 years
+                    </option>
+
+                    <option value="3-4 years"
+                        {% if christian_duration == "3-4 years" %}selected{% endif %}>
+                        3-4 years
+                    </option>
+
+                    <option value="5 years and above"
+                        {% if christian_duration == "5 years and above" %}selected{% endif %}>
+                        5 years and above
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="filter-actions">
+
+                <button
+                    type="submit"
+                    class="apply-button">
+
+                    Apply Filters
+
+                </button>
+
+
+                <a
+                    href="/admin/dashboard"
+                    class="clear-button">
+
+                    Clear
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- =========================
+         RECORDS
+    ========================= -->
+
+    <section class="records-card">
+
+
+        <div class="records-header">
+
+            <div>
+
+                <h2>
+                    Registered Individuals
+                </h2>
+
+                <p>
+                    {{ users|length }} record(s) displayed
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if users %}
+
+
+        <div class="table-wrapper">
 
             <table>
+
 
                 <thead>
 
                     <tr>
 
                         <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Nickname</th>
+
+                        <th>Person</th>
+
                         <th>Age</th>
-                        <th>Date of Birth</th>
-                        <th>Address</th>
+
                         <th>Contact</th>
+
                         <th>Sex</th>
+
                         <th>Civil Status</th>
+
                         <th>Education</th>
-                        <th>Father's Name</th>
-                        <th>Mother's Name</th>
+
                         <th>Employment</th>
+
                         <th>Baptized</th>
+
                         <th>Christian Duration</th>
+
                         <th>Skills</th>
-                        <th>Action</th>
+
+                        <th>Actions</th>
 
                     </tr>
 
@@ -835,80 +666,123 @@
 
                 <tbody>
 
+
                     {% for user in users %}
 
-                    <tr>
+
+                    <tr data-sex="{{ user['sex'] }}"
+                        data-baptized="{{ user['baptized'] }}">
+
 
                         <td>
-                            {{ user["id"] }}
+
+                            <span class="id-badge">
+                                #{{ user["id"] }}
+                            </span>
+
                         </td>
 
-                        <td>
-                            {{ user["name"] }}
-                        </td>
 
                         <td>
-                            {{ user["nickname"] or "-" }}
+
+                            <div class="person">
+
+                                <div class="person-avatar">
+
+                                    {{ user["name"][0]|upper }}
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ user["name"] }}
+                                    </strong>
+
+                                    <span>
+                                        {{ user["nickname"] or "No nickname" }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
                         </td>
+
 
                         <td>
                             {{ user["age"] or "-" }}
                         </td>
 
-                        <td>
-                            {{ user["date_of_birth"] or "-" }}
-                        </td>
-
-                        <td>
-                            {{ user["address"] }}
-                        </td>
 
                         <td>
                             {{ user["contact"] }}
                         </td>
 
+
                         <td>
-                            {{ user["sex"] }}
+
+                            <span class="tag">
+                                {{ user["sex"] }}
+                            </span>
+
                         </td>
+
 
                         <td>
                             {{ user["civil_status"] }}
                         </td>
 
+
                         <td>
                             {{ user["educational_attainment"] }}
                         </td>
 
-                        <td>
-                            {{ user["father_name"] }}
-                        </td>
-
-                        <td>
-                            {{ user["mother_name"] }}
-                        </td>
 
                         <td>
                             {{ user["employment_status"] }}
                         </td>
 
+
                         <td>
-                            {{ user["baptized"] or "-" }}
+
+                            {% if user["baptized"] == "Yes" %}
+
+                            <span class="status baptized">
+                                ✓ Yes
+                            </span>
+
+                            {% else %}
+
+                            <span class="status not-baptized">
+                                No
+                            </span>
+
+                            {% endif %}
+
                         </td>
+
 
                         <td>
                             {{ user["christian_duration"] or "-" }}
                         </td>
 
+
                         <td>
-                            {{ user["skills"] or "-" }}
+
+                            <span class="skills">
+
+                                {{ user["skills"] or "-" }}
+
+                            </span>
+
                         </td>
+
 
                         <td>
 
                             <div class="actions">
 
-
-                                <!-- EDIT -->
 
                                 <a
                                     href="/admin/edit/{{ user['id'] }}"
@@ -918,8 +792,6 @@
 
                                 </a>
 
-
-                                <!-- DELETE -->
 
                                 <form
                                     action="/admin/delete/{{ user['id'] }}"
@@ -941,28 +813,118 @@
 
                         </td>
 
+
                     </tr>
+
 
                     {% endfor %}
 
+
                 </tbody>
 
+
             </table>
-
-            {% else %}
-
-            <div class="empty">
-
-                No records match your search or filters.
-
-            </div>
-
-            {% endif %}
 
         </div>
 
 
-    </div>
+        {% else %}
+
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                🔍
+            </div>
+
+            <h3>
+                No records found
+            </h3>
+
+            <p>
+                No individuals match your current search or filters.
+            </p>
+
+            <a href="/admin/dashboard">
+                Clear Filters
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     STATISTICS SCRIPT
+========================= -->
+
+<script>
+
+    const rows =
+        document.querySelectorAll(
+            "tbody tr"
+        );
+
+
+    let baptized = 0;
+    let male = 0;
+    let female = 0;
+
+
+    rows.forEach(row => {
+
+        if (
+            row.dataset.baptized === "Yes"
+        ) {
+
+            baptized++;
+
+        }
+
+
+        if (
+            row.dataset.sex === "Male"
+        ) {
+
+            male++;
+
+        }
+
+
+        if (
+            row.dataset.sex === "Female"
+        ) {
+
+            female++;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "baptizedCount"
+    ).textContent = baptized;
+
+
+    document.getElementById(
+        "maleCount"
+    ).textContent = male;
+
+
+    document.getElementById(
+        "femaleCount"
+    ).textContent = female;
+
+</script>
 
 
 </body>
