@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# Secret key for admin login sessions
 app.secret_key = "manaoag-admin-secret-key"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,12 +11,16 @@ DATABASE = os.path.join(BASE_DIR, "database.db")
 
 
 def init_database():
+
     conn = sqlite3.connect(DATABASE)
 
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
+            nickname TEXT,
+            age INTEGER,
+            date_of_birth TEXT,
             address TEXT NOT NULL,
             contact TEXT NOT NULL,
             sex TEXT NOT NULL,
@@ -25,9 +28,35 @@ def init_database():
             educational_attainment TEXT NOT NULL,
             father_name TEXT NOT NULL,
             mother_name TEXT NOT NULL,
-            employment_status TEXT NOT NULL
+            employment_status TEXT NOT NULL,
+            baptized TEXT,
+            christian_duration TEXT,
+            skills TEXT
         )
     """)
+
+    # Add new columns to an existing database
+    existing_columns = [
+        row[1]
+        for row in conn.execute("PRAGMA table_info(users)").fetchall()
+    ]
+
+    new_columns = {
+        "nickname": "TEXT",
+        "age": "INTEGER",
+        "date_of_birth": "TEXT",
+        "baptized": "TEXT",
+        "christian_duration": "TEXT",
+        "skills": "TEXT"
+    }
+
+    for column, data_type in new_columns.items():
+
+        if column not in existing_columns:
+
+            conn.execute(
+                f"ALTER TABLE users ADD COLUMN {column} {data_type}"
+            )
 
     conn.commit()
     conn.close()
@@ -42,6 +71,10 @@ def home():
 def submit():
 
     name = request.form.get("name", "").strip()
+    nickname = request.form.get("nickname", "").strip()
+    age = request.form.get("age", "").strip()
+    date_of_birth = request.form.get("date_of_birth", "").strip()
+
     address = request.form.get("address", "").strip()
     contact = request.form.get("contact", "").strip()
     sex = request.form.get("sex", "").strip()
@@ -63,8 +96,26 @@ def submit():
         "employment_status", ""
     ).strip()
 
+    baptized = request.form.get(
+        "baptized", ""
+    ).strip()
+
+    christian_duration = request.form.get(
+        "christian_duration", ""
+    ).strip()
+
+    skills = request.form.get(
+        "skills", ""
+    ).strip()
+
+
+    # Check required fields
+
     if not all([
         name,
+        nickname,
+        age,
+        date_of_birth,
         address,
         contact,
         sex,
@@ -72,30 +123,67 @@ def submit():
         educational_attainment,
         father_name,
         mother_name,
-        employment_status
+        employment_status,
+        baptized,
+        christian_duration,
+        skills
     ]):
+
         return render_error(
             "Incomplete Information",
             "Please fill in all required fields."
         ), 400
+
+
+    # Age must be an integer
+
+    try:
+
+        age = int(age)
+
+    except ValueError:
+
+        return render_error(
+            "Invalid Age",
+            "Age must be a whole number."
+        ), 400
+
+
+    if age < 1 or age > 120:
+
+        return render_error(
+            "Invalid Age",
+            "Please enter a valid age."
+        ), 400
+
+
+    # Philippine mobile number validation
 
     if (
         not contact.isdigit()
         or len(contact) != 10
         or not contact.startswith("9")
     ):
+
         return render_error(
             "Invalid Contact Number",
             "Please enter a valid Philippine mobile number with 10 digits starting with 9."
         ), 400
 
+
     contact = "+63" + contact
+
+
+    # Save information
 
     conn = sqlite3.connect(DATABASE)
 
     conn.execute("""
         INSERT INTO users (
             name,
+            nickname,
+            age,
+            date_of_birth,
             address,
             contact,
             sex,
@@ -103,11 +191,19 @@ def submit():
             educational_attainment,
             father_name,
             mother_name,
-            employment_status
+            employment_status,
+            baptized,
+            christian_duration,
+            skills
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
+
         name,
+        nickname,
+        age,
+        date_of_birth,
         address,
         contact,
         sex,
@@ -115,11 +211,16 @@ def submit():
         educational_attainment,
         father_name,
         mother_name,
-        employment_status
+        employment_status,
+        baptized,
+        christian_duration,
+        skills
+
     ))
 
     conn.commit()
     conn.close()
+
 
     return render_success()
 
@@ -137,7 +238,9 @@ def admin():
         password = request.form.get("password", "")
 
         if username == "admin" and password == "@Manaoag21":
+
             session["admin_logged_in"] = True
+
             return redirect(url_for("admin_dashboard"))
 
         return render_template(
@@ -156,17 +259,22 @@ def admin():
 def admin_dashboard():
 
     if not session.get("admin_logged_in"):
+
         return redirect(url_for("admin"))
 
+
     conn = sqlite3.connect(DATABASE)
+
     conn.row_factory = sqlite3.Row
 
     users = conn.execute("""
-        SELECT * FROM users
+        SELECT *
+        FROM users
         ORDER BY id DESC
     """).fetchall()
 
     conn.close()
+
 
     return render_template(
         "admin_dashboard.html",
@@ -182,7 +290,9 @@ def admin_dashboard():
 def delete_user(user_id):
 
     if not session.get("admin_logged_in"):
+
         return redirect(url_for("admin"))
+
 
     conn = sqlite3.connect(DATABASE)
 
@@ -194,11 +304,12 @@ def delete_user(user_id):
     conn.commit()
     conn.close()
 
+
     return redirect(url_for("admin_dashboard"))
 
 
 # =========================
-# ADMIN LOGOUT
+# LOGOUT
 # =========================
 
 @app.route("/admin/logout")
@@ -214,26 +325,37 @@ def admin_logout():
 # =========================
 
 def render_error(title, message):
+
     return f"""
     <!DOCTYPE html>
+
     <html lang="en">
 
     <head>
+
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
         <title>{title}</title>
 
         <style>
+
             * {{
                 box-sizing: border-box;
             }}
 
             body {{
                 margin: 0;
+
                 min-height: 100vh;
 
                 display: flex;
+
                 justify-content: center;
+
                 align-items: center;
 
                 padding: 20px;
@@ -248,6 +370,7 @@ def render_error(title, message):
                     url("/static/14fbb570668080d5d5952ab7b710bcf7 (1).jpg");
 
                 background-size: cover;
+
                 background-position: center;
 
                 color: #333;
@@ -255,6 +378,7 @@ def render_error(title, message):
 
             .card {{
                 width: 100%;
+
                 max-width: 430px;
 
                 padding: 40px 25px;
@@ -273,6 +397,7 @@ def render_error(title, message):
 
             .icon {{
                 width: 65px;
+
                 height: 65px;
 
                 margin: 0 auto 20px;
@@ -280,7 +405,9 @@ def render_error(title, message):
                 border-radius: 50%;
 
                 display: flex;
+
                 align-items: center;
+
                 justify-content: center;
 
                 background: #b83b5e;
@@ -288,19 +415,25 @@ def render_error(title, message):
                 color: white;
 
                 font-size: 32px;
+
                 font-weight: bold;
             }}
 
             h1 {{
                 margin: 0 0 10px;
+
                 color: #8f2948;
+
                 font-size: 24px;
             }}
 
             p {{
                 margin: 0;
+
                 color: #777;
+
                 line-height: 1.6;
+
                 font-size: 14px;
             }}
 
@@ -320,13 +453,16 @@ def render_error(title, message):
                 text-decoration: none;
 
                 font-size: 14px;
+
                 font-weight: 600;
             }}
 
             a:hover {{
                 background: #8f2948;
             }}
+
         </style>
+
     </head>
 
     <body>
@@ -354,27 +490,37 @@ def render_error(title, message):
 # =========================
 
 def render_success():
+
     return """
     <!DOCTYPE html>
+
     <html lang="en">
 
     <head>
+
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
 
         <title>Information Submitted</title>
 
         <style>
+
             * {
                 box-sizing: border-box;
             }
 
             body {
                 margin: 0;
+
                 min-height: 100vh;
 
                 display: flex;
+
                 justify-content: center;
+
                 align-items: center;
 
                 padding: 20px;
@@ -389,6 +535,7 @@ def render_success():
                     url("/static/14fbb570668080d5d5952ab7b710bcf7 (1).jpg");
 
                 background-size: cover;
+
                 background-position: center;
 
                 color: #333;
@@ -396,6 +543,7 @@ def render_success():
 
             .card {
                 width: 100%;
+
                 max-width: 430px;
 
                 padding: 40px 25px;
@@ -414,6 +562,7 @@ def render_success():
 
             .icon {
                 width: 65px;
+
                 height: 65px;
 
                 margin: 0 auto 20px;
@@ -421,7 +570,9 @@ def render_success():
                 border-radius: 50%;
 
                 display: flex;
+
                 align-items: center;
+
                 justify-content: center;
 
                 background: #b83b5e;
@@ -429,19 +580,25 @@ def render_success():
                 color: white;
 
                 font-size: 32px;
+
                 font-weight: bold;
             }
 
             h1 {
                 margin: 0 0 10px;
+
                 color: #8f2948;
+
                 font-size: 24px;
             }
 
             p {
                 margin: 0;
+
                 color: #777;
+
                 line-height: 1.6;
+
                 font-size: 14px;
             }
 
@@ -461,13 +618,16 @@ def render_success():
                 text-decoration: none;
 
                 font-size: 14px;
+
                 font-weight: 600;
             }
 
             a:hover {
                 background: #8f2948;
             }
+
         </style>
+
     </head>
 
     <body>
@@ -492,11 +652,12 @@ def render_success():
     """
 
 
-# Initialize database for Render/Gunicorn
+# Initialize database
 init_database()
 
 
 if __name__ == "__main__":
+
     app.run(
         host="0.0.0.0",
         port=5000,
