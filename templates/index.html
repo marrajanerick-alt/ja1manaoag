@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -21,9 +20,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
-
 </head>
-
 
 <body>
 
@@ -31,42 +28,23 @@
 
     <div class="container">
 
-
-        <!-- LOGO -->
-
         <div class="form-logo">
-
             <img
                 src="{{ url_for('static', filename='1788601861588.png') }}"
                 alt="Logo"
             >
-
         </div>
 
-
-        <!-- TITLE -->
-
-        <h1>
-            JA1 Manaoag Member's Information
-        </h1>
-
+        <h1>JA1 Manaoag Member's Information</h1>
 
         <p class="subtitle">
             Please provide your information below.
         </p>
 
-
-        <!-- FORM -->
-
         <form
             action="{{ url_for('submit') }}"
             method="POST"
         >
-
-
-            <!-- ========================= -->
-            <!-- FULL NAME -->
-            <!-- ========================= -->
 
             <div class="form-group">
 
@@ -86,20 +64,11 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- NICKNAME -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="nickname">
-
                     Nickname
-
-                    <span class="optional">
-                        (Optional)
-                    </span>
-
+                    <span class="optional">(Optional)</span>
                 </label>
 
                 <input
@@ -111,10 +80,6 @@
 
             </div>
 
-
-            <!-- ========================= -->
-            <!-- DATE OF BIRTH -->
-            <!-- ========================= -->
 
             <div class="form-group">
 
@@ -131,10 +96,6 @@
 
             </div>
 
-
-            <!-- ========================= -->
-            <!-- ADDRESS -->
-            <!-- ========================= -->
 
             <div class="form-group">
 
@@ -154,31 +115,23 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- CONTACT NUMBER -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="contact">
                     Contact Number
                 </label>
 
-
                 <div class="phone-input">
 
                     <div class="phone-prefix">
 
-                        <span class="flag">
-                            🇵🇭
-                        </span>
+                        <span class="flag">🇵🇭</span>
 
                         <span class="code">
                             +63
                         </span>
 
                     </div>
-
 
                     <input
                         type="tel"
@@ -194,7 +147,6 @@
 
                 </div>
 
-
                 <small class="input-hint">
                     Enter 10 digits starting with 9.
                 </small>
@@ -202,19 +154,13 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- SEX -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label>
                     Sex
                 </label>
 
-
                 <div class="radio-group">
-
 
                     <label class="radio-option">
 
@@ -225,9 +171,7 @@
                             required
                         >
 
-                        <span>
-                            Male
-                        </span>
+                        <span>Male</span>
 
                     </label>
 
@@ -240,28 +184,20 @@
                             value="Female"
                         >
 
-                        <span>
-                            Female
-                        </span>
+                        <span>Female</span>
 
                     </label>
-
 
                 </div>
 
             </div>
 
 
-            <!-- ========================= -->
-            <!-- CIVIL STATUS -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="civil_status">
                     Civil Status
                 </label>
-
 
                 <select
                     id="civil_status"
@@ -298,16 +234,11 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- EDUCATIONAL ATTAINMENT -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="educational_attainment">
                     Educational Attainment
                 </label>
-
 
                 <select
                     id="educational_attainment"
@@ -352,10 +283,6 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- FATHER'S NAME -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="father_name">
@@ -372,10 +299,6 @@
 
             </div>
 
-
-            <!-- ========================= -->
-            <!-- MOTHER'S NAME -->
-            <!-- ========================= -->
 
             <div class="form-group">
 
@@ -394,16 +317,11 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- EMPLOYMENT STATUS -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="employment_status">
                     Employment Status
                 </label>
-
 
                 <select
                     id="employment_status"
@@ -444,19 +362,13 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- BAPTIZED -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label>
                     Are you already baptized as a Christian?
                 </label>
 
-
                 <div class="radio-group">
-
 
                     <label class="radio-option">
 
@@ -467,9 +379,7 @@
                             required
                         >
 
-                        <span>
-                            Yes
-                        </span>
+                        <span>Yes</span>
 
                     </label>
 
@@ -482,28 +392,20 @@
                             value="No"
                         >
 
-                        <span>
-                            No
-                        </span>
+                        <span>No</span>
 
                     </label>
-
 
                 </div>
 
             </div>
 
 
-            <!-- ========================= -->
-            <!-- CHRISTIAN DURATION -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="christian_duration">
                     How long have you been a Christian?
                 </label>
-
 
                 <select
                     id="christian_duration"
@@ -548,22 +450,12 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- SKILLS -->
-            <!-- ========================= -->
-
             <div class="form-group">
 
                 <label for="skills">
-
                     Skills
-
-                    <span class="optional">
-                        (Optional)
-                    </span>
-
+                    <span class="optional">(Optional)</span>
                 </label>
-
 
                 <input
                     type="text"
@@ -575,26 +467,18 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- SUBMIT -->
-            <!-- ========================= -->
-
             <button
                 type="submit"
                 class="submit-button"
             >
-
                 Submit Information
-
             </button>
-
 
         </form>
 
     </div>
 
 </div>
-
 
 </body>
 
