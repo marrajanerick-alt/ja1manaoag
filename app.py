@@ -3,8 +3,11 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
 from functools import wraps
+from datetime import date
+
 
 app = Flask(__name__)
+
 
 # =========================================================
 # CONFIGURATION
@@ -15,21 +18,29 @@ app.secret_key = os.environ.get(
     "change-this-secret-key"
 )
 
-# PostgreSQL connection provided by Render
+
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
-# Admin credentials
-# You can change these later using Render Environment Variables.
-ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "@Manaoag21")
+
+ADMIN_USERNAME = os.environ.get(
+    "ADMIN_USERNAME",
+    "admin"
+)
+
+ADMIN_PASSWORD = os.environ.get(
+    "ADMIN_PASSWORD",
+    "@Manaoag21"
+)
 
 
 # =========================================================
-# DATABASE
+# DATABASE CONNECTION
 # =========================================================
 
 def get_db_connection():
+
     if not DATABASE_URL:
+
         raise RuntimeError(
             "DATABASE_URL is not configured."
         )
@@ -40,42 +51,58 @@ def get_db_connection():
     )
 
 
+# =========================================================
+# INITIALIZE DATABASE
+# =========================================================
+
 def init_database():
+
     conn = get_db_connection()
+
     cur = conn.cursor()
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS users (
+
             id SERIAL PRIMARY KEY,
 
             name TEXT NOT NULL,
+
             nickname TEXT,
 
             age INTEGER NOT NULL,
+
             date_of_birth DATE NOT NULL,
 
             address TEXT NOT NULL,
+
             contact TEXT NOT NULL,
 
             sex TEXT NOT NULL,
+
             civil_status TEXT NOT NULL,
+
             educational_attainment TEXT NOT NULL,
 
             father_name TEXT NOT NULL,
+
             mother_name TEXT NOT NULL,
 
             employment_status TEXT NOT NULL,
 
             baptized TEXT NOT NULL,
+
             christian_duration TEXT NOT NULL,
 
             skills TEXT
+
         )
     """)
 
     conn.commit()
 
     cur.close()
+
     conn.close()
 
 
@@ -84,11 +111,18 @@ def init_database():
 # =========================================================
 
 def admin_required(function):
+
     @wraps(function)
+
     def decorated_function(*args, **kwargs):
 
-        if not session.get("logged_in_as_admin"):
-            return redirect(url_for("admin"))
+        if not session.get(
+            "logged_in_as_admin"
+        ):
+
+            return redirect(
+                url_for("admin")
+            )
 
         return function(*args, **kwargs)
 
@@ -101,75 +135,107 @@ def admin_required(function):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+
+    return render_template(
+        "index.html"
+    )
 
 
 # =========================================================
-# SUBMIT PERSONAL INFORMATION
+# SUBMIT FORM
 # =========================================================
 
-@app.route("/submit", methods=["POST"])
+@app.route(
+    "/submit",
+    methods=["POST"]
+)
 def submit():
 
+    # -----------------------------------------------------
+    # GET FORM DATA
+    # -----------------------------------------------------
+
     name = request.form.get(
-        "name", ""
+        "name",
+        ""
     ).strip()
+
 
     nickname = request.form.get(
-        "nickname", ""
+        "nickname",
+        ""
     ).strip()
 
-    age = request.form.get(
-        "age", ""
-    ).strip()
 
     date_of_birth = request.form.get(
-        "date_of_birth", ""
+        "date_of_birth",
+        ""
     ).strip()
+
 
     address = request.form.get(
-        "address", ""
+        "address",
+        ""
     ).strip()
+
 
     contact = request.form.get(
-        "contact", ""
+        "contact",
+        ""
     ).strip()
+
 
     sex = request.form.get(
-        "sex", ""
+        "sex",
+        ""
     ).strip()
+
 
     civil_status = request.form.get(
-        "civil_status", ""
+        "civil_status",
+        ""
     ).strip()
+
 
     educational_attainment = request.form.get(
-        "educational_attainment", ""
+        "educational_attainment",
+        ""
     ).strip()
+
 
     father_name = request.form.get(
-        "father_name", ""
+        "father_name",
+        ""
     ).strip()
+
 
     mother_name = request.form.get(
-        "mother_name", ""
+        "mother_name",
+        ""
     ).strip()
+
 
     employment_status = request.form.get(
-        "employment_status", ""
+        "employment_status",
+        ""
     ).strip()
+
 
     baptized = request.form.get(
-        "baptized", ""
+        "baptized",
+        ""
     ).strip()
+
 
     christian_duration = request.form.get(
-        "christian_duration", ""
+        "christian_duration",
+        ""
     ).strip()
 
-    # Skills are optional
+
     skills = request.form.get(
-        "skills", ""
+        "skills",
+        ""
     ).strip()
 
 
@@ -178,158 +244,283 @@ def submit():
     # -----------------------------------------------------
 
     required_fields = [
+
         name,
-        age,
+
         date_of_birth,
+
         address,
+
         contact,
+
         sex,
+
         civil_status,
+
         educational_attainment,
+
         father_name,
+
         mother_name,
+
         employment_status,
+
         baptized,
+
         christian_duration
+
     ]
+
 
     if not all(required_fields):
 
         return render_error(
+
             "Incomplete Information",
+
             "Please fill in all required fields."
+
         ), 400
 
 
     # -----------------------------------------------------
-    # AGE VALIDATION
+    # VALIDATE DATE OF BIRTH
     # -----------------------------------------------------
 
     try:
 
-        age = int(age)
+        birth_date = date.fromisoformat(
+            date_of_birth
+        )
 
     except ValueError:
 
         return render_error(
-            "Invalid Age",
-            "Age must be a whole number."
+
+            "Invalid Date of Birth",
+
+            "Please enter a valid date of birth."
+
         ), 400
 
+
+    # -----------------------------------------------------
+    # CHECK FUTURE DATE
+    # -----------------------------------------------------
+
+    today = date.today()
+
+
+    if birth_date > today:
+
+        return render_error(
+
+            "Invalid Date of Birth",
+
+            "Date of birth cannot be in the future."
+
+        ), 400
+
+
+    # -----------------------------------------------------
+    # AUTOMATICALLY CALCULATE AGE
+    # -----------------------------------------------------
+
+    age = today.year - birth_date.year
+
+
+    if (
+        (today.month, today.day)
+        <
+        (birth_date.month, birth_date.day)
+    ):
+
+        age -= 1
+
+
+    # -----------------------------------------------------
+    # VALIDATE AGE
+    # -----------------------------------------------------
 
     if age < 1 or age > 120:
 
         return render_error(
-            "Invalid Age",
-            "Please enter a valid age."
+
+            "Invalid Date of Birth",
+
+            "Please enter a valid date of birth."
+
         ), 400
 
 
     # -----------------------------------------------------
-    # CONTACT VALIDATION
+    # FORMAT CONTACT NUMBER
     # -----------------------------------------------------
 
     contact = contact.replace(
-        " ", ""
+        " ",
+        ""
     ).replace(
-        "-", ""
+        "-",
+        ""
     )
 
-
-    # Accept:
-
-    # 9123456789
-    # 09123456789
-    # +639123456789
 
     if contact.startswith("+63"):
 
         contact = contact[3:]
+
 
     elif contact.startswith("0"):
 
         contact = contact[1:]
 
 
+    # -----------------------------------------------------
+    # VALIDATE CONTACT NUMBER
+    # -----------------------------------------------------
+
     if (
+
         not contact.isdigit()
+
         or len(contact) != 10
+
         or not contact.startswith("9")
+
     ):
 
         return render_error(
+
             "Invalid Contact Number",
+
             "Please enter a valid Philippine mobile number with 10 digits starting with 9."
+
         ), 400
 
 
-    # Store in +63 format
     contact = "+63" + contact
 
 
     # -----------------------------------------------------
-    # INSERT INTO POSTGRESQL
+    # SAVE TO POSTGRESQL
     # -----------------------------------------------------
 
     conn = get_db_connection()
+
     cur = conn.cursor()
 
+
     cur.execute("""
+
         INSERT INTO users (
+
             name,
+
             nickname,
+
             age,
+
             date_of_birth,
+
             address,
+
             contact,
+
             sex,
+
             civil_status,
+
             educational_attainment,
+
             father_name,
+
             mother_name,
+
             employment_status,
+
             baptized,
+
             christian_duration,
+
             skills
+
         )
+
         VALUES (
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s,
+
             %s
+
         )
+
     """, (
+
         name,
+
         nickname if nickname else None,
+
         age,
+
         date_of_birth,
+
         address,
+
         contact,
+
         sex,
+
         civil_status,
+
         educational_attainment,
+
         father_name,
+
         mother_name,
+
         employment_status,
+
         baptized,
+
         christian_duration,
+
         skills if skills else None
+
     ))
+
 
     conn.commit()
 
+
     cur.close()
+
     conn.close()
 
 
@@ -340,7 +531,10 @@ def submit():
 # ADMIN LOGIN
 # =========================================================
 
-@app.route("/admin", methods=["GET", "POST"])
+@app.route(
+    "/admin",
+    methods=["GET", "POST"]
+)
 def admin():
 
     if request.method == "POST":
@@ -350,6 +544,7 @@ def admin():
             ""
         )
 
+
         password = request.form.get(
             "password",
             ""
@@ -357,20 +552,33 @@ def admin():
 
 
         if (
+
             username == ADMIN_USERNAME
+
             and password == ADMIN_PASSWORD
+
         ):
 
-            session["logged_in_as_admin"] = True
+            session[
+                "logged_in_as_admin"
+            ] = True
+
 
             return redirect(
-                url_for("admin_dashboard")
+
+                url_for(
+                    "admin_dashboard"
+                )
+
             )
 
 
         return render_template(
+
             "admin_login.html",
+
             error="Invalid username or password."
+
         )
 
 
@@ -383,43 +591,47 @@ def admin():
 # ADMIN DASHBOARD
 # =========================================================
 
-@app.route("/admin/dashboard")
+@app.route(
+    "/admin/dashboard"
+)
 @admin_required
 def admin_dashboard():
-
-    # -----------------------------------------------------
-    # FILTER VALUES
-    # -----------------------------------------------------
 
     search = request.args.get(
         "search",
         ""
     ).strip()
 
+
     sex = request.args.get(
         "sex",
         ""
     ).strip()
+
 
     civil_status = request.args.get(
         "civil_status",
         ""
     ).strip()
 
+
     educational_attainment = request.args.get(
         "educational_attainment",
         ""
     ).strip()
+
 
     employment_status = request.args.get(
         "employment_status",
         ""
     ).strip()
 
+
     baptized = request.args.get(
         "baptized",
         ""
     ).strip()
+
 
     christian_duration = request.args.get(
         "christian_duration",
@@ -427,37 +639,56 @@ def admin_dashboard():
     ).strip()
 
 
-    # -----------------------------------------------------
-    # BUILD QUERY
-    # -----------------------------------------------------
-
     conditions = []
+
     values = []
 
 
-    # Search
+    # -----------------------------------------------------
+    # SEARCH
+    # -----------------------------------------------------
+
     if search:
 
         conditions.append("""
+
             (
+
                 name ILIKE %s
+
                 OR nickname ILIKE %s
+
                 OR contact ILIKE %s
+
                 OR address ILIKE %s
+
             )
+
         """)
 
-        search_value = "%" + search + "%"
+
+        search_value = (
+            "%" + search + "%"
+        )
+
 
         values.extend([
+
             search_value,
+
             search_value,
+
             search_value,
+
             search_value
+
         ])
 
 
-    # Sex
+    # -----------------------------------------------------
+    # FILTERS
+    # -----------------------------------------------------
+
     if sex:
 
         conditions.append(
@@ -467,17 +698,17 @@ def admin_dashboard():
         values.append(sex)
 
 
-    # Civil status
     if civil_status:
 
         conditions.append(
             "civil_status = %s"
         )
 
-        values.append(civil_status)
+        values.append(
+            civil_status
+        )
 
 
-    # Educational attainment
     if educational_attainment:
 
         conditions.append(
@@ -489,7 +720,6 @@ def admin_dashboard():
         )
 
 
-    # Employment
     if employment_status:
 
         conditions.append(
@@ -501,17 +731,17 @@ def admin_dashboard():
         )
 
 
-    # Baptized
     if baptized:
 
         conditions.append(
             "baptized = %s"
         )
 
-        values.append(baptized)
+        values.append(
+            baptized
+        )
 
 
-    # Christian duration
     if christian_duration:
 
         conditions.append(
@@ -524,25 +754,35 @@ def admin_dashboard():
 
 
     # -----------------------------------------------------
-    # FINAL QUERY
+    # BUILD QUERY
     # -----------------------------------------------------
 
     query = """
+
         SELECT *
+
         FROM users
+
     """
 
 
     if conditions:
 
         query += (
+
             " WHERE "
-            + " AND ".join(conditions)
+
+            + " AND ".join(
+                conditions
+            )
+
         )
 
 
     query += """
+
         ORDER BY id DESC
+
     """
 
 
@@ -551,12 +791,15 @@ def admin_dashboard():
     # -----------------------------------------------------
 
     conn = get_db_connection()
+
     cur = conn.cursor()
+
 
     cur.execute(
         query,
         values
     )
+
 
     users = cur.fetchall()
 
@@ -566,30 +809,49 @@ def admin_dashboard():
     # -----------------------------------------------------
 
     cur.execute("""
+
         SELECT COUNT(*) AS total
+
         FROM users
+
     """)
 
-    total = cur.fetchone()["total"]
+
+    total = cur.fetchone()[
+        "total"
+    ]
 
 
     cur.close()
+
     conn.close()
 
 
     return render_template(
+
         "admin_dashboard.html",
 
         users=users,
+
         total=total,
 
         search=search,
+
         sex=sex,
+
         civil_status=civil_status,
-        educational_attainment=educational_attainment,
-        employment_status=employment_status,
+
+        educational_attainment=
+            educational_attainment,
+
+        employment_status=
+            employment_status,
+
         baptized=baptized,
-        christian_duration=christian_duration
+
+        christian_duration=
+            christian_duration
+
     )
 
 
@@ -605,6 +867,7 @@ def admin_dashboard():
 def admin_edit(user_id):
 
     conn = get_db_connection()
+
     cur = conn.cursor()
 
 
@@ -619,70 +882,84 @@ def admin_edit(user_id):
             ""
         ).strip()
 
+
         nickname = request.form.get(
             "nickname",
             ""
         ).strip()
+
 
         age = request.form.get(
             "age",
             ""
         ).strip()
 
+
         date_of_birth = request.form.get(
             "date_of_birth",
             ""
         ).strip()
+
 
         address = request.form.get(
             "address",
             ""
         ).strip()
 
+
         contact = request.form.get(
             "contact",
             ""
         ).strip()
+
 
         sex = request.form.get(
             "sex",
             ""
         ).strip()
 
+
         civil_status = request.form.get(
             "civil_status",
             ""
         ).strip()
+
 
         educational_attainment = request.form.get(
             "educational_attainment",
             ""
         ).strip()
 
+
         father_name = request.form.get(
             "father_name",
             ""
         ).strip()
+
 
         mother_name = request.form.get(
             "mother_name",
             ""
         ).strip()
 
+
         employment_status = request.form.get(
             "employment_status",
             ""
         ).strip()
+
 
         baptized = request.form.get(
             "baptized",
             ""
         ).strip()
 
+
         christian_duration = request.form.get(
             "christian_duration",
             ""
         ).strip()
+
 
         skills = request.form.get(
             "skills",
@@ -690,41 +967,52 @@ def admin_edit(user_id):
         ).strip()
 
 
-        # -------------------------------------------------
-        # REQUIRED FIELDS
-        # -------------------------------------------------
-
         required_fields = [
+
             name,
+
             age,
+
             date_of_birth,
+
             address,
+
             contact,
+
             sex,
+
             civil_status,
+
             educational_attainment,
+
             father_name,
+
             mother_name,
+
             employment_status,
+
             baptized,
+
             christian_duration
+
         ]
 
 
         if not all(required_fields):
 
             cur.close()
+
             conn.close()
 
+
             return render_error(
+
                 "Incomplete Information",
+
                 "Please fill in all required fields."
+
             ), 400
 
-
-        # -------------------------------------------------
-        # AGE
-        # -------------------------------------------------
 
         try:
 
@@ -733,33 +1021,45 @@ def admin_edit(user_id):
         except ValueError:
 
             cur.close()
+
             conn.close()
 
+
             return render_error(
+
                 "Invalid Age",
+
                 "Age must be a whole number."
+
             ), 400
 
 
         if age < 1 or age > 120:
 
             cur.close()
+
             conn.close()
 
+
             return render_error(
+
                 "Invalid Age",
+
                 "Please enter a valid age."
+
             ), 400
 
 
         # -------------------------------------------------
-        # CONTACT
+        # CONTACT VALIDATION
         # -------------------------------------------------
 
         contact = contact.replace(
-            " ", ""
+            " ",
+            ""
         ).replace(
-            "-", ""
+            "-",
+            ""
         )
 
 
@@ -767,23 +1067,33 @@ def admin_edit(user_id):
 
             contact = contact[3:]
 
+
         elif contact.startswith("0"):
 
             contact = contact[1:]
 
 
         if (
+
             not contact.isdigit()
+
             or len(contact) != 10
+
             or not contact.startswith("9")
+
         ):
 
             cur.close()
+
             conn.close()
 
+
             return render_error(
+
                 "Invalid Contact Number",
+
                 "Please enter a valid Philippine mobile number."
+
             ), 400
 
 
@@ -791,56 +1101,98 @@ def admin_edit(user_id):
 
 
         # -------------------------------------------------
-        # UPDATE DATABASE
+        # UPDATE
         # -------------------------------------------------
 
         cur.execute("""
+
             UPDATE users
+
             SET
+
                 name = %s,
+
                 nickname = %s,
+
                 age = %s,
+
                 date_of_birth = %s,
+
                 address = %s,
+
                 contact = %s,
+
                 sex = %s,
+
                 civil_status = %s,
+
                 educational_attainment = %s,
+
                 father_name = %s,
+
                 mother_name = %s,
+
                 employment_status = %s,
+
                 baptized = %s,
+
                 christian_duration = %s,
+
                 skills = %s
+
             WHERE id = %s
+
         """, (
+
             name,
+
             nickname if nickname else None,
+
             age,
+
             date_of_birth,
+
             address,
+
             contact,
+
             sex,
+
             civil_status,
+
             educational_attainment,
+
             father_name,
+
             mother_name,
+
             employment_status,
+
             baptized,
+
             christian_duration,
+
             skills if skills else None,
+
             user_id
+
         ))
 
 
         conn.commit()
 
+
         cur.close()
+
         conn.close()
 
 
         return redirect(
-            url_for("admin_dashboard")
+
+            url_for(
+                "admin_dashboard"
+            )
+
         )
 
 
@@ -849,9 +1201,13 @@ def admin_edit(user_id):
     # -----------------------------------------------------
 
     cur.execute("""
+
         SELECT *
+
         FROM users
+
         WHERE id = %s
+
     """, (user_id,))
 
 
@@ -859,20 +1215,27 @@ def admin_edit(user_id):
 
 
     cur.close()
+
     conn.close()
 
 
     if not user:
 
         return render_error(
+
             "Record Not Found",
+
             "The requested record does not exist."
+
         ), 404
 
 
     return render_template(
+
         "admin_edit.html",
+
         user=user
+
     )
 
 
@@ -888,23 +1251,33 @@ def admin_edit(user_id):
 def admin_delete(user_id):
 
     conn = get_db_connection()
+
     cur = conn.cursor()
 
 
     cur.execute("""
+
         DELETE FROM users
+
         WHERE id = %s
+
     """, (user_id,))
 
 
     conn.commit()
 
+
     cur.close()
+
     conn.close()
 
 
     return redirect(
-        url_for("admin_dashboard")
+
+        url_for(
+            "admin_dashboard"
+        )
+
     )
 
 
@@ -912,13 +1285,16 @@ def admin_delete(user_id):
 # ADMIN LOGOUT
 # =========================================================
 
-@app.route("/admin/logout")
+@app.route(
+    "/admin/logout"
+)
 def admin_logout():
 
     session.pop(
         "logged_in_as_admin",
         None
     )
+
 
     return redirect(
         url_for("admin")
@@ -929,10 +1305,15 @@ def admin_logout():
 # ERROR PAGE
 # =========================================================
 
-def render_error(title, message):
+def render_error(
+    title,
+    message
+):
 
     return f"""
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -967,12 +1348,16 @@ body {{
     font-family: Arial, sans-serif;
 
     background:
+
         linear-gradient(
             rgba(0,0,0,.35),
             rgba(0,0,0,.35)
         ),
+
         url("/static/14fbb570668080d5d5952ab7b710bcf7%20(1).jpg")
+
         center/cover fixed;
+
 }}
 
 .box {{
@@ -990,8 +1375,11 @@ body {{
     border-radius: 20px;
 
     box-shadow:
+
         0 10px 40px
+
         rgba(0,0,0,.25);
+
 }}
 
 h1 {{
@@ -1045,6 +1433,7 @@ a {{
 </body>
 
 </html>
+
 """
 
 
@@ -1055,7 +1444,9 @@ a {{
 def render_success():
 
     return """
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -1070,7 +1461,9 @@ def render_success():
 <style>
 
 * {
+
     box-sizing: border-box;
+
 }
 
 body {
@@ -1090,12 +1483,19 @@ body {
     font-family: Arial, sans-serif;
 
     background:
+
         linear-gradient(
+
             rgba(0,0,0,.35),
+
             rgba(0,0,0,.35)
+
         ),
+
         url("/static/14fbb570668080d5d5952ab7b710bcf7%20(1).jpg")
+
         center/cover fixed;
+
 }
 
 .box {
@@ -1113,8 +1513,11 @@ body {
     border-radius: 20px;
 
     box-shadow:
+
         0 10px 40px
+
         rgba(0,0,0,.25);
+
 }
 
 h1 {
@@ -1157,42 +1560,49 @@ a {
 
 <div class="box">
 
-<h1>Information Submitted!</h1>
+<h1>
+Information Submitted!
+</h1>
 
 <p>
+
 Your personal information has been
 successfully submitted.
+
 </p>
 
-<a href="/">Return to Form</a>
+<a href="/">
+Return to Form
+</a>
 
 </div>
 
 </body>
 
 </html>
+
 """
 
 
 # =========================================================
-# INITIALIZE DATABASE
+# INITIALIZE POSTGRESQL
 # =========================================================
-
-# IMPORTANT:
-# This runs when Gunicorn imports the Flask application.
-# Therefore it also works on Render.
 
 init_database()
 
 
 # =========================================================
-# RUN LOCALLY
+# LOCAL DEVELOPMENT
 # =========================================================
 
 if __name__ == "__main__":
 
     app.run(
+
         host="0.0.0.0",
+
         port=5000,
+
         debug=True
+
     )
