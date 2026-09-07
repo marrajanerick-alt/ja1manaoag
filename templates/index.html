@@ -1,474 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Personal Information</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <title>Personal Information</title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}">
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 
 <body>
 
-
 <div class="page">
 
-    <div class="container">
+<div class="container">
 
+<div class="form-logo">
+<img src="{{ url_for('static', filename='1788601861588.png') }}" alt="Logo">
+</div>
 
-        <!-- ========================= -->
-        <!-- LOGO -->
-        <!-- ========================= -->
+<h1>JA1 Manaoag Member's Information</h1>
 
-        <div class="form-logo">
+<p class="subtitle">
+Please provide your information below.
+</p>
 
-            <img
-                src="{{ url_for('static', filename='1788601861588.png') }}"
-                alt="Logo">
+<form action="{{ url_for('submit') }}" method="POST">
 
-        </div>
+<!-- FULL NAME -->
+<div class="form-group">
 
+<label for="name">
+Full Name
+</label>
 
-        <!-- ========================= -->
-        <!-- TITLE -->
-        <!-- ========================= -->
+<input
+    type="text"
+    id="name"
+    name="name"
+    placeholder="Enter your full name"
+    autocomplete="name"
+    required
+>
 
-        <h1>
-            JA1 Manaoag Member's Information
-        </h1>
+</div>
 
-        <p class="subtitle">
-            Please provide your information below.
-        </p>
 
+<!-- NICKNAME -->
+<div class="form-group">
 
-        <!-- ========================= -->
-        <!-- FORM -->
-        <!-- ========================= -->
+<label for="nickname">
+Nickname
+<span class="optional">(Optional)</span>
+</label>
 
-        <form
-            action="{{ url_for('submit') }}"
-            method="POST">
+<input
+    type="text"
+    id="nickname"
+    name="nickname"
+    placeholder="Enter your nickname"
+>
 
+</div>
 
-            <!-- FULL NAME -->
 
-            <div class="form-group">
+<!-- DATE OF BIRTH -->
+<div class="form-group">
 
-                <label for="name">
-                    Full Name
-                </label>
+<label for="date_of_birth">
+Date of Birth
+</label>
 
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter your full name"
-                    autocomplete="name"
-                    required>
+<input
+    type="date"
+    id="date_of_birth"
+    name="date_of_birth"
+    required
+>
 
-            </div>
+</div>
 
 
-            <!-- NICKNAME -->
+<!-- ADDRESS -->
+<div class="form-group">
 
-            <div class="form-group">
+<label for="address">
+Address
+</label>
 
-                <label for="nickname">
+<input
+    type="text"
+    id="address"
+    name="address"
+    placeholder="Enter your complete address"
+    autocomplete="street-address"
+    required
+>
 
-                    Nickname
+</div>
 
-                    <span class="optional">
-                        (Optional)
-                    </span>
 
-                </label>
+<!-- CONTACT NUMBER -->
+<div class="form-group">
 
-                <input
-                    type="text"
-                    id="nickname"
-                    name="nickname"
-                    placeholder="Enter your nickname">
+<label for="contact">
+Contact Number
+</label>
 
-            </div>
+<div class="phone-input">
 
+<div class="phone-prefix">
 
-            <!-- AGE -->
+<span class="flag">🇵🇭</span>
 
-            <div class="form-group">
+<span class="code">+63</span>
 
-                <label for="age">
-                    Age
-                </label>
+</div>
 
-                <input
-                    type="number"
-                    id="age"
-                    name="age"
-                    placeholder="Enter your age"
-                    min="1"
-                    max="120"
-                    step="1"
-                    inputmode="numeric"
-                    required>
+<input
+    type="tel"
+    id="contact"
+    name="contact"
+    placeholder="9XX XXX XXXX"
+    maxlength="10"
+    pattern="9[0-9]{9}"
+    inputmode="numeric"
+    autocomplete="tel"
+    required
+>
 
-            </div>
+</div>
 
+<small class="input-hint">
+Enter 10 digits starting with 9.
+</small>
 
-            <!-- DATE OF BIRTH -->
+</div>
 
-            <div class="form-group">
 
-                <label for="date_of_birth">
-                    Date of Birth
-                </label>
+<!-- SEX -->
+<div class="form-group">
 
-                <input
-                    type="date"
-                    id="date_of_birth"
-                    name="date_of_birth"
-                    required>
+<label>
+Sex
+</label>
 
-            </div>
+<div class="radio-group">
 
+<label class="radio-option">
 
-            <!-- ADDRESS -->
+<input
+    type="radio"
+    name="sex"
+    value="Male"
+    required
+>
 
-            <div class="form-group">
+<span>Male</span>
 
-                <label for="address">
-                    Address
-                </label>
+</label>
 
-                <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    placeholder="Enter your complete address"
-                    autocomplete="street-address"
-                    required>
 
-            </div>
+<label class="radio-option">
 
+<input
+    type="radio"
+    name="sex"
+    value="Female"
+>
 
-            <!-- CONTACT NUMBER -->
+<span>Female</span>
 
-            <div class="form-group">
+</label>
 
-                <label for="contact">
-                    Contact Number
-                </label>
+</div>
 
+</div>
 
-                <div class="phone-input">
 
+<!-- CIVIL STATUS -->
+<div class="form-group">
 
-                    <div class="phone-prefix">
+<label for="civil_status">
+Civil Status
+</label>
 
-                        <span class="flag">
-                            🇵🇭
-                        </span>
+<select
+    id="civil_status"
+    name="civil_status"
+    required
+>
 
-                        <span class="code">
-                            +63
-                        </span>
+<option value="" disabled selected>
+Select civil status
+</option>
 
-                    </div>
+<option value="Single">
+Single
+</option>
 
+<option value="Married">
+Married
+</option>
 
-                    <input
-                        type="tel"
-                        id="contact"
-                        name="contact"
-                        placeholder="9XX XXX XXXX"
-                        maxlength="10"
-                        pattern="9[0-9]{9}"
-                        inputmode="numeric"
-                        autocomplete="tel"
-                        required>
+<option value="Widowed">
+Widowed
+</option>
 
+<option value="Separated">
+Separated
+</option>
 
-                </div>
+</select>
 
+</div>
 
-                <small class="input-hint">
-                    Enter 10 digits starting with 9.
-                </small>
 
-            </div>
+<!-- EDUCATIONAL ATTAINMENT -->
+<div class="form-group">
 
+<label for="educational_attainment">
+Educational Attainment
+</label>
 
-            <!-- SEX -->
+<select
+    id="educational_attainment"
+    name="educational_attainment"
+    required
+>
 
-            <div class="form-group">
+<option value="" disabled selected>
+Select educational attainment
+</option>
 
-                <label>
-                    Sex
-                </label>
+<option value="Elementary">
+Elementary
+</option>
 
+<option value="Junior High School">
+Junior High School
+</option>
 
-                <div class="radio-group">
+<option value="Senior High School">
+Senior High School
+</option>
 
+<option value="College">
+College
+</option>
 
-                    <label class="radio-option">
+<option value="Vocational">
+Vocational
+</option>
 
-                        <input
-                            type="radio"
-                            name="sex"
-                            value="Male"
-                            required>
+<option value="Postgraduate">
+Postgraduate
+</option>
 
-                        <span>
-                            Male
-                        </span>
+</select>
 
-                    </label>
+</div>
 
 
-                    <label class="radio-option">
+<!-- FATHER'S NAME -->
+<div class="form-group">
 
-                        <input
-                            type="radio"
-                            name="sex"
-                            value="Female">
+<label for="father_name">
+Father's Name
+</label>
 
-                        <span>
-                            Female
-                        </span>
+<input
+    type="text"
+    id="father_name"
+    name="father_name"
+    placeholder="Enter father's name"
+    required
+>
 
-                    </label>
+</div>
 
 
-                </div>
+<!-- MOTHER'S NAME -->
+<div class="form-group">
 
-            </div>
+<label for="mother_name">
+Mother's Name
+</label>
 
+<input
+    type="text"
+    id="mother_name"
+    name="mother_name"
+    placeholder="Enter mother's name"
+    required
+>
 
-            <!-- CIVIL STATUS -->
+</div>
 
-            <div class="form-group">
 
-                <label for="civil_status">
-                    Civil Status
-                </label>
+<!-- EMPLOYMENT STATUS -->
+<div class="form-group">
 
+<label for="employment_status">
+Employment Status
+</label>
 
-                <select
-                    id="civil_status"
-                    name="civil_status"
-                    required>
+<select
+    id="employment_status"
+    name="employment_status"
+    required
+>
 
+<option value="" disabled selected>
+Select employment status
+</option>
 
-                    <option
-                        value=""
-                        disabled
-                        selected>
+<option value="Employed">
+Employed
+</option>
 
-                        Select civil status
+<option value="Self-Employed">
+Self-Employed
+</option>
 
-                    </option>
+<option value="Unemployed">
+Unemployed
+</option>
 
+<option value="Student">
+Student
+</option>
 
-                    <option value="Single">
-                        Single
-                    </option>
+<option value="Retired">
+Retired
+</option>
 
+</select>
 
-                    <option value="Married">
-                        Married
-                    </option>
+</div>
 
 
-                    <option value="Widowed">
-                        Widowed
-                    </option>
+<!-- BAPTIZED -->
+<div class="form-group">
 
+<label>
+Are you already baptized as a Christian?
+</label>
 
-                    <option value="Separated">
-                        Separated
-                    </option>
+<div class="radio-group">
 
+<label class="radio-option">
 
-                </select>
+<input
+    type="radio"
+    name="baptized"
+    value="Yes"
+    required
+>
 
-            </div>
+<span>Yes</span>
 
+</label>
 
-            <!-- EDUCATIONAL ATTAINMENT -->
 
-            <div class="form-group">
+<label class="radio-option">
 
-                <label for="educational_attainment">
-                    Educational Attainment
-                </label>
+<input
+    type="radio"
+    name="baptized"
+    value="No"
+>
 
+<span>No</span>
 
-                <select
-                    id="educational_attainment"
-                    name="educational_attainment"
-                    required>
+</label>
 
+</div>
 
-                    <option
-                        value=""
-                        disabled
-                        selected>
+</div>
 
-                        Select educational attainment
 
-                    </option>
+<!-- CHRISTIAN DURATION -->
+<div class="form-group">
 
+<label for="christian_duration">
+How long have you been a Christian?
+</label>
 
-                    <option value="Elementary">
-                        Elementary
-                    </option>
+<select
+    id="christian_duration"
+    name="christian_duration"
+    required
+>
 
+<option value="" disabled selected>
+Select duration
+</option>
 
-                    <option value="Junior High School">
-                        Junior High School
-                    </option>
+<option value="New">
+New
+</option>
 
+<option value="1-6 months">
+1-6 months
+</option>
 
-                    <option value="Senior High School">
-                        Senior High School
-                    </option>
+<option value="6-11 months">
+6-11 months
+</option>
 
+<option value="1-2 years">
+1-2 years
+</option>
 
-                    <option value="College">
-                        College
-                    </option>
+<option value="3-4 years">
+3-4 years
+</option>
 
+<option value="5 years and above">
+5 years and above
+</option>
 
-                    <option value="Vocational">
-                        Vocational
-                    </option>
+</select>
 
+</div>
 
-                    <option value="Postgraduate">
-                        Postgraduate
-                    </option>
 
+<!-- SKILLS -->
+<div class="form-group">
 
-                </select>
+<label for="skills">
 
-            </div>
+Skills
+<span class="optional">(Optional)</span>
 
+</label>
 
-            <!-- FATHER'S NAME -->
+<input
+    type="text"
+    id="skills"
+    name="skills"
+    placeholder="ex. singing, dancing, playing instruments"
+>
 
-            <div class="form-group">
+</div>
 
-                <label for="father_name">
-                    Father's Name
-                </label>
 
+<!-- SUBMIT -->
+<button
+    type="submit"
+    class="submit-button"
+>
 
-                <input
-                    type="text"
-                    id="father_name"
-                    name="father_name"
-                    placeholder="Enter father's name"
-                    required>
+Submit Information
 
-            </div>
+</button>
 
+</form>
 
-            <!-- MOTHER'S NAME -->
+</div>
 
-            <div class="form-group">
+</div>
 
-                <label for="mother_name">
-                    Mother's Name
-                </label>
-
-
-                <input
-                    type="text"
-                    id="mother_name"
-                    name="mother_name"
-                    placeholder="Enter mother's name"
-                    required>
-
-            </div>
-
-
-            <!-- EMPLOYMENT STATUS -->
-
-            <div class="form-group">
-
-                <label for="employment_status">
-                    Employment Status
-                </label>
-
-
-                <select
-                    id="employment_status"
-                    name="employment_status"
-                    required>
-
-
-                    <option
-                        value=""
-                        disabled
-                        selected>
-
-                        Select employment status
-
-                    </option>
-
-
-                    <option value="Employed">
-                        Employed
-                    </option>
-
-
-                    <option value="Self-Employed">
-                        Self-Employed
-                    </option>
-
-
-                    <option value="Unemployed">
-                        Unemployed
-                    </option>
-
-
-                    <option value="Student">
-                        Student
-                    </option>
-
-
-                    <option value="Retired">
-                        Retired
-                    </option>
-
-
-                </select>
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- CHRISTIAN INFORMATION -->
-            <!-- ========================= -->
-
-
-            <!-- BAPTIZED -->
-
-            <div class="form-group">
+</body>
+</html>="form-group">
 
                 <label>
                     Are you already baptized as a Christian?
