@@ -17,13 +17,8 @@
 
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     SIDEBAR
-========================= -->
 
 <aside class="sidebar">
 
@@ -44,7 +39,6 @@
             </div>
 
         </div>
-
 
         <nav>
 
@@ -98,14 +92,8 @@
 
 
 
-<!-- =========================
-     MAIN CONTENT
-========================= -->
-
 <main class="main">
 
-
-    <!-- MOBILE HEADER -->
 
     <header class="mobile-header">
 
@@ -128,9 +116,6 @@
     </header>
 
 
-    <!-- =========================
-         PAGE HEADER
-    ========================= -->
 
     <section class="page-header">
 
@@ -154,14 +139,8 @@
 
 
 
-    <!-- =========================
-         STAT CARDS
-    ========================= -->
-
     <section class="stats">
 
-
-        <!-- TOTAL -->
 
         <div class="stat-card">
 
@@ -184,8 +163,6 @@
         </div>
 
 
-        <!-- BAPTIZED -->
-
         <div class="stat-card">
 
             <div class="stat-icon">
@@ -207,8 +184,6 @@
         </div>
 
 
-        <!-- MALE -->
-
         <div class="stat-card">
 
             <div class="stat-icon">
@@ -229,8 +204,6 @@
 
         </div>
 
-
-        <!-- FEMALE -->
 
         <div class="stat-card">
 
@@ -258,349 +231,7 @@
 
 
     <!-- =========================
-         FILTER PANEL
-    ========================= -->
-
-    <section class="filter-card">
-
-
-        <div class="filter-header">
-
-            <div>
-
-                <h2>
-                    Search & Filters
-                </h2>
-
-                <p>
-                    Narrow down the records using the options below.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <form
-            method="GET"
-            action="/admin/dashboard"
-            class="filter-form">
-
-
-            <!-- SEARCH -->
-
-            <div class="field search-field">
-
-                <label>
-                    Search
-                </label>
-
-                <div class="search-wrapper">
-
-                    <span>
-                        🔍
-                    </span>
-
-                    <input
-                        type="text"
-                        name="search"
-                        value="{{ search }}"
-                        placeholder="Search name, nickname, skills...">
-
-                </div>
-
-            </div>
-
-
-            <!-- SEX -->
-
-            <div class="field">
-
-                <label>
-                    Sex
-                </label>
-
-                <select name="sex">
-
-                    <option value="">
-                        All
-                    </option>
-
-                    <option
-                        value="Male"
-                        {% if sex == "Male" %}selected{% endif %}>
-
-                        Male
-
-                    </option>
-
-                    <option
-                        value="Female"
-                        {% if sex == "Female" %}selected{% endif %}>
-
-                        Female
-
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- CIVIL STATUS -->
-
-            <div class="field">
-
-                <label>
-                    Civil Status
-                </label>
-
-                <select name="civil_status">
-
-                    <option value="">
-                        All
-                    </option>
-
-                    <option
-                        value="Single"
-                        {% if civil_status == "Single" %}selected{% endif %}>
-
-                        Single
-
-                    </option>
-
-                    <option
-                        value="Married"
-                        {% if civil_status == "Married" %}selected{% endif %}>
-
-                        Married
-
-                    </option>
-
-                    <option
-                        value="Widowed"
-                        {% if civil_status == "Widowed" %}selected{% endif %}>
-
-                        Widowed
-
-                    </option>
-
-                    <option
-                        value="Separated"
-                        {% if civil_status == "Separated" %}selected{% endif %}>
-
-                        Separated
-
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- EDUCATION -->
-
-            <div class="field">
-
-                <label>
-                    Education
-                </label>
-
-                <select name="educational_attainment">
-
-                    <option value="">
-                        All
-                    </option>
-
-                    <option value="Elementary"
-                        {% if educational_attainment == "Elementary" %}selected{% endif %}>
-                        Elementary
-                    </option>
-
-                    <option value="Junior High School"
-                        {% if educational_attainment == "Junior High School" %}selected{% endif %}>
-                        Junior High School
-                    </option>
-
-                    <option value="Senior High School"
-                        {% if educational_attainment == "Senior High School" %}selected{% endif %}>
-                        Senior High School
-                    </option>
-
-                    <option value="College"
-                        {% if educational_attainment == "College" %}selected{% endif %}>
-                        College
-                    </option>
-
-                    <option value="Vocational"
-                        {% if educational_attainment == "Vocational" %}selected{% endif %}>
-                        Vocational
-                    </option>
-
-                    <option value="Postgraduate"
-                        {% if educational_attainment == "Postgraduate" %}selected{% endif %}>
-                        Postgraduate
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- EMPLOYMENT -->
-
-            <div class="field">
-
-                <label>
-                    Employment
-                </label>
-
-                <select name="employment_status">
-
-                    <option value="">
-                        All
-                    </option>
-
-                    <option value="Employed"
-                        {% if employment_status == "Employed" %}selected{% endif %}>
-                        Employed
-                    </option>
-
-                    <option value="Self-Employed"
-                        {% if employment_status == "Self-Employed" %}selected{% endif %}>
-                        Self-Employed
-                    </option>
-
-                    <option value="Unemployed"
-                        {% if employment_status == "Unemployed" %}selected{% endif %}>
-                        Unemployed
-                    </option>
-
-                    <option value="Student"
-                        {% if employment_status == "Student" %}selected{% endif %}>
-                        Student
-                    </option>
-
-                    <option value="Retired"
-                        {% if employment_status == "Retired" %}selected{% endif %}>
-                        Retired
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- BAPTIZED -->
-
-            <div class="field">
-
-                <label>
-                    Baptized
-                </label>
-
-                <select name="baptized">
-
-                    <option value="">
-                        All
-                    </option>
-
-                    <option value="Yes"
-                        {% if baptized == "Yes" %}selected{% endif %}>
-                        Yes
-                    </option>
-
-                    <option value="No"
-                        {% if baptized == "No" %}selected{% endif %}>
-                        No
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- CHRISTIAN DURATION -->
-
-            <div class="field">
-
-                <label>
-                    Christian Duration
-                </label>
-
-                <select name="christian_duration">
-
-                    <option value="">
-                        All
-                    </option>
-
-                    <option value="New"
-                        {% if christian_duration == "New" %}selected{% endif %}>
-                        New
-                    </option>
-
-                    <option value="1-6 months"
-                        {% if christian_duration == "1-6 months" %}selected{% endif %}>
-                        1-6 months
-                    </option>
-
-                    <option value="6-11 months"
-                        {% if christian_duration == "6-11 months" %}selected{% endif %}>
-                        6-11 months
-                    </option>
-
-                    <option value="1-2 years"
-                        {% if christian_duration == "1-2 years" %}selected{% endif %}>
-                        1-2 years
-                    </option>
-
-                    <option value="3-4 years"
-                        {% if christian_duration == "3-4 years" %}selected{% endif %}>
-                        3-4 years
-                    </option>
-
-                    <option value="5 years and above"
-                        {% if christian_duration == "5 years and above" %}selected{% endif %}>
-                        5 years and above
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- BUTTONS -->
-
-            <div class="filter-actions">
-
-                <button
-                    type="submit"
-                    class="apply-button">
-
-                    Apply Filters
-
-                </button>
-
-
-                <a
-                    href="/admin/dashboard"
-                    class="clear-button">
-
-                    Clear
-
-                </a>
-
-            </div>
-
-
-        </form>
-
-    </section>
-
-
-
-    <!-- =========================
-         RECORDS
+         RECORDS FIRST
     ========================= -->
 
     <section class="records-card">
@@ -670,7 +301,8 @@
                     {% for user in users %}
 
 
-                    <tr data-sex="{{ user['sex'] }}"
+                    <tr
+                        data-sex="{{ user['sex'] }}"
                         data-baptized="{{ user['baptized'] }}">
 
 
@@ -710,8 +342,14 @@
                         </td>
 
 
-                        <td>
-                            {{ user["age"] or "-" }}
+                        <!-- AGE CALCULATED FROM DOB -->
+
+                        <td
+                            class="age-cell"
+                            data-dob="{{ user['date_of_birth'] }}">
+
+                            -
+
                         </td>
 
 
@@ -771,9 +409,7 @@
                         <td>
 
                             <span class="skills">
-
                                 {{ user["skills"] or "-" }}
-
                             </span>
 
                         </td>
@@ -858,13 +494,392 @@
     </section>
 
 
+
+    <!-- =========================
+         FILTERS BELOW RECORDS
+    ========================= -->
+
+    <section class="filter-card">
+
+
+        <div class="filter-header">
+
+            <div>
+
+                <h2>
+                    Search & Filters
+                </h2>
+
+                <p>
+                    Narrow down the records using the options below.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="GET"
+            action="/admin/dashboard"
+            class="filter-form">
+
+
+            <div class="field search-field">
+
+                <label>
+                    Search
+                </label>
+
+                <div class="search-wrapper">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ search }}"
+                        placeholder="Search name, nickname, skills...">
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Sex
+                </label>
+
+                <select name="sex">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Male"
+                        {% if sex == "Male" %}selected{% endif %}>
+
+                        Male
+
+                    </option>
+
+                    <option
+                        value="Female"
+                        {% if sex == "Female" %}selected{% endif %}>
+
+                        Female
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Civil Status
+                </label>
+
+                <select name="civil_status">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Single"
+                        {% if civil_status == "Single" %}selected{% endif %}>
+
+                        Single
+
+                    </option>
+
+                    <option
+                        value="Married"
+                        {% if civil_status == "Married" %}selected{% endif %}>
+
+                        Married
+
+                    </option>
+
+                    <option
+                        value="Widowed"
+                        {% if civil_status == "Widowed" %}selected{% endif %}>
+
+                        Widowed
+
+                    </option>
+
+                    <option
+                        value="Separated"
+                        {% if civil_status == "Separated" %}selected{% endif %}>
+
+                        Separated
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Education
+                </label>
+
+                <select name="educational_attainment">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Elementary"
+                        {% if educational_attainment == "Elementary" %}selected{% endif %}>
+
+                        Elementary
+
+                    </option>
+
+                    <option
+                        value="Junior High School"
+                        {% if educational_attainment == "Junior High School" %}selected{% endif %}>
+
+                        Junior High School
+
+                    </option>
+
+                    <option
+                        value="Senior High School"
+                        {% if educational_attainment == "Senior High School" %}selected{% endif %}>
+
+                        Senior High School
+
+                    </option>
+
+                    <option
+                        value="College"
+                        {% if educational_attainment == "College" %}selected{% endif %}>
+
+                        College
+
+                    </option>
+
+                    <option
+                        value="Vocational"
+                        {% if educational_attainment == "Vocational" %}selected{% endif %}>
+
+                        Vocational
+
+                    </option>
+
+                    <option
+                        value="Postgraduate"
+                        {% if educational_attainment == "Postgraduate" %}selected{% endif %}>
+
+                        Postgraduate
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Employment
+                </label>
+
+                <select name="employment_status">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Employed"
+                        {% if employment_status == "Employed" %}selected{% endif %}>
+
+                        Employed
+
+                    </option>
+
+                    <option
+                        value="Self-Employed"
+                        {% if employment_status == "Self-Employed" %}selected{% endif %}>
+
+                        Self-Employed
+
+                    </option>
+
+                    <option
+                        value="Unemployed"
+                        {% if employment_status == "Unemployed" %}selected{% endif %}>
+
+                        Unemployed
+
+                    </option>
+
+                    <option
+                        value="Student"
+                        {% if employment_status == "Student" %}selected{% endif %}>
+
+                        Student
+
+                    </option>
+
+                    <option
+                        value="Retired"
+                        {% if employment_status == "Retired" %}selected{% endif %}>
+
+                        Retired
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Baptized
+                </label>
+
+                <select name="baptized">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Yes"
+                        {% if baptized == "Yes" %}selected{% endif %}>
+
+                        Yes
+
+                    </option>
+
+                    <option
+                        value="No"
+                        {% if baptized == "No" %}selected{% endif %}>
+
+                        No
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Christian Duration
+                </label>
+
+                <select name="christian_duration">
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="New"
+                        {% if christian_duration == "New" %}selected{% endif %}>
+
+                        New
+
+                    </option>
+
+                    <option
+                        value="1-6 months"
+                        {% if christian_duration == "1-6 months" %}selected{% endif %}>
+
+                        1-6 months
+
+                    </option>
+
+                    <option
+                        value="6-11 months"
+                        {% if christian_duration == "6-11 months" %}selected{% endif %}>
+
+                        6-11 months
+
+                    </option>
+
+                    <option
+                        value="1-2 years"
+                        {% if christian_duration == "1-2 years" %}selected{% endif %}>
+
+                        1-2 years
+
+                    </option>
+
+                    <option
+                        value="3-4 years"
+                        {% if christian_duration == "3-4 years" %}selected{% endif %}>
+
+                        3-4 years
+
+                    </option>
+
+                    <option
+                        value="5 years and above"
+                        {% if christian_duration == "5 years and above" %}selected{% endif %}>
+
+                        5 years and above
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-actions">
+
+                <button
+                    type="submit"
+                    class="apply-button">
+
+                    Apply Filters
+
+                </button>
+
+
+                <a
+                    href="/admin/dashboard"
+                    class="clear-button">
+
+                    Clear
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </section>
+
+
 </main>
 
 
-
-<!-- =========================
-     STATISTICS SCRIPT
-========================= -->
 
 <script>
 
@@ -884,27 +899,21 @@
         if (
             row.dataset.baptized === "Yes"
         ) {
-
             baptized++;
-
         }
 
 
         if (
             row.dataset.sex === "Male"
         ) {
-
             male++;
-
         }
 
 
         if (
             row.dataset.sex === "Female"
         ) {
-
             female++;
-
         }
 
     });
@@ -923,6 +932,54 @@
     document.getElementById(
         "femaleCount"
     ).textContent = female;
+
+
+
+    /* =================================
+       AUTOMATIC AGE CALCULATION
+    ================================= */
+
+    document
+        .querySelectorAll(".age-cell")
+        .forEach(cell => {
+
+            const dob =
+                new Date(
+                    cell.dataset.dob + "T00:00:00"
+                );
+
+            const today =
+                new Date();
+
+
+            let age =
+                today.getFullYear()
+                - dob.getFullYear();
+
+
+            const birthdayPassed =
+                (
+                    today.getMonth()
+                    > dob.getMonth()
+                )
+                ||
+                (
+                    today.getMonth()
+                    === dob.getMonth()
+                    &&
+                    today.getDate()
+                    >= dob.getDate()
+                );
+
+
+            if (!birthdayPassed) {
+                age--;
+            }
+
+
+            cell.textContent = age;
+
+        });
 
 </script>
 
