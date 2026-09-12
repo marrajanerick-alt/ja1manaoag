@@ -639,6 +639,16 @@ def admin_dashboard():
     ).strip()
 
 
+    # =====================================================
+    # BIRTHDAY MONTH FILTER
+    # =====================================================
+
+    birthday_month = request.args.get(
+        "birthday_month",
+        ""
+    ).strip()
+
+
     conditions = []
 
     values = []
@@ -686,7 +696,7 @@ def admin_dashboard():
 
 
     # -----------------------------------------------------
-    # FILTERS
+    # SEX FILTER
     # -----------------------------------------------------
 
     if sex:
@@ -695,8 +705,14 @@ def admin_dashboard():
             "sex = %s"
         )
 
-        values.append(sex)
+        values.append(
+            sex
+        )
 
+
+    # -----------------------------------------------------
+    # CIVIL STATUS FILTER
+    # -----------------------------------------------------
 
     if civil_status:
 
@@ -709,6 +725,10 @@ def admin_dashboard():
         )
 
 
+    # -----------------------------------------------------
+    # EDUCATIONAL ATTAINMENT FILTER
+    # -----------------------------------------------------
+
     if educational_attainment:
 
         conditions.append(
@@ -719,6 +739,10 @@ def admin_dashboard():
             educational_attainment
         )
 
+
+    # -----------------------------------------------------
+    # EMPLOYMENT STATUS FILTER
+    # -----------------------------------------------------
 
     if employment_status:
 
@@ -731,6 +755,10 @@ def admin_dashboard():
         )
 
 
+    # -----------------------------------------------------
+    # BAPTIZED FILTER
+    # -----------------------------------------------------
+
     if baptized:
 
         conditions.append(
@@ -742,6 +770,10 @@ def admin_dashboard():
         )
 
 
+    # -----------------------------------------------------
+    # CHRISTIAN DURATION FILTER
+    # -----------------------------------------------------
+
     if christian_duration:
 
         conditions.append(
@@ -751,6 +783,33 @@ def admin_dashboard():
         values.append(
             christian_duration
         )
+
+
+    # =====================================================
+    # BIRTHDAY MONTH FILTER
+    # =====================================================
+
+    if birthday_month:
+
+        try:
+
+            birthday_month_number = int(
+                birthday_month
+            )
+
+            if 1 <= birthday_month_number <= 12:
+
+                conditions.append(
+                    "EXTRACT(MONTH FROM date_of_birth) = %s"
+                )
+
+                values.append(
+                    birthday_month_number
+                )
+
+        except ValueError:
+
+            pass
 
 
     # -----------------------------------------------------
@@ -827,6 +886,10 @@ def admin_dashboard():
     conn.close()
 
 
+    # -----------------------------------------------------
+    # RENDER DASHBOARD
+    # -----------------------------------------------------
+
     return render_template(
 
         "admin_dashboard.html",
@@ -850,7 +913,10 @@ def admin_dashboard():
         baptized=baptized,
 
         christian_duration=
-            christian_duration
+            christian_duration,
+
+        birthday_month=
+            birthday_month
 
     )
 
