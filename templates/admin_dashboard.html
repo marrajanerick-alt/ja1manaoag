@@ -20,6 +20,10 @@
 <body>
 
 
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
 <aside class="sidebar">
 
     <div class="sidebar-top">
@@ -39,6 +43,7 @@
             </div>
 
         </div>
+
 
         <nav>
 
@@ -92,8 +97,16 @@
 
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main class="main">
 
+
+    <!-- =================================================
+         MOBILE HEADER
+    ================================================= -->
 
     <header class="mobile-header">
 
@@ -117,6 +130,10 @@
 
 
 
+    <!-- =================================================
+         PAGE HEADER
+    ================================================= -->
+
     <section class="page-header">
 
         <div>
@@ -138,6 +155,10 @@
     </section>
 
 
+
+    <!-- =================================================
+         STATISTICS
+    ================================================= -->
 
     <section class="stats">
 
@@ -163,6 +184,7 @@
         </div>
 
 
+
         <div class="stat-card">
 
             <div class="stat-icon">
@@ -184,6 +206,7 @@
         </div>
 
 
+
         <div class="stat-card">
 
             <div class="stat-icon">
@@ -203,6 +226,7 @@
             </div>
 
         </div>
+
 
 
         <div class="stat-card">
@@ -230,9 +254,9 @@
 
 
 
-    <!-- =========================
-         RECORDS FIRST
-    ========================= -->
+    <!-- =================================================
+         RECORDS
+    ================================================= -->
 
     <section class="records-card">
 
@@ -254,6 +278,7 @@
         </div>
 
 
+
         {% if users %}
 
 
@@ -269,6 +294,8 @@
                         <th>ID</th>
 
                         <th>Person</th>
+
+                        <th>Birthday</th>
 
                         <th>Age</th>
 
@@ -295,6 +322,7 @@
                 </thead>
 
 
+
                 <tbody>
 
 
@@ -306,6 +334,11 @@
                         data-baptized="{{ user['baptized'] }}">
 
 
+
+                        <!-- =================================
+                             ID
+                        ================================== -->
+
                         <td>
 
                             <span class="id-badge">
@@ -314,6 +347,11 @@
 
                         </td>
 
+
+
+                        <!-- =================================
+                             PERSON
+                        ================================== -->
 
                         <td>
 
@@ -342,7 +380,30 @@
                         </td>
 
 
-                        <!-- AGE CALCULATED FROM DOB -->
+
+                        <!-- =================================
+                             BIRTHDAY
+                        ================================== -->
+
+                        <td>
+
+                            {% if user["date_of_birth"] %}
+
+                                {{ user["date_of_birth"].strftime("%m/%d/%Y") }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- =================================
+                             AGE
+                        ================================== -->
 
                         <td
                             class="age-cell"
@@ -353,10 +414,22 @@
                         </td>
 
 
+
+                        <!-- =================================
+                             CONTACT
+                        ================================== -->
+
                         <td>
+
                             {{ user["contact"] }}
+
                         </td>
 
+
+
+                        <!-- =================================
+                             SEX
+                        ================================== -->
 
                         <td>
 
@@ -367,53 +440,108 @@
                         </td>
 
 
+
+                        <!-- =================================
+                             CIVIL STATUS
+                        ================================== -->
+
                         <td>
+
                             {{ user["civil_status"] }}
+
                         </td>
 
 
+
+                        <!-- =================================
+                             EDUCATION
+                        ================================== -->
+
                         <td>
+
                             {{ user["educational_attainment"] }}
+
                         </td>
 
 
+
+                        <!-- =================================
+                             EMPLOYMENT
+                        ================================== -->
+
                         <td>
+
                             {{ user["employment_status"] }}
+
                         </td>
 
 
+
+                        <!-- =================================
+                             BAPTIZED
+                        ================================== -->
+
                         <td>
+
 
                             {% if user["baptized"] == "Yes" %}
 
+
                             <span class="status baptized">
+
                                 ✓ Yes
+
                             </span>
+
 
                             {% else %}
 
+
                             <span class="status not-baptized">
+
                                 No
+
                             </span>
+
 
                             {% endif %}
 
+
                         </td>
 
+
+
+                        <!-- =================================
+                             CHRISTIAN DURATION
+                        ================================== -->
 
                         <td>
+
                             {{ user["christian_duration"] or "-" }}
+
                         </td>
 
+
+
+                        <!-- =================================
+                             SKILLS
+                        ================================== -->
 
                         <td>
 
                             <span class="skills">
+
                                 {{ user["skills"] or "-" }}
+
                             </span>
 
                         </td>
 
+
+
+                        <!-- =================================
+                             ACTIONS
+                        ================================== -->
 
                         <td>
 
@@ -429,10 +557,12 @@
                                 </a>
 
 
+
                                 <form
                                     action="/admin/delete/{{ user['id'] }}"
                                     method="POST"
                                     onsubmit="return confirm('Are you sure you want to delete this record?');">
+
 
                                     <button
                                         type="submit"
@@ -441,6 +571,7 @@
                                         Delete
 
                                     </button>
+
 
                                 </form>
 
@@ -466,6 +597,10 @@
 
         {% else %}
 
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================= -->
 
         <div class="empty-state">
 
@@ -495,9 +630,9 @@
 
 
 
-    <!-- =========================
-         FILTERS BELOW RECORDS
-    ========================= -->
+    <!-- =================================================
+         FILTERS
+    ================================================= -->
 
     <section class="filter-card">
 
@@ -519,11 +654,17 @@
         </div>
 
 
+
         <form
             method="GET"
             action="/admin/dashboard"
             class="filter-form">
 
+
+
+            <!-- =========================================
+                 SEARCH
+            ========================================== -->
 
             <div class="field search-field">
 
@@ -547,6 +688,11 @@
 
             </div>
 
+
+
+            <!-- =========================================
+                 SEX
+            ========================================== -->
 
             <div class="field">
 
@@ -580,6 +726,11 @@
 
             </div>
 
+
+
+            <!-- =========================================
+                 CIVIL STATUS
+            ========================================== -->
 
             <div class="field">
 
@@ -629,6 +780,11 @@
 
             </div>
 
+
+
+            <!-- =========================================
+                 EDUCATION
+            ========================================== -->
 
             <div class="field">
 
@@ -695,6 +851,11 @@
             </div>
 
 
+
+            <!-- =========================================
+                 EMPLOYMENT
+            ========================================== -->
+
             <div class="field">
 
                 <label>
@@ -752,6 +913,11 @@
             </div>
 
 
+
+            <!-- =========================================
+                 BAPTIZED
+            ========================================== -->
+
             <div class="field">
 
                 <label>
@@ -784,6 +950,11 @@
 
             </div>
 
+
+
+            <!-- =========================================
+                 CHRISTIAN DURATION
+            ========================================== -->
 
             <div class="field">
 
@@ -850,6 +1021,129 @@
             </div>
 
 
+
+            <!-- =========================================
+                 BIRTHDAY MONTH
+            ========================================== -->
+
+            <div class="field">
+
+                <label>
+                    Birthday Month
+                </label>
+
+                <select name="birthday_month">
+
+                    <option value="">
+                        All Months
+                    </option>
+
+                    <option
+                        value="1"
+                        {% if birthday_month == "1" %}selected{% endif %}>
+
+                        January
+
+                    </option>
+
+                    <option
+                        value="2"
+                        {% if birthday_month == "2" %}selected{% endif %}>
+
+                        February
+
+                    </option>
+
+                    <option
+                        value="3"
+                        {% if birthday_month == "3" %}selected{% endif %}>
+
+                        March
+
+                    </option>
+
+                    <option
+                        value="4"
+                        {% if birthday_month == "4" %}selected{% endif %}>
+
+                        April
+
+                    </option>
+
+                    <option
+                        value="5"
+                        {% if birthday_month == "5" %}selected{% endif %}>
+
+                        May
+
+                    </option>
+
+                    <option
+                        value="6"
+                        {% if birthday_month == "6" %}selected{% endif %}>
+
+                        June
+
+                    </option>
+
+                    <option
+                        value="7"
+                        {% if birthday_month == "7" %}selected{% endif %}>
+
+                        July
+
+                    </option>
+
+                    <option
+                        value="8"
+                        {% if birthday_month == "8" %}selected{% endif %}>
+
+                        August
+
+                    </option>
+
+                    <option
+                        value="9"
+                        {% if birthday_month == "9" %}selected{% endif %}>
+
+                        September
+
+                    </option>
+
+                    <option
+                        value="10"
+                        {% if birthday_month == "10" %}selected{% endif %}>
+
+                        October
+
+                    </option>
+
+                    <option
+                        value="11"
+                        {% if birthday_month == "11" %}selected{% endif %}>
+
+                        November
+
+                    </option>
+
+                    <option
+                        value="12"
+                        {% if birthday_month == "12" %}selected{% endif %}>
+
+                        December
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 FILTER BUTTONS
+            ========================================== -->
+
             <div class="filter-actions">
 
                 <button
@@ -881,7 +1175,16 @@
 
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
+
+
+    /* =================================
+       GET TABLE ROWS
+    ================================= */
 
     const rows =
         document.querySelectorAll(
@@ -889,34 +1192,52 @@
         );
 
 
+
+    /* =================================
+       STATISTICS
+    ================================= */
+
     let baptized = 0;
+
     let male = 0;
+
     let female = 0;
+
 
 
     rows.forEach(row => {
 
+
         if (
             row.dataset.baptized === "Yes"
         ) {
+
             baptized++;
+
         }
+
 
 
         if (
             row.dataset.sex === "Male"
         ) {
+
             male++;
+
         }
+
 
 
         if (
             row.dataset.sex === "Female"
         ) {
+
             female++;
+
         }
 
     });
+
 
 
     document.getElementById(
@@ -924,9 +1245,11 @@
     ).textContent = baptized;
 
 
+
     document.getElementById(
         "maleCount"
     ).textContent = male;
+
 
 
     document.getElementById(
@@ -943,43 +1266,58 @@
         .querySelectorAll(".age-cell")
         .forEach(cell => {
 
+
             const dob =
                 new Date(
                     cell.dataset.dob + "T00:00:00"
                 );
 
+
+
             const today =
                 new Date();
 
 
+
             let age =
                 today.getFullYear()
-                - dob.getFullYear();
+                -
+                dob.getFullYear();
+
 
 
             const birthdayPassed =
                 (
                     today.getMonth()
-                    > dob.getMonth()
+                    >
+                    dob.getMonth()
                 )
                 ||
                 (
                     today.getMonth()
-                    === dob.getMonth()
+                    ===
+                    dob.getMonth()
                     &&
                     today.getDate()
-                    >= dob.getDate()
+                    >=
+                    dob.getDate()
                 );
 
 
+
             if (!birthdayPassed) {
+
                 age--;
+
             }
+
 
 
             cell.textContent = age;
 
+
         });
+
 
 </script>
 
